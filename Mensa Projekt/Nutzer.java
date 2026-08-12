@@ -74,7 +74,7 @@ public class Nutzer extends JFrame {
   // Anfang Methoden
 
   public void jbVerbinden_ActionPerformed(ActionEvent evt) {
-    dbConnector = new DatabaseConnector("localhost", 3306, "abimotto", "root", "");
+    dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
     String fehler = dbConnector.getErrorMessage();
     if (fehler == null) {
       jLabel1.setText("Datenbank wurde erfolgreich verbunden!");

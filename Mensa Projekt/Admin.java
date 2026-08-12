@@ -74,7 +74,7 @@ public class Admin extends JFrame {
   // Anfang Methoden
 
   public void jbVerbinden_ActionPerformed(ActionEvent evt) {
-    dbConnector = new DatabaseConnector("localhost", 3306, "abimotto", "root", "");
+    dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
     String fehler = dbConnector.getErrorMessage();
     if (fehler == null) {
       jLabel1.setText("Datenbank wurde erfolgreich verbunden!");
@@ -106,7 +106,9 @@ public class Admin extends JFrame {
 
       
   }  
-
+  public void schuelerHinzufuegen(String pVorname, String pName, String pPasswort) {
+      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+pPasswort+"','Schüler')");
+  }
   // Ende Methoden
   
   public static void main(String[] args) {

@@ -68,11 +68,20 @@ public class Nutzer extends JFrame {
     // Ende Komponenten
     
     setResizable(false);
-    setVisible(true);     
+    setVisible(true);
+    dbVerbinden();
   }
   
   // Anfang Methoden
-
+  public void dbVerbinden() {
+    dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
+    String fehler = dbConnector.getErrorMessage();
+    if (fehler == null) {
+      jLabel1.setText("Datenbank wurde erfolgreich verbunden!");
+    } else {
+      jLabel1.setText("Fehlermeldung: " + fehler);
+    }
+  }
   public void jbVerbinden_ActionPerformed(ActionEvent evt) {
     dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
     String fehler = dbConnector.getErrorMessage();

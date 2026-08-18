@@ -8,14 +8,14 @@ import java.sql.*;
 public class Nutzer extends JFrame {
   // Anfang Attribute
   private DatabaseConnector dbConnector;
-  private String uID;
+  private int uID;
   private String vorname;
   private String name;
   private String passwort;
   
   // Ende Attribute
   
-  public Nutzer(String pID, String pVorname, String pName, String pPasswort) {
+  public Nutzer(int pID, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
     super("Mottoverwaltung");
     uID = pID;

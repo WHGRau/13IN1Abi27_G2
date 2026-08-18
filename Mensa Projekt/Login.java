@@ -31,7 +31,12 @@ public class Login extends JFrame {
           String rolle = s.getData()[0][0];
           if (rolle.equals("Schüler")) {
               System.out.println("Schüler");
-              
+              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+pID+"'");
+              QueryResult a = dbConnector.getCurrentQueryResult();
+              String vorname = a.getData()[0][1];
+              String name = a.getData()[0][2];
+              rolle = a.getData()[0][3];
+              erstelleSchueler(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
           }
           else if (rolle.equals("Admin")) {
               System.out.println("Admin");
@@ -58,7 +63,8 @@ public class Login extends JFrame {
   }
   
   public Nutzer erstelleSchueler(int pID, String pVorname, String pNachname, String pPasswort) {
-      
+      Nutzer schueler = new Nutzer(pID, pVorname, pNachname, pPasswort);
+      return schueler;
   }
   // Ende Methoden
   

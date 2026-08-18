@@ -1,17 +1,7 @@
 #BlueJ class context
 comment0.target=Nutzer
-comment1.params=
-comment1.target=Nutzer()
-comment2.params=evt
-comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
-comment3.params=evt
-comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
-comment4.params=
-comment4.target=void\ dbVerbinden()
-comment5.params=evt
-comment5.target=void\ jbVerbinden_ActionPerformed(java.awt.event.ActionEvent)
-comment6.params=evt
-comment6.target=void\ jbEintragen_ActionPerformed(java.awt.event.ActionEvent)
-comment7.params=args
-comment7.target=void\ main(java.lang.String[])
-numComments=8
+comment1.params=pID\ pVorname\ pName\ pPasswort
+comment1.target=Nutzer(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=void\ dbVerbinden()
+numComments=3

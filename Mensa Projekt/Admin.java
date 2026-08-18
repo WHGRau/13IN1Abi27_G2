@@ -3,6 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
+import java.util.Random;
+
 
 
 public class Admin extends JFrame {
@@ -10,6 +12,7 @@ public class Admin extends JFrame {
   private DatabaseConnector dbConnector;
   
   // Ende Attribute
+  
   
   public Admin() {
     // Frame-Initialisierung
@@ -32,11 +35,30 @@ public class Admin extends JFrame {
     }
   }
 
+
+    private String erzeugePasswort()
+    {
+        String zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random zufall = new Random();
+        String passwort = "";
+    
+        for (int i = 0; i < 5; i++)
+        {
+            int index = zufall.nextInt(zeichen.length());
+            passwort += zeichen.charAt(index);
+        }
+    
+        return passwort;
+    }
   
   
-  
-  public void schuelerHinzufuegen(String pVorname, String pName, String pPasswort) {
-      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+pPasswort+"','Schüler')");
+  public void schuelerHinzufuegen(String pVorname, String pName) {
+      String passwort = erzeugePasswort();
+      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Schüler')");
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
+      QueryResult r = dbConnector.getCurrentQueryResult();
+      int iD = Integer.parseInt(r.getData()[0][0]);
+      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + "Schüler ID: " + iD);
   }
   
   public void schuelerLoeschen(int pID) {
@@ -47,4 +69,5 @@ public class Admin extends JFrame {
   public static void main(String[] args) {
     new Admin();
   }
+
 }

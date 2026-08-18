@@ -53,6 +53,7 @@ public class DatabaseConnector{
     //Altes Ergebnis loeschen
     currentQueryResult = null;
     message = null;
+    // Einmalig ausführen, um die Tabelle zu erweitern:
 
     try {
       //Neues Statement erstellen
@@ -142,5 +143,7 @@ public class DatabaseConnector{
       message = e.getMessage();
     }
   }
+  
+  
 
 }

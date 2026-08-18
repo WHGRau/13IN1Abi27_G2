@@ -114,11 +114,14 @@ public class Nutzer extends JFrame {
     //Hier Quelltext einfügen
 
       
-  }  
+  } 
+  
 
   // Ende Methoden
   
   public static void main(String[] args) {
     new Nutzer();
   }
+  
+  
 }

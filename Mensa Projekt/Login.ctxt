@@ -2,8 +2,12 @@
 comment0.target=Login
 comment1.params=
 comment1.target=Login()
-comment2.params=
-comment2.target=void\ dbVerbinden()
-comment3.params=args
-comment3.target=void\ main(java.lang.String[])
-numComments=4
+comment2.params=pID\ pPasswort
+comment2.target=void\ login(int,\ java.lang.String)
+comment3.params=
+comment3.target=void\ dbVerbinden()
+comment4.params=pID\ pVorname\ pNachname\ pPasswort
+comment4.target=Nutzer\ erstelleSchueler(int,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment5.params=args
+comment5.target=void\ main(java.lang.String[])
+numComments=6

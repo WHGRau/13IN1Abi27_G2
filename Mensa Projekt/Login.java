@@ -5,16 +5,19 @@ import javax.swing.event.*;
 import java.sql.*;
 
 
+
 public class Login extends JFrame {
   // Anfang Attribute
   private DatabaseConnector dbConnector;
-
+  private Nutzer aktSchueler;
+  private Admin aktAdmin;
+  private Mensa aktMensa;
 
   // Ende Attribute
   
   public Login() {
     // Frame-Initialisierung
-    super("Mottoverwaltung");
+    //super("Login");
    
     dbVerbinden();
   }
@@ -36,12 +39,14 @@ public class Login extends JFrame {
               String vorname = a.getData()[0][1];
               String name = a.getData()[0][2];
               rolle = a.getData()[0][3];
-              erstelleSchueler(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
+              aktSchueler = erstelleSchueler(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
           }
           else if (rolle.equals("Admin")) {
+              aktAdmin = erstelleAdmin();
               System.out.println("Admin");
           }
           else if (rolle.equals("Mensa")) {
+              aktMensa = erstelleMensa();
               System.out.println("Mensa");
           }
           else {
@@ -51,6 +56,7 @@ public class Login extends JFrame {
       else {
           System.out.println("Anmeldedaten falsch!");
       }
+      
   }
   public void dbVerbinden() {
     dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
@@ -62,9 +68,19 @@ public class Login extends JFrame {
     }
   }
   
-  public Nutzer erstelleSchueler(int pID, String pVorname, String pNachname, String pPasswort) {
+  private Nutzer erstelleSchueler(int pID, String pVorname, String pNachname, String pPasswort) {
       Nutzer schueler = new Nutzer(pID, pVorname, pNachname, pPasswort);
       return schueler;
+  }
+  
+  private Admin erstelleAdmin() {
+      Admin admin = new Admin(); //nach Update der Admin klasse ausfüllen
+      return admin;
+  }
+  
+  private Mensa erstelleMensa() {
+      Mensa mensa = new Mensa(); //nach Update der Mensa klasse ausfüllen
+      return mensa;
   }
   // Ende Methoden
   

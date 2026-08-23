@@ -4,4 +4,6 @@ comment1.params=pID\ pVorname\ pName\ pPasswort
 comment1.target=Nutzer(int,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 comment2.params=
 comment2.target=void\ dbVerbinden()
-numComments=3
+comment3.params=pPasswort\ pAltesPasswort
+comment3.target=void\ passwortBearbeiten(java.lang.String,\ java.lang.String)
+numComments=4

@@ -36,6 +36,21 @@ public class Nutzer extends JFrame {
     }
   }
 
-
+  public void passwortBearbeiten(String pPasswort, String pAltesPasswort){
+    String sql = ("SELECT passwort FROM nutzer WHERE uID LIKE '"+uID+"'");
+    dbConnector.executeStatement(sql);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    if(qr.getRowCount()==1){
+        if (pAltesPasswort.equals(qr.getData()[0][0])){
+            dbConnector.executeStatement("UPDATE nutzer SET Passwort = '"+pPasswort+"' WHERE uID ='"+uID+"';");
+        }
+        else {
+            System.out.println("Nutzer nicht gefunden oder falsches Passwort");
+        }
+    }
+   else {
+       System.out.println("Nutzer nicht gefunden oder falsches Passwort");
+   }
+ }
   // Ende Methoden
 }

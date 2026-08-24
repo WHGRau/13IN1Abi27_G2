@@ -6,4 +6,6 @@ comment2.params=
 comment2.target=void\ dbVerbinden()
 comment3.params=pPasswort\ pAltesPasswort
 comment3.target=void\ passwortBearbeiten(java.lang.String,\ java.lang.String)
-numComments=4
+comment4.params=pAlterPin\ pNeuerPin
+comment4.target=void\ kontoPinBearbeiten(int,\ int)
+numComments=5

@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Konto
+comment1.params=pID
+comment1.target=Konto(int)
+comment2.params=
+comment2.target=float\ getKontostand()
+comment3.params=
+comment3.target=void\ dbVerbinden()
+numComments=4

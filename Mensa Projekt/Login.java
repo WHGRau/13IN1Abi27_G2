@@ -17,13 +17,13 @@ public class Login extends JFrame {
   
   public Login() {
     // Frame-Initialisierung
-    //super("Login");
+    super("");
    
     dbVerbinden();
   }
   
   // Anfang Methoden
-  public void login(int pID, String pPasswort) { 
+  public Object login(int pID, String pPasswort) { 
       dbConnector.executeStatement("SELECT Passwort FROM Nutzer WHERE uID LIKE '"+pID+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
       String passwort = r.getData()[0][0];
@@ -40,14 +40,27 @@ public class Login extends JFrame {
               String name = a.getData()[0][2];
               rolle = a.getData()[0][3];
               aktSchueler = erstelleSchueler(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
+              return aktSchueler;
           }
           else if (rolle.equals("Admin")) {
-              aktAdmin = erstelleAdmin();
               System.out.println("Admin");
+              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+pID+"'");
+              QueryResult a = dbConnector.getCurrentQueryResult();
+              String vorname = a.getData()[0][1];
+              String name = a.getData()[0][2];
+              rolle = a.getData()[0][3];
+              aktAdmin = erstelleAdmin(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
+              return aktAdmin;
           }
           else if (rolle.equals("Mensa")) {
-              aktMensa = erstelleMensa();
               System.out.println("Mensa");
+              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+pID+"'");
+              QueryResult a = dbConnector.getCurrentQueryResult();
+              String vorname = a.getData()[0][1];
+              String name = a.getData()[0][2];
+              rolle = a.getData()[0][3];
+              aktMensa = erstelleMensa(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
+              return aktMensa;
           }
           else {
               System.out.println("Du hast keine Berechtigung!");
@@ -56,8 +69,9 @@ public class Login extends JFrame {
       else {
           System.out.println("Anmeldedaten falsch!");
       }
-      
+      return null;
   }
+  
   public void dbVerbinden() {
     dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
     String fehler = dbConnector.getErrorMessage();
@@ -73,13 +87,13 @@ public class Login extends JFrame {
       return schueler;
   }
   
-  private Admin erstelleAdmin() {
-      Admin admin = new Admin(); //nach Update der Admin klasse ausfüllen
+  private Admin erstelleAdmin(int pID, String pVorname, String pName, String pPasswort) {
+      Admin admin = new Admin(pID, pVorname, pName, pPasswort); 
       return admin;
   }
   
-  private Mensa erstelleMensa() {
-      Mensa mensa = new Mensa(); //nach Update der Mensa klasse ausfüllen
+  private Mensa erstelleMensa(int pID, String pVorname, String pName, String pPasswort) {
+      Mensa mensa = new Mensa(pID, pVorname, pName, pPasswort); 
       return mensa;
   }
   // Ende Methoden

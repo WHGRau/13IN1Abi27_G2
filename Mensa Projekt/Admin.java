@@ -9,13 +9,21 @@ import java.util.Random;
 public class Admin extends JFrame {
   // Anfang Attribute
   private DatabaseConnector dbConnector;
+  private int uID;
+  private String vorname;
+  private String name;
+  private String passwort;
+  private int kID;
   
   // Ende Attribute
   
-  public Admin() {
+  public Admin(int pID, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
-    super("Mottoverwaltung");
-    
+    super("");
+    uID = pID;
+    vorname = pVorname;
+    name = pName;
+    passwort = pPasswort;
     dbVerbinden();
   }
   
@@ -38,11 +46,21 @@ public class Admin extends JFrame {
       dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Schüler')");
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
-      int iD = Integer.parseInt(r.getData()[0][0]);
-      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Schüler ID: " + iD);
+      int id = Integer.parseInt(r.getData()[0][0]);
+      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
+      Konto konto = new Konto(id);
   }
   
-  public void scheuelerBearbeiten(int pID, String pName, String pVorname){
+  public void mensaPersonalHinzufuegen(String pVorname, String pName) {
+      String passwort = erzeugePasswort();
+      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Mensa')");
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
+      QueryResult r = dbConnector.getCurrentQueryResult();
+      int id = Integer.parseInt(r.getData()[0][0]);
+      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
+  }
+  
+  public void schuelerBearbeiten(int pID, String pName, String pVorname){
     dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' WHERE uID ='"+pID+"';");
   }
   
@@ -65,10 +83,8 @@ public class Admin extends JFrame {
   
   public void schuelerLoeschen(int pID) {
       dbConnector.executeStatement("DELETE FROM nutzer WHERE uID = '"+pID+"';");
+      dbConnector.executeStatement("DELETE FROM konto WHERE uID = '"+pID+"';");
   }
   // Ende Methoden
-  
-  public static void main(String[] args) {
-    new Admin();
-  }
+
 }

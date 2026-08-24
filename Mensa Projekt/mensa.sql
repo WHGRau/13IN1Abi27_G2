@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 12. Aug 2026 um 22:40
+-- Erstellungszeit: 24. Aug 2026 um 20:49
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -41,6 +41,7 @@ CREATE TABLE `ankunft` (
 --
 
 CREATE TABLE `bestellung` (
+  `bID` int(11) NOT NULL,
   `Wert` int(11) NOT NULL,
   `Menge` int(11) NOT NULL,
   `Datum` datetime NOT NULL DEFAULT current_timestamp(),
@@ -61,6 +62,13 @@ CREATE TABLE `konto` (
   `Kontostand` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Daten für Tabelle `konto`
+--
+
+INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
+(1, 2, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +83,15 @@ CREATE TABLE `nutzer` (
   `Rolle` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Daten für Tabelle `nutzer`
+--
+
+INSERT INTO `nutzer` (`uID`, `Vorname`, `Name`, `Passwort`, `Rolle`) VALUES
+(1, 'Julian', 'Kurz', '123abc', 'Admin'),
+(2, 'Paul', 'Schäfer', 'JJhsq', 'Schüler'),
+(3, 'Jan', 'Stüttger', 'RcXad', 'Mensa');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +104,13 @@ CREATE TABLE `produkte` (
   `Preis` float NOT NULL,
   `Menge` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `produkte`
+--
+
+INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`) VALUES
+(1, 'Snickers', 1, 85);
 
 --
 -- Indizes der exportierten Tabellen
@@ -103,8 +127,7 @@ ALTER TABLE `ankunft`
 -- Indizes für die Tabelle `bestellung`
 --
 ALTER TABLE `bestellung`
-  ADD PRIMARY KEY (`uID`,`pID`) USING BTREE,
-  ADD KEY `pID` (`pID`);
+  ADD PRIMARY KEY (`bID`);
 
 --
 -- Indizes für die Tabelle `konto`
@@ -136,22 +159,28 @@ ALTER TABLE `ankunft`
   MODIFY `aID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT für Tabelle `bestellung`
+--
+ALTER TABLE `bestellung`
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT für Tabelle `konto`
 --
 ALTER TABLE `konto`
-  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `produkte`
 --
 ALTER TABLE `produkte`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints der exportierten Tabellen
@@ -162,14 +191,6 @@ ALTER TABLE `produkte`
 --
 ALTER TABLE `ankunft`
   ADD CONSTRAINT `ankunft_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `nutzer` (`uID`);
-
---
--- Constraints der Tabelle `bestellung`
---
-ALTER TABLE `bestellung`
-  ADD CONSTRAINT `bestellung_ibfk_1` FOREIGN KEY (`pID`) REFERENCES `produkte` (`pID`),
-  ADD CONSTRAINT `bestellung_ibfk_2` FOREIGN KEY (`uID`) REFERENCES `nutzer` (`uID`),
-  ADD CONSTRAINT `bestellung_ibfk_3` FOREIGN KEY (`uID`) REFERENCES `nutzer` (`uID`);
 
 --
 -- Constraints der Tabelle `konto`

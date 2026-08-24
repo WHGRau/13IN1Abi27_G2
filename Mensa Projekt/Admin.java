@@ -38,11 +38,12 @@ public class Admin extends JFrame {
       dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Schüler')");
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
-      int iD = Integer.parseInt(r.getData()[0][0]);
-      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Schüler ID: " + iD);
+      int id = Integer.parseInt(r.getData()[0][0]);
+      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Schüler ID: " + id);
+      Konto konto = new Konto(id);
   }
   
-  public void scheuelerBearbeiten(int pID, String pName, String pVorname){
+  public void schuelerBearbeiten(int pID, String pName, String pVorname){
     dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' WHERE uID ='"+pID+"';");
   }
   

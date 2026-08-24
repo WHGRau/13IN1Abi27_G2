@@ -12,6 +12,8 @@ public class Nutzer extends JFrame {
   private String vorname;
   private String name;
   private String passwort;
+  private int kID;
+  private Konto konto;
   
   // Ende Attribute
   
@@ -22,6 +24,7 @@ public class Nutzer extends JFrame {
     vorname = pVorname;
     name = pName;
     passwort = pPasswort;
+    konto = new Konto(pID);
     dbVerbinden();
   }
   
@@ -52,5 +55,22 @@ public class Nutzer extends JFrame {
        System.out.println("Nutzer nicht gefunden oder falsches Passwort");
    }
  }
+ 
+  public void kontoPinBearbeiten(int pAlterPin, int pNeuerPin) {
+    String sql = ("SELECT pin FROM konto WHERE uID LIKE '"+uID+"'");
+    dbConnector.executeStatement(sql);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    if(qr.getRowCount()==1){
+        if (pAlterPin == Integer.parseInt(qr.getData()[0][0])){
+            dbConnector.executeStatement("UPDATE konto SET pin = '"+pNeuerPin+"' WHERE uID ='"+uID+"';");
+        }
+        else {
+            System.out.println("Konto nicht gefunden oder falsches Passwort");
+        }
+    }
+    else {
+       System.out.println("Konto nicht gefunden oder falsches Passwort");
+    }
+  }
   // Ende Methoden
 }

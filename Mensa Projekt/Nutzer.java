@@ -19,7 +19,7 @@ public class Nutzer extends JFrame {
   
   public Nutzer(int pID, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
-    super("Mottoverwaltung");
+    super("");
     uID = pID;
     vorname = pVorname;
     name = pName;

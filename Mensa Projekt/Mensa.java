@@ -8,11 +8,20 @@ import java.time.LocalDateTime;
 public class Mensa extends JFrame {
   // Anfang Attribute
   private DatabaseConnector dbConnector;
+  private int uID;
+  private String vorname;
+  private String name;
+  private String passwort;
+  private int kID;
   // Ende Attribute
   
-  public Mensa() {
+  public Mensa(int pID, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
-    super("Mottoverwaltung");
+    super("");
+    uID = pID;
+    vorname = pVorname;
+    name = pName;
+    passwort = pPasswort;
     dbVerbinden();
   }
   
@@ -86,7 +95,4 @@ public class Mensa extends JFrame {
   
   // Ende Methoden
   
-  public static void main(String[] args) {
-    new Mensa();
-  }
 }

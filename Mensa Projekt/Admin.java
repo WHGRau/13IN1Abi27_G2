@@ -66,6 +66,7 @@ public class Admin extends JFrame {
   
   public void schuelerLoeschen(int pID) {
       dbConnector.executeStatement("DELETE FROM nutzer WHERE uID = '"+pID+"';");
+      dbConnector.executeStatement("DELETE FROM konto WHERE uID = '"+pID+"';");
   }
   // Ende Methoden
   

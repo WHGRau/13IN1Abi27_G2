@@ -37,21 +37,22 @@ public class Mensa extends JFrame {
     }
   }
   
-  public void produktAufnehmen(String pArtikel, int pAnzahl, float pPreis) {
+  public void neuespProduktHinzufuegen(String pArtikel, int pAnzahl, float pPreis, int pSoll) {
     //Überprüfen ob Produkt schon in der DB ist. Wenn ja -> Anzahl erhöhen. Wenn nein -> Produkt aufnehmen
     String sql = ("SELECT pID FROM produkte WHERE Name LIKE '"+pArtikel+"'");
     dbConnector.executeStatement(sql);
     QueryResult qr = dbConnector.getCurrentQueryResult();
     if(qr.getRowCount()==1){
-        dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
-        
+        //dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
+        System.out.println("Produkt schon vorhanden");
      }
     else {
        
-       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"')");
+       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge, Sollmenge) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"','"+pSoll+"' )");
     }
       
   }
+  
   
   public void produktAufnehmen(String pArtikel, int pAnzahl) {
     String sql = ("SELECT pID FROM produkte WHERE Name LIKE '"+pArtikel+"'");

@@ -48,7 +48,7 @@ public class Controller {
 
    
     /* ------------------------------
-     * Elemente der Scene2  
+     * Elemente des Mensa Homescreen 
      * ------------------------------
      */
     @FXML
@@ -77,9 +77,42 @@ public class Controller {
     
     @FXML
     private TextField mengeField;
-
     
-     
+    @FXML
+    private Button homeButton;
+    
+    @FXML
+    private Button aufladenButton;
+    
+    @FXML
+    private Button hinzufuegenButton;
+    
+    @FXML
+    private Button statistikButton;
+
+    //Elemente Mensa Aufladen Screen
+    
+    @FXML
+    private Button homeButton2;
+    
+    
+    @FXML
+    private Button hinzufuegenButton2;
+    
+    @FXML
+    private Button statistikButton2;
+    
+    @FXML
+    private Button buttonScene12;
+    
+    @FXML
+    private TextField userIDField2;
+    
+    @FXML
+    private TextField betragField;
+    
+    @FXML
+    private Button aufladenKnopf;
 
     
     // Verbindung vom Controller zum Model   
@@ -108,8 +141,8 @@ public class Controller {
         if (login.login(uID, passwort) instanceof Mensa){
             mensa = (Mensa)login.login(uID, passwort);
             try {
-                // Hier wird die Methode aufgerufen:
-                switchToMensa();
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                switchToMensaNow(stage);
             } catch (IOException e) {
                 e.printStackTrace();
                 // Optional: Fehlermeldung für den Nutzer anzeigen
@@ -151,6 +184,17 @@ public class Controller {
     }
     
     @FXML
+    public void aufladen(ActionEvent event) {
+        if (mensa != null) {
+            System.out.println("hey");
+            int uID = Integer.parseInt(userIDField2.getText());
+            float betrag = Float.parseFloat(betragField.getText());
+            
+            mensa.geldAufladen(uID, betrag);
+        }
+    }
+    
+    @FXML
     public void verkaufEinfuegen(MouseEvent event) {
         String selectedID = Integer.toString( ProduktTable.getSelectionModel().getSelectedIndex());
         artikelIDField.setText(selectedID);
@@ -165,29 +209,39 @@ public class Controller {
         stage.show();
     }
     
-    @FXML
-    public void switchtoScene2(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("scenes/scene2.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
     
     
     @FXML
-    public void switchToMensa() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/scene2.fxml"));
-        Parent root = loader.load();
-        // Die NEUE Controller-Instanz holen (gleiche Klasse, anderes Objekt)
-        Controller neuerController = loader.getController();
-        neuerController.setMensa(mensa);
-        neuerController.mensaInitialize();
-        Stage stage = (Stage) idField.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void switchToAufladen(ActionEvent event) throws IOException{
+        System.out.println("switchToAufladen wurde aufgerufen!");
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensaaufladen.fxml"));
+    Parent root = loader.load();
+    Controller neuerController = loader.getController();
+    neuerController.setMensa(mensa);
+    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
     }
+    
+    
+  
+    
+    @FXML
+public void switchToMensa(ActionEvent event) throws IOException {
+    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    switchToMensaNow(stage);
+}
+public void switchToMensaNow(Stage stage) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/scene2.fxml"));
+    Parent root = loader.load();
+    Controller neuerController = loader.getController();
+    neuerController.setMensa(mensa);
+    neuerController.mensaInitialize();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+}
     
     public void setMensa(Mensa pMensa) {
         this.mensa = pMensa;

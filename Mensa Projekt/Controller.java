@@ -149,6 +149,12 @@ public class Controller {
             zeigeLager();
         }
     }
+    
+    @FXML
+    public void verkaufEinfuegen(MouseEvent event) {
+        String selectedID = Integer.toString( ProduktTable.getSelectionModel().getSelectedIndex());
+        artikelIDField.setText(selectedID);
+    }
 
     @FXML
     public void switchtoScene1(ActionEvent event) throws IOException{      

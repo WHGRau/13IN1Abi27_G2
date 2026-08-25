@@ -93,7 +93,7 @@
                   <Font size="25.0" />
                </font></Label>
             <Button fx:id="buttonScene1" layoutX="548.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="78.0" text="Abmelden" />
-            <TableView fx:id="ProduktTable" layoutX="399.0" layoutY="88.0" prefHeight="200.0" prefWidth="227.0">
+            <TableView fx:id="ProduktTable" layoutX="399.0" layoutY="88.0" onMouseClicked="#verkaufEinfuegen" prefHeight="200.0" prefWidth="227.0">
               <columns>
                 <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name" />
                 <TableColumn fx:id="MengeColumn" prefWidth="75.0" text="Menge" />

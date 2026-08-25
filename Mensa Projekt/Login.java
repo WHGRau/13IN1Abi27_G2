@@ -24,6 +24,7 @@ public class Login extends JFrame {
   
   // Anfang Methoden
   public Object login(int pID, String pPasswort) { 
+      dbVerbinden();
       dbConnector.executeStatement("SELECT Passwort FROM Nutzer WHERE uID LIKE '"+pID+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
       String passwort = r.getData()[0][0];

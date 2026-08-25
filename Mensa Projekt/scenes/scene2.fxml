@@ -38,11 +38,14 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -85,11 +88,27 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="61.0" prefHeight="247.0" prefWidth="200.0" text="Das ist Scene 2">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="44.0" layoutY="9.0" prefHeight="36.0" prefWidth="78.0" text="Mensa">
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene1" layoutX="14.0" layoutY="330.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="200.0" text="Wechsel zu Scene 1" />
+            <Button fx:id="buttonScene1" layoutX="548.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="78.0" text="Abmelden" />
+            <TableView fx:id="ProduktTable" layoutX="399.0" layoutY="88.0" prefHeight="200.0" prefWidth="227.0">
+              <columns>
+                <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="MengeColumn" prefWidth="75.0" text="Menge" />
+                  <TableColumn fx:id="PreisColumn" prefWidth="75.0" text="Preis" />
+              </columns>
+            </TableView>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="104.0" prefHeight="36.0" prefWidth="114.0" text="Verkaufen">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="artikelIDField" layoutX="39.0" layoutY="156.0" text="Artikel ID" />
+            <TextField fx:id="userIDField" layoutX="39.0" layoutY="197.0" text="Nutzer ID" />
+            <TextField fx:id="mengeField" layoutX="39.0" layoutY="234.0" text="Menge" />
+            <Button fx:id="verkaufenButton" layoutX="39.0" layoutY="276.0" mnemonicParsing="false" onAction="#verkaufen" prefHeight="25.0" prefWidth="88.0" text="Verkaufen" />
       </children>
     </AnchorPane>
   </children>

@@ -10,7 +10,7 @@
 public  class ModelLoader
 {
     // instance variables - replace the example below with your own
-    private static Login model;
+    private static Login model = new Login();
 
     /**
      * Constructor for objects of class ModelLoader

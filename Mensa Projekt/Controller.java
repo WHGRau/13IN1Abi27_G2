@@ -17,6 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import java.util.ArrayList;
+
+import javafx.beans.property.SimpleStringProperty;
 
 // Imports für Scenenwechsel
 import javafx.fxml.FXMLLoader;
@@ -50,20 +53,49 @@ public class Controller {
      */
     @FXML
     private Button buttonScene2;
+    
+    @FXML
+    private Button verkaufenButton;
+    
+    @FXML
+    private TableView<ObservableList<String>> ProduktTable;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> NameColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String>MengeColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> PreisColumn;
+    
+    @FXML   
+    private TextField artikelIDField;
+    
+    @FXML   
+    private TextField userIDField;
+    
+    @FXML
+    private TextField mengeField;
+
+    
      
 
     
     // Verbindung vom Controller zum Model   
-    private Login login; 
+    private Login login;
+    private Mensa mensa; 
     
     public Controller(){
         login = ModelLoader.getModel();
         
     }
     
-    public void initialize(){
-        // Prüfen, ob scene1 geladen wird
-        //tabelViewRefresh();
+    public void mensaInitialize(){
+        NameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        MengeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        PreisColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        zeigeLager();
     }
 
     @FXML
@@ -72,29 +104,51 @@ public class Controller {
         int uID = Integer.parseInt(idField.getText());
         String passwort        = passwortField.getText(); 
         login.login(uID, passwort);
+    
+        if (login.login(uID, passwort) instanceof Mensa){
+            mensa = (Mensa)login.login(uID, passwort);
+            try {
+                // Hier wird die Methode aufgerufen:
+                switchToMensa();
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Optional: Fehlermeldung für den Nutzer anzeigen
+            }
+        }
            
     }
     
-    // Hilfsmethode für die Tableview
-   
     
-    // Hilfsmethode für die Tableview, wird nicht benötigt, wenn mit ArrayLists gearbeitet wird.
-    //private ArrayList<ToDo> convertToArrayList(List<ToDo> pList){
-        //ArrayList<ToDo> ausgabe = new ArrayList<ToDo>();
-        //pList.toFirst();
-        //while(pList.hasAccess()){            
-            //ausgabe.add(pList.getContent());
-            //pList.next();
-        //}
-        //return ausgabe;
-    //}
+    @FXML
+    public void zeigeLager() {
+        if (mensa != null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = mensa.getLager();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 3) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Name
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Preis
+                zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            ProduktTable.setItems(tabelleDaten);
+        }
+    }
     
-    //@FXML
-    //void tableViewClicked(MouseEvent event) {
-       // int selectedID = toDoTableView.getSelectionModel().getSelectedIndex();
-       // model.removeToDo(selectedID);
-       // tabelViewRefresh();
-    //}
+    @FXML
+    public void verkaufen(ActionEvent event) {
+        if (mensa != null) {
+            int pID = Integer.parseInt(artikelIDField.getText());
+            int uID = Integer.parseInt(userIDField.getText());
+            int menge = Integer.parseInt(mengeField.getText());
+            
+            mensa.verkaufen(pID, uID, menge);
+            zeigeLager();
+        }
+    }
 
     @FXML
     public void switchtoScene1(ActionEvent event) throws IOException{      
@@ -103,7 +157,6 @@ public class Controller {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        initialize();
     }
     
     @FXML
@@ -113,7 +166,29 @@ public class Controller {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }     
+    }
     
-}
+    
+    @FXML
+    public void switchToMensa() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/scene2.fxml"));
+        Parent root = loader.load();
+        // Die NEUE Controller-Instanz holen (gleiche Klasse, anderes Objekt)
+        Controller neuerController = loader.getController();
+        neuerController.setMensa(mensa);
+        neuerController.mensaInitialize();
+        Stage stage = (Stage) idField.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void setMensa(Mensa pMensa) {
+        this.mensa = pMensa;
+    }
+    
+
+        
+    }   
+
 

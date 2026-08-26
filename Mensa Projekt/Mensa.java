@@ -92,23 +92,32 @@ public class Mensa extends JFrame {
   }
   
   
-  public void statistik(){
+  public ArrayList<String> statistik(){
       ArrayList<String> rückgabe = new ArrayList<String>();
       dbConnector.executeStatement("SELECT pId , Menge FROM bestellung ORDER BY pId");
       QueryResult r = dbConnector.getCurrentQueryResult();
-      int count = 0; 
       int pId = Integer.parseInt(r.getData()[0][0]);
+      dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE '"+pId+"'");
+      QueryResult na = dbConnector.getCurrentQueryResult();
+      String name = na.getData()[0][0];
+      int count = 0; 
       for(int i = 0; i< r.getRowCount(); i++){
         if(pId == Integer.parseInt(r.getData()[i][0]))
             count = count + Integer.parseInt(r.getData()[i][1]);  
         else{
-            System.out.println(count+ "artikel"+""+ pId);
+            rückgabe.add(name);
+            rückgabe.add(Integer.toString(count));
             pId = Integer.parseInt(r.getData()[i][0]); 
             count = 0 ;
             count = count + Integer.parseInt(r.getData()[i][1]);
+            dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE '"+pId+"'");
+            QueryResult nam = dbConnector.getCurrentQueryResult();
+            name = na.getData()[0][0];
         }
       }
-      System.out.println(count+ "artikel"+"mit der nr"+ pId);
+      rückgabe.add(name);
+      rückgabe.add(Integer.toString(count));
+      return rückgabe;
     }
   public void geldAufladen(int uID, float pBetrag) {
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);

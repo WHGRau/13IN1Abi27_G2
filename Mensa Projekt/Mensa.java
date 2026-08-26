@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Mensa extends JFrame {
   // Anfang Attribute
@@ -14,7 +15,7 @@ public class Mensa extends JFrame {
   private String passwort;
   private int kID;
   // Ende Attribute
-  
+  public Mensa(){dbVerbinden();}
   public Mensa(int pID, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
     super("");
@@ -37,7 +38,7 @@ public class Mensa extends JFrame {
     }
   }
   
-  public void neuespProduktHinzufuegen(String pArtikel, int pAnzahl, float pPreis, int pSoll) {
+  public void neuespProduktHinzufuegen(String pArtikel, int pAnzahl, double pPreis, int pSoll) {
     //Überprüfen ob Produkt schon in der DB ist. Wenn ja -> Anzahl erhöhen. Wenn nein -> Produkt aufnehmen
     String sql = ("SELECT pID FROM produkte WHERE Name LIKE '"+pArtikel+"'");
     dbConnector.executeStatement(sql);
@@ -48,10 +49,27 @@ public class Mensa extends JFrame {
      }
     else {
        
-       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge, Sollmenge) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"','"+pSoll+"' )");
+       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge, Sollmenge,niedrig) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"','"+pSoll+"',false )");
+       int a = istNiedrig(pArtikel);
+       dbConnector.executeStatement("UPDATE produkte SET niedrig = '"+a+"'WHERE Name LIKE '"+pArtikel+"'");
     }
-      
+    
   }
+  public int istNiedrig(String pProdukt){
+    String sql = ("SELECT menge, Sollmenge FROM produkte WHERE Name LIKE '"+pProdukt+"'");
+    dbConnector.executeStatement(sql);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+      if(Integer.parseInt(qr.getData()[0][0]) <= Integer.parseInt(qr.getData()[0][1]) * 0.1){
+        return 1;
+    }
+    return 0;
+  }
+  
+  
+  //public ArrayList<String> niedrigeProdukte(){
+    
+   // }
+      
   
   
   public void produktAufnehmen(String pArtikel, int pAnzahl) {

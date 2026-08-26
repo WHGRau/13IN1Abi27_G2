@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
 public class Mensa extends JFrame {
   // Anfang Attribute
@@ -90,6 +90,8 @@ public class Mensa extends JFrame {
           System.out.println("Kontostand zu niedrig oder zu Bestand zu niedrig");
       }
   }
+  
+  
   public void statistik(){
       ArrayList<String> rückgabe = new ArrayList<String>();
       dbConnector.executeStatement("SELECT pId , Menge FROM bestellung ORDER BY pId");
@@ -110,6 +112,19 @@ public class Mensa extends JFrame {
     }
   public void geldAufladen(int uID, float pBetrag) {
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
+  }
+  
+  public ArrayList<String> getLager() {
+      ArrayList<String> lager = new ArrayList();
+      dbConnector.executeStatement("SELECT Name, Menge, Preis FROM produkte");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              lager.add(qr.getData()[x][y]);
+          }
+      }
+
+      return lager;
   }
   
   // Ende Methoden

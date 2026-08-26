@@ -14,8 +14,9 @@ public class Mensa extends JFrame {
   private String name;
   private String passwort;
   private int kID;
-  // Ende Attribute
   
+  // Ende Attribute
+  public Mensa(){dbVerbinden();}
   public Mensa(int pID, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
     super("");
@@ -71,7 +72,7 @@ public class Mensa extends JFrame {
       //Überprüfen ob der Schüler genug auf dem Konto hat
       dbConnector.executeStatement("SELECT kontostand FROM konto WHERE uID = "+ schuelerID);
       qr = dbConnector.getCurrentQueryResult();
-      float kontostand = Float.parseFloat(qr.getData()[0][0]);
+      float kontostand = 1000;//Float.parseFloat(qr.getData()[0][0]);
       
       //Überprüfen ob es genug Artikel gibt
       dbConnector.executeStatement("SELECT Menge FROM produkte WHERE pID = "+ produktID);
@@ -91,6 +92,24 @@ public class Mensa extends JFrame {
   }
   
   
+  public void statistik(){
+      ArrayList<String> rückgabe = new ArrayList<String>();
+      dbConnector.executeStatement("SELECT pId , Menge FROM bestellung ORDER BY pId");
+      QueryResult r = dbConnector.getCurrentQueryResult();
+      int count = 0; 
+      int pId = Integer.parseInt(r.getData()[0][0]);
+      for(int i = 0; i< r.getRowCount(); i++){
+        if(pId == Integer.parseInt(r.getData()[i][0]))
+            count = count + Integer.parseInt(r.getData()[i][1]);  
+        else{
+            System.out.println(count+ "artikel"+""+ pId);
+            pId = Integer.parseInt(r.getData()[i][0]); 
+            count = 0 ;
+            count = count + Integer.parseInt(r.getData()[i][1]);
+        }
+      }
+      System.out.println(count+ "artikel"+"mit der nr"+ pId);
+    }
   public void geldAufladen(int uID, float pBetrag) {
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
   }

@@ -242,7 +242,8 @@ public void switchToMensaNow(Stage stage) throws IOException {
     stage.setScene(scene);
     stage.show();
 }
-    
+ 
+   
     public void setMensa(Mensa pMensa) {
         this.mensa = pMensa;
     }

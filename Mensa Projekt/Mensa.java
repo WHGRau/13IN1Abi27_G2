@@ -84,6 +84,7 @@ public class Mensa extends JFrame {
           //In Bestell Tabelle einfügen
           LocalDateTime datum = LocalDateTime.now();
           dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"')");
+          
       } else {
           System.out.println("Kontostand zu niedrig oder zu Bestand zu niedrig");
       }
@@ -107,6 +108,7 @@ public class Mensa extends JFrame {
     }
   public void geldAufladen(int uID, float pBetrag) {
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
+      dbConnector.executeStatement("INSERT INTO bestellung(uID, Wert) VALUES('"+uID+"','"+pBetrag+"')");
   }
   
   // Ende Methoden

@@ -110,10 +110,10 @@ public class Mensa extends JFrame {
       }
       System.out.println(count+ "artikel"+"mit der nr"+ pId);
     }
-  public void geldAufladen(int uID, float pBetrag) {
+   public void geldAufladen(int uID, float pBetrag) {
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
-  }
-  
+      dbConnector.executeStatement("INSERT INTO bestellung(uID, Wert) VALUES('"+uID+"','"+pBetrag+"')");
+  }  
   public ArrayList<String> getLager() {
       ArrayList<String> lager = new ArrayList();
       dbConnector.executeStatement("SELECT Name, Menge, Preis FROM produkte");

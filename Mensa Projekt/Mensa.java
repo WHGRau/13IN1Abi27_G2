@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList; 
 
 public class Mensa extends JFrame {
   // Anfang Attribute
@@ -13,6 +14,7 @@ public class Mensa extends JFrame {
   private String name;
   private String passwort;
   private int kID;
+  
   // Ende Attribute
   public Mensa(){dbVerbinden();}
   public Mensa(int pID, String pVorname, String pName, String pPasswort) {
@@ -89,6 +91,7 @@ public class Mensa extends JFrame {
       }
   }
   public void statistik(){
+      ArrayList<String> rückgabe = new ArrayList<String>();
       dbConnector.executeStatement("SELECT pId , Menge FROM bestellung ORDER BY pId");
       QueryResult r = dbConnector.getCurrentQueryResult();
       int count = 0; 

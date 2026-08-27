@@ -38,9 +38,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -92,27 +89,16 @@
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene1" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <TableView fx:id="ProduktTable" layoutX="399.0" layoutY="88.0" onMouseClicked="#verkaufEinfuegen" prefHeight="200.0" prefWidth="227.0">
-              <columns>
-                <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name" />
-                <TableColumn fx:id="MengeColumn" prefWidth="75.0" text="Menge" />
-                  <TableColumn fx:id="PreisColumn" prefWidth="75.0" text="Preis" />
-              </columns>
-            </TableView>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="108.0" prefHeight="36.0" prefWidth="114.0" text="Verkaufen">
+            <Button fx:id="buttonScene13" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="109.0" prefHeight="36.0" prefWidth="149.0" text="Hinzufügen">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="artikelIDField" layoutX="138.0" layoutY="155.0" text="Artikel ID" />
-            <TextField fx:id="userIDField" layoutX="138.0" layoutY="197.0" text="Nutzer ID" />
-            <TextField fx:id="mengeField" layoutX="138.0" layoutY="236.0" text="Menge" />
-            <Button fx:id="verkaufenButton" layoutX="138.0" layoutY="276.0" mnemonicParsing="false" onAction="#verkaufen" prefHeight="25.0" prefWidth="88.0" text="Verkaufen" />
-            <Button fx:id="homeButton" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="aufladenButton" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
-            <Button fx:id="hinzufuegenButton" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
-            <Button fx:id="statistikButton" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <Button fx:id="homeButton3" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
+            <Button fx:id="aufladenButton3" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
+            <Button fx:id="hinzufuegenButton3" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
+            <Button fx:id="statistikButton3" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
       </children>
     </AnchorPane>
   </children>

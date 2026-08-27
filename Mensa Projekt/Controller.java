@@ -95,6 +95,8 @@ public class Controller {
     @FXML
     private Button homeButton2;
     
+    @FXML
+    private Button aufladenButton2;
     
     @FXML
     private Button hinzufuegenButton2;
@@ -113,6 +115,42 @@ public class Controller {
     
     @FXML
     private Button aufladenKnopf;
+    
+    //Elemente Mensa Hinzufügen Screen
+    
+     @FXML
+    private Button homeButton3;
+    
+    @FXML
+    private Button aufladenButton3;
+    
+    @FXML
+    private Button hinzufuegenButton3;
+    
+    @FXML
+    private Button statistikButton3;
+    
+    @FXML
+    private Button buttonScene13;
+    
+    //Elemente Mensa Statistik Screen
+    
+    @FXML
+    private Button homeButton4;
+    
+    @FXML
+    private Button aufladenButton4;
+    
+    @FXML
+    private Button hinzufuegenButton4;
+    
+    @FXML
+    private Button statistikButton4;
+    
+    @FXML
+    private Button buttonScene14;
+    
+    
 
     
     // Verbindung vom Controller zum Model   
@@ -223,7 +261,31 @@ public class Controller {
     stage.setScene(scene);
     stage.show();
     }
+    @FXML
+    public void switchToHinzufuegen(ActionEvent event) throws IOException{
+        
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensahinzufuegen.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setMensa(mensa);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
+    @FXML
+    public void switchToStatistik(ActionEvent event) throws IOException{
+        
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensastatistik.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setMensa(mensa);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
   
     

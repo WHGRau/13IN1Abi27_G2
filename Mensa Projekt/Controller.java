@@ -10,6 +10,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
 // Imports für Tableview
 import javafx.scene.control.TableColumn;
@@ -150,12 +151,24 @@ public class Controller {
     @FXML
     private Button buttonScene14;
     
+    //Elemente Nutzer Main Screen
     
-
+    @FXML
+    private Button nutzerHome1;
     
+    @FXML
+    private Button changePasswort1;
+    
+    @FXML
+    private Button nutzerLogout1;
+    
+    @FXML
+    private Label kontostandLabel;
+ 
     // Verbindung vom Controller zum Model   
     private Login login;
     private Mensa mensa; 
+    private Nutzer nutzer;
     
     public Controller(){
         login = ModelLoader.getModel();
@@ -181,6 +194,16 @@ public class Controller {
             try {
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 switchToMensaNow(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Optional: Fehlermeldung für den Nutzer anzeigen
+            }
+        }
+        else if (login.login(uID, passwort) instanceof Nutzer){
+            nutzer = (Nutzer)login.login(uID, passwort);
+            try {
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                switchToNutzerNow(stage);
             } catch (IOException e) {
                 e.printStackTrace();
                 // Optional: Fehlermeldung für den Nutzer anzeigen
@@ -248,19 +271,19 @@ public class Controller {
     }
     
     
-    
+    //Mensa Szenenwechsel Methoden
     @FXML
     public void switchToAufladen(ActionEvent event) throws IOException{
-        System.out.println("switchToAufladen wurde aufgerufen!");
          FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensaaufladen.fxml"));
-    Parent root = loader.load();
-    Controller neuerController = loader.getController();
-    neuerController.setMensa(mensa);
-    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setMensa(mensa);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
+    
     @FXML
     public void switchToHinzufuegen(ActionEvent event) throws IOException{
         
@@ -286,31 +309,61 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
-    
-  
-    
+        
     @FXML
-public void switchToMensa(ActionEvent event) throws IOException {
-    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    switchToMensaNow(stage);
-}
-public void switchToMensaNow(Stage stage) throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/scene2.fxml"));
-    Parent root = loader.load();
-    Controller neuerController = loader.getController();
-    neuerController.setMensa(mensa);
-    neuerController.mensaInitialize();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-}
+    public void switchToMensa(ActionEvent event) throws IOException {
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        switchToMensaNow(stage);
+    }
+    
+    public void switchToMensaNow(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/scene2.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setMensa(mensa);
+        neuerController.mensaInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
  
-   
     public void setMensa(Mensa pMensa) {
         this.mensa = pMensa;
     }
     
-
+    //Nutzer Szenenwechsel Methoden
+    
+    public void nutzerInitialize() {
+        
+    }
+    
+    public void switchToNutzerNow(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/nutzermainscreen.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setNutzer(nutzer);
+        neuerController.nutzerInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    public void switchToNutzer(ActionEvent event) throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/nutzermainscreen.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setNutzer(nutzer);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void setNutzer(Nutzer pNutzer) {
+        this.nutzer = pNutzer;
+    }
         
     }   
 

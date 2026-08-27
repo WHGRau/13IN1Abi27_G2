@@ -285,7 +285,7 @@ public class Controller {
             }
         }
         else if (loginErgebnis == null) {
-            anmeldeLabel.setText("Nutzer ID oder Passwort falsch!");
+            anmeldeLabel.setText("Die Anmeldedaten sind falsch!");
         }
            
     }
@@ -543,6 +543,7 @@ public class Controller {
     public void setAdmin(Admin pAdmin) {
         this.admin = pAdmin;
     }
+    
 }
     
   

@@ -46,6 +46,9 @@ public class Controller {
     @FXML
     private TextField passwortField;
     
+    @FXML
+    private Label anmeldeLabel;
+    
 
    
     /* ------------------------------
@@ -188,6 +191,7 @@ public class Controller {
     private Login login;
     private Mensa mensa; 
     private Nutzer nutzer;
+    private Admin admin;
     
     public Controller(){
         login = ModelLoader.getModel();
@@ -227,6 +231,19 @@ public class Controller {
                 e.printStackTrace();
                 // Optional: Fehlermeldung für den Nutzer anzeigen
             }
+        }
+        else if (loginErgebnis instanceof Admin){
+            admin = (Admin)loginErgebnis;
+            try {
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                switchToAdminNow(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Optional: Fehlermeldung für den Nutzer anzeigen
+            }
+        }
+        else if (loginErgebnis == null) {
+            anmeldeLabel.setText("Nutzer ID oder Passwort falsch!");
         }
            
     }
@@ -418,7 +435,42 @@ public class Controller {
     public void setNutzer(Nutzer pNutzer) {
         this.nutzer = pNutzer;
     }
+    
+    // Admin Szenenwechsel Methoden
+    
+    public void adminInitialize() {
         
-    }   
+    }
+        public void switchToAdminNow(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/adminmainscreen.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setAdmin(admin);;
+        neuerController.adminInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    public void switchToAdmin(ActionEvent event) throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/adminmainscreen.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setAdmin(admin);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.adminInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void setAdmin(Admin pAdmin) {
+        this.admin = pAdmin;
+    }
+}
+    
+  
 
 

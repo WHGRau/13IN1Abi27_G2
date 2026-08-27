@@ -186,6 +186,24 @@ public class Controller {
     @FXML
     private TableColumn<ObservableList<String>, String> mengeColumn1;
     
+    
+    //Elemente Admin Main Screen
+    
+    @FXML
+    private Button adminHome1;
+    
+    @FXML
+    private Button adminLogout1;
+    
+    @FXML
+    private Button adminHinzufuegen1;
+    
+    @FXML
+    private Button adminSchueler1;
+
+    @FXML
+    private Label adminBegruessungLabel1;
+    
  
     // Verbindung vom Controller zum Model   
     private Login login;
@@ -439,8 +457,9 @@ public class Controller {
     // Admin Szenenwechsel Methoden
     
     public void adminInitialize() {
-        
+        adminBegruessungLabel1.setText("Hallo, "+admin.getName()+"!");
     }
+    
         public void switchToAdminNow(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/adminmainscreen.fxml"));
         Parent root = loader.load();

@@ -14,4 +14,6 @@ comment6.params=
 comment6.target=java.lang.String\ erzeugePasswort()
 comment7.params=pID
 comment7.target=void\ schuelerLoeschen(int)
-numComments=8
+comment8.params=
+comment8.target=java.lang.String\ getName()
+numComments=9

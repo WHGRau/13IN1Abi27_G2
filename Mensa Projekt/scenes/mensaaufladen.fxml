@@ -96,8 +96,8 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="userIDField2" layoutX="287.0" layoutY="163.0" text="Nutzer ID" />
-            <TextField fx:id="betragField" layoutX="287.0" layoutY="210.0" text="Betrag" />
+            <TextField fx:id="userIDField2" layoutX="287.0" layoutY="163.0" promptText="Nutzer ID" />
+            <TextField fx:id="betragField" layoutX="287.0" layoutY="210.0" promptText="Betrag" />
             <Button fx:id="aufladenKnopf" layoutX="287.0" layoutY="249.0" mnemonicParsing="false" onAction="#aufladen" prefHeight="25.0" prefWidth="149.0" text="Aufladen" />
             <Button fx:id="homeButton2" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
             <Button fx:id="aufladenButton2" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />

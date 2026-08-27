@@ -105,9 +105,9 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="artikelIDField" layoutX="138.0" layoutY="155.0" text="Artikel ID" />
-            <TextField fx:id="userIDField" layoutX="138.0" layoutY="197.0" text="Nutzer ID" />
-            <TextField fx:id="mengeField" layoutX="138.0" layoutY="236.0" text="Menge" />
+            <TextField fx:id="artikelIDField" layoutX="138.0" layoutY="155.0" promptText="Artikel ID" />
+            <TextField fx:id="userIDField" layoutX="138.0" layoutY="197.0" promptText="Nutzer ID" />
+            <TextField fx:id="mengeField" layoutX="138.0" layoutY="236.0" promptText="Menge" />
             <Button fx:id="verkaufenButton" layoutX="138.0" layoutY="276.0" mnemonicParsing="false" onAction="#verkaufen" prefHeight="25.0" prefWidth="88.0" text="Verkaufen" />
             <Button fx:id="homeButton" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
             <Button fx:id="aufladenButton" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />

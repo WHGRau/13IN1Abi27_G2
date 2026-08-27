@@ -85,14 +85,16 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="nutzerLogout1" layoutX="31.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Button fx:id="nutzerHome1" layoutX="31.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToNutzer" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
+            <Button fx:id="adminLogout1" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" text="🚪 Logout" />
+            <Button fx:id="adminHome1" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text=" 🏠 Home" />
             <Button fx:id="changePassword1" layoutX="493.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="🔑 Passwort ändern" />
-            <Label fx:id="begruessungLabel1" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
+            <Label fx:id="adminBegruessungLabel1" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
+            <Button fx:id="adminHinzufuegen1" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="➕ Hinzufügen" />
+            <Button fx:id="adminSchueler1" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text=" 👨‍💼Schüler" />
       </children>
     </AnchorPane>
   </children>

@@ -164,6 +164,25 @@ public class Controller {
     
     @FXML
     private Label kontostandLabel;
+    
+    @FXML
+    private Label begruessungLabel1;
+    
+    @FXML
+    private TableView<ObservableList<String>> kaufHistoryTable;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> dateColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> productColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> preisColumn1;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> mengeColumn1;
+    
  
     // Verbindung vom Controller zum Model   
     private Login login;
@@ -187,10 +206,10 @@ public class Controller {
         
         int uID = Integer.parseInt(idField.getText());
         String passwort        = passwortField.getText(); 
-        login.login(uID, passwort);
+        Object loginErgebnis = login.login(uID, passwort);
     
-        if (login.login(uID, passwort) instanceof Mensa){
-            mensa = (Mensa)login.login(uID, passwort);
+        if (loginErgebnis instanceof Mensa){
+            mensa = (Mensa) loginErgebnis;
             try {
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 switchToMensaNow(stage);
@@ -199,8 +218,8 @@ public class Controller {
                 // Optional: Fehlermeldung für den Nutzer anzeigen
             }
         }
-        else if (login.login(uID, passwort) instanceof Nutzer){
-            nutzer = (Nutzer)login.login(uID, passwort);
+        else if (loginErgebnis instanceof Nutzer){
+            nutzer = (Nutzer)loginErgebnis;
             try {
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 switchToNutzerNow(stage);
@@ -330,11 +349,45 @@ public class Controller {
     public void setMensa(Mensa pMensa) {
         this.mensa = pMensa;
     }
+    // Nutzer Methoden
     
+    public void gibKontostand() {
+        kontostandLabel.setText(nutzer.getKontostand());        
+    }
+    
+    public void gibBegruessung() {
+        begruessungLabel1.setText("Hallo, "+nutzer.getName() + "!");
+    }
+    
+    @FXML
+    public void zeigeKaeufe() {
+        if (nutzer != null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = nutzer.getKaeufe();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 4) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Datum
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
+                zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
+                zeile.add(datenAusDb.get(i + 2)); // Index 3: Preis
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            kaufHistoryTable.setItems(tabelleDaten);
+        }
+    }
     //Nutzer Szenenwechsel Methoden
     
     public void nutzerInitialize() {
-        
+        gibKontostand();
+        gibBegruessung();
+        dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        productColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        mengeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        preisColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        zeigeKaeufe();
     }
     
     public void switchToNutzerNow(Stage stage) throws IOException {
@@ -356,6 +409,7 @@ public class Controller {
         Controller neuerController = loader.getController();
         neuerController.setNutzer(nutzer);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.nutzerInitialize();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

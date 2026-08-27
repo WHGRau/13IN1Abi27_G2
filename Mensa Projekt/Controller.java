@@ -186,6 +186,30 @@ public class Controller {
     @FXML
     private TableColumn<ObservableList<String>, String> mengeColumn1;
     
+    //Elemente Nutzer Passwort Ändern
+    
+     @FXML
+    private Button nutzerHome2;
+    
+    @FXML
+    private Button passwortAendern;
+    
+    @FXML
+    private Button nutzerLogout2;
+    
+    @FXML
+    private Label begruessungLabel2;
+    
+    @FXML
+    private Label passwortLabel;
+    
+    @FXML
+    private TextField newPasswortField;
+    
+    @FXML
+    private TextField oldPasswortField;
+
+    
     
     //Elemente Admin Main Screen
     
@@ -450,8 +474,37 @@ public class Controller {
         stage.show();
     }
     
+    @FXML
+    public void switchToNutzerPasswort(ActionEvent event) throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/nutzerpasswortaendern.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setNutzer(nutzer);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.passwortNutzerInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void passwortNutzerInitialize() {
+        begruessungLabel2.setText("Hallo, "+nutzer.getName()+"!");
+    }
+    
     public void setNutzer(Nutzer pNutzer) {
         this.nutzer = pNutzer;
+    }
+    
+    // Nutzer Methoden
+    
+    public void passwortAendern(ActionEvent event) {
+        if(nutzer.checkPasswort(oldPasswortField.getText()) == true) {
+            nutzer.passwortBearbeiten(newPasswortField.getText(), oldPasswortField.getText());
+            passwortLabel.setText("Das Passwort wurde geändert!");
+        } else {
+            passwortLabel.setText("Das hat nicht geklappt!");
+        }
     }
     
     // Admin Szenenwechsel Methoden
@@ -484,6 +537,8 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+    
+    
     
     public void setAdmin(Admin pAdmin) {
         this.admin = pAdmin;

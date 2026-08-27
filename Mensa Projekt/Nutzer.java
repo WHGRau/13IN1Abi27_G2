@@ -55,6 +55,7 @@ public class Nutzer extends JFrame {
    else {
        System.out.println("Nutzer nicht gefunden oder falsches Passwort");
    }
+   checkPasswort(pPasswort);
  }
  
   public void kontoPinBearbeiten(int pAlterPin, int pNeuerPin) {
@@ -72,6 +73,19 @@ public class Nutzer extends JFrame {
     else {
        System.out.println("Konto nicht gefunden oder falsches Passwort");
     }
+  }
+  
+  public boolean checkPasswort(String pPasswort) {
+    boolean check = false;
+    String sql = ("SELECT passwort FROM nutzer WHERE uID LIKE '"+uID+"'");
+    dbConnector.executeStatement(sql);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    if(qr.getRowCount()==1){
+         if (pPasswort.equals(qr.getData()[0][0])){
+        check = true;
+      } 
+    }
+    return check;
   }
   
   public int getID() {

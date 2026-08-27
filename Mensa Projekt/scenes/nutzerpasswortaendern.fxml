@@ -38,12 +38,10 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <children>
@@ -88,32 +86,21 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="nutzerLogout1" layoutX="31.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Button fx:id="nutzerHome1" layoutX="31.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToNutzer" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="changePassword1" layoutX="493.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToNutzerPasswort" prefHeight="25.0" prefWidth="133.0" text="🔑 Passwort ändern" />
-            <Label fx:id="kontostandLabel" layoutX="142.0" layoutY="121.0" prefHeight="36.0" prefWidth="98.0" text="Kontostand" textFill="#22a411">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Text layoutX="142.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontostand" wrappingWidth="98.0">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Text>
-            <Label fx:id="begruessungLabel1" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
+            <Button fx:id="nutzerLogout2" layoutX="31.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Button fx:id="nutzerHome2" layoutX="31.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToNutzer" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
+            <Button fx:id="passwortAendern" layoutX="245.0" layoutY="220.0" mnemonicParsing="false" onAction="#passwortAendern" prefHeight="25.0" prefWidth="149.0" text="Passwort ändern" />
+            <Label fx:id="begruessungLabel2" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TableView fx:id="kaufHistoryTable" layoutX="281.0" layoutY="64.0" prefHeight="200.0" prefWidth="337.0">
-              <columns>
-                <TableColumn fx:id="dateColumn" prefWidth="131.0" text="Datum" />
-                <TableColumn fx:id="productColumn" prefWidth="84.0" text="Produkt" />
-                  <TableColumn fx:id="mengeColumn1" prefWidth="56.0" text="Menge" />
-                  <TableColumn fx:id="preisColumn1" prefWidth="65.0" text="Preis" />
-              </columns>
-            </TableView>
+            <TextField fx:id="oldPasswortField" layoutX="246.0" layoutY="127.0" promptText="Altes Passwort" />
+            <TextField fx:id="newPasswortField" layoutX="246.0" layoutY="175.0" promptText="Neues Passwort" />
+            <Label fx:id="passwortLabel" layoutX="245.0" layoutY="262.0" textFill="#d7d01a">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
       </children>
     </AnchorPane>
   </children>

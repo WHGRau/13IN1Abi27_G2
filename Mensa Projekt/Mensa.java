@@ -112,7 +112,7 @@ public class Mensa extends JFrame {
             count = count + Integer.parseInt(r.getData()[i][1]);
             dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE '"+pId+"'");
             QueryResult nam = dbConnector.getCurrentQueryResult();
-            name = na.getData()[0][0];
+            name = nam.getData()[0][0];
         }
       }
       rückgabe.add(name);

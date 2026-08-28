@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.CheckBox;
 
 // Imports für Tableview
 import javafx.scene.control.TableColumn;
@@ -228,6 +229,69 @@ public class Controller {
     @FXML
     private Label adminBegruessungLabel1;
     
+     //Elemente Admin Main Screen
+    
+    @FXML
+    private Button adminHome2;
+    
+    @FXML
+    private Button adminLogout2;
+    
+    @FXML
+    private Button adminHinzufuegen2;
+    
+    @FXML
+    private Button adminSchueler2;
+
+    @FXML
+    private Label adminBegruessungLabel2;
+    
+    @FXML
+    private CheckBox schuelerCheckbox;
+    
+    @FXML
+    private CheckBox lehrerCheckbox;
+    
+    @FXML
+    private TextField vornameTextfield;
+    
+    @FXML
+    private TextField nameTextfield;
+    
+    @FXML
+    private Button addSchuelerButton;
+    
+    @FXML 
+    private Label addSchuelerLabel;
+    
+    // Elemente Admin Schülerverwaltungs Screen
+    
+    @FXML
+    private Button adminHome3;
+    
+    @FXML
+    private Button adminLogout3;
+    
+    @FXML
+    private Button adminHinzufuegen3;
+    
+    @FXML
+    private Button adminSchueler3;
+
+    @FXML
+    private Label adminBegruessungLabel3;
+    
+    @FXML
+    private TableView<ObservableList<String>> schuelerTable;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> schuelerIdColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> schuelerVornameColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> schuelerNameColumn;
  
     // Verbindung vom Controller zum Model   
     private Login login;
@@ -526,7 +590,6 @@ public class Controller {
     
     @FXML
     public void switchToAdmin(ActionEvent event) throws IOException{
-        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/adminmainscreen.fxml"));
         Parent root = loader.load();
         Controller neuerController = loader.getController();
@@ -538,12 +601,80 @@ public class Controller {
         stage.show();
     }
     
+    public void adminHinzufuegenInitialize() {
+        adminBegruessungLabel2.setText("Hallo, "+admin.getName()+"!");
+    }
     
+    @FXML
+    public void switchToAdminHinzufuegen(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/adminhinzufuegen.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setAdmin(admin);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.adminHinzufuegenInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    public void switchToAdminSchueler(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/adminschueler.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setAdmin(admin);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.adminSchuelerInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void adminSchuelerInitialize() {
+        adminBegruessungLabel3.setText("Hallo, "+admin.getName()+"!");
+        schuelerIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        schuelerVornameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        schuelerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        getSchueler();
+    }
     
     public void setAdmin(Admin pAdmin) {
         this.admin = pAdmin;
     }
     
+    // Admin Methoden
+    
+    public void adminSchuelerHinzufuegen() {
+        if (schuelerCheckbox.isSelected() == true && lehrerCheckbox.isSelected() == false) {
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText());
+            addSchuelerLabel.setText("Der Schüler/Lehrer "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
+        }
+        else if (schuelerCheckbox.isSelected() == false && lehrerCheckbox.isSelected() == true) {
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText());
+            addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
+        } else {
+            addSchuelerLabel.setText("Die Person konnte nicht hinzugefügt werden!");
+        }
+    }
+    
+    public void getSchueler() {
+        if (admin!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = admin.getSchueler();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 3) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Datum
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
+                zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            schuelerTable.setItems(tabelleDaten);
+        }
+    }
 }
     
   

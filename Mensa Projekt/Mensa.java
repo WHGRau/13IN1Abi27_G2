@@ -135,6 +135,9 @@ public class Mensa extends JFrame {
 
       return lager;
   }
+  public void preisaendern(float pBetrag , String pName){
+      dbConnector.executeStatement("UPDATE produkte SET preis = "+pBetrag+" WHERE name = '"+pName+"'");
+    }
   
   // Ende Methoden
   

@@ -49,28 +49,24 @@ public class Mensa extends JFrame {
      }
     else {
        
-       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge, Sollmenge,niedrig) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"','"+pSoll+"',false )");
+       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge, Sollmenge,niedrig) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"','"+pSoll+"',0 )");
        int a = istNiedrig(pArtikel);
        dbConnector.executeStatement("UPDATE produkte SET niedrig = '"+a+"'WHERE Name LIKE '"+pArtikel+"'");
     }
     
   }
   public int istNiedrig(String pProdukt){
-    String sql = ("SELECT menge, Sollmenge FROM produkte WHERE Name LIKE '"+pProdukt+"'");
-    dbConnector.executeStatement(sql);
+    dbConnector.executeStatement("SELECT menge, Sollmenge FROM produkte WHERE Name LIKE '"+pProdukt+"'");
     QueryResult qr = dbConnector.getCurrentQueryResult();
-      if(Integer.parseInt(qr.getData()[0][0]) <= Integer.parseInt(qr.getData()[0][1]) * 0.1){
+    if(Integer.parseInt(qr.getData()[0][0]) <= Integer.parseInt(qr.getData()[0][1]) * 0.1){
         return 1;
     }
     return 0;
+  }   
+  
+  public void produktLoeschen(String pArtikel){
+    dbConnector.executeStatement("DELETE FROM produkte WHERE Name LIKE '"+pArtikel+"'");
   }
-  
-  
-  //public ArrayList<String> niedrigeProdukte(){
-    
-   // }
-      
-  
   
   public void produktAufnehmen(String pArtikel, int pAnzahl) {
     String sql = ("SELECT pID FROM produkte WHERE Name LIKE '"+pArtikel+"'");

@@ -18,7 +18,7 @@ public class Admin extends JFrame {
   // Ende Attribute
   
   public Admin(int pID, String pVorname, String pName, String pPasswort) {
-    // Frame-Initialisierung
+    // Frame-Initialisierunga
     super("");
     uID = pID;
     vorname = pVorname;

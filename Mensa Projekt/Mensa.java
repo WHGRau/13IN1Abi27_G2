@@ -119,10 +119,10 @@ public class Mensa extends JFrame {
       rückgabe.add(Integer.toString(count));
       return rückgabe;
     }
-  public void geldAufladen(int uID, float pBetrag) {
+   public void geldAufladen(int uID, float pBetrag) {
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
-  }
-  
+      dbConnector.executeStatement("INSERT INTO bestellung(uID, Wert) VALUES('"+uID+"','"+pBetrag+"')");
+  }  
   public ArrayList<String> getLager() {
       ArrayList<String> lager = new ArrayList();
       dbConnector.executeStatement("SELECT Name, Menge, Preis FROM produkte");
@@ -135,6 +135,9 @@ public class Mensa extends JFrame {
 
       return lager;
   }
+  public void preisaendern(float pBetrag , String pName){
+      dbConnector.executeStatement("UPDATE produkte SET preis = "+pBetrag+" WHERE name = '"+pName+"'");
+    }
   
   // Ende Methoden
   

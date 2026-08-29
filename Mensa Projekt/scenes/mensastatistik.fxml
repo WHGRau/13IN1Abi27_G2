@@ -38,7 +38,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -90,19 +89,16 @@
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene12" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="109.0" prefHeight="36.0" prefWidth="114.0" text="Aufladen">
+            <Button fx:id="buttonScene14" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="109.0" prefHeight="36.0" prefWidth="114.0" text="Statistik">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="userIDField2" layoutX="287.0" layoutY="163.0" promptText="Nutzer ID" />
-            <TextField fx:id="betragField" layoutX="287.0" layoutY="210.0" promptText="Betrag" />
-            <Button fx:id="aufladenKnopf" layoutX="287.0" layoutY="249.0" mnemonicParsing="false" onAction="#aufladen" prefHeight="25.0" prefWidth="149.0" text="Aufladen" />
-            <Button fx:id="homeButton2" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="aufladenButton2" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
-            <Button fx:id="hinzufuegenButton2" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
-            <Button fx:id="statistikButton2" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <Button fx:id="homeButton4" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
+            <Button fx:id="aufladenButton4" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
+            <Button fx:id="hinzufuegenButton4" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
+            <Button fx:id="statistikButton4" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
       </children>
     </AnchorPane>
   </children>

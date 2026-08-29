@@ -38,10 +38,12 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <children>
@@ -86,23 +88,37 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="14.0" prefHeight="36.0" prefWidth="78.0" text="Mensa">
+            <Button fx:id="nutzerLogout1" layoutX="31.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Button fx:id="nutzerHome1" layoutX="31.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToNutzer" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
+            <Button fx:id="changePassword1" layoutX="493.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToNutzerPasswort" prefHeight="25.0" prefWidth="133.0" text="🔑 Passwort ändern" />
+            <Label fx:id="kontostandLabel" layoutX="142.0" layoutY="121.0" prefHeight="36.0" prefWidth="98.0" text="Kontostand" textFill="#22a411">
                <font>
-                  <Font size="25.0" />
-               </font></Label>
-            <Button fx:id="buttonScene12" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="109.0" prefHeight="36.0" prefWidth="114.0" text="Aufladen">
-               <font>
-                  <Font size="25.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="userIDField2" layoutX="287.0" layoutY="163.0" promptText="Nutzer ID" />
-            <TextField fx:id="betragField" layoutX="287.0" layoutY="210.0" promptText="Betrag" />
-            <Button fx:id="aufladenKnopf" layoutX="287.0" layoutY="249.0" mnemonicParsing="false" onAction="#aufladen" prefHeight="25.0" prefWidth="149.0" text="Aufladen" />
-            <Button fx:id="homeButton2" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="aufladenButton2" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
-            <Button fx:id="hinzufuegenButton2" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
-            <Button fx:id="statistikButton2" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <Text layoutX="142.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontostand" wrappingWidth="98.0">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="begruessungLabel1" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TableView fx:id="kaufHistoryTable" layoutX="281.0" layoutY="100.0" prefHeight="200.0" prefWidth="337.0">
+              <columns>
+                <TableColumn fx:id="dateColumn" prefWidth="131.0" text="Datum" />
+                <TableColumn fx:id="productColumn" prefWidth="84.0" text="Produkt" />
+                  <TableColumn fx:id="mengeColumn1" prefWidth="56.0" text="Menge" />
+                  <TableColumn fx:id="preisColumn1" prefWidth="65.0" text="Preis" />
+              </columns>
+            </TableView>
+            <Text layoutX="281.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verlauf" wrappingWidth="46.458984375">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
       </children>
     </AnchorPane>
   </children>

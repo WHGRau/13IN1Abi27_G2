@@ -89,7 +89,7 @@
       <children>
             <Button fx:id="adminLogout3" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" text="🚪 Logout" />
             <Button fx:id="adminHome3" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" text=" 🏠 Home" />
-            <Label fx:id="adminBegruessungLabel1" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
+            <Label fx:id="adminBegruessungLabel3" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
                   <Font size="24.0" />
                </font>

@@ -633,6 +633,7 @@ public class Controller {
     
     public void adminSchuelerInitialize() {
         adminBegruessungLabel3.setText("Hallo, "+admin.getName()+"!");
+        
         schuelerIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
         schuelerVornameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
         schuelerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));

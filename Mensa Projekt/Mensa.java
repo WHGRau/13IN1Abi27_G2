@@ -14,6 +14,7 @@ public class Mensa extends JFrame {
   private String name;
   private String passwort;
   private int kID;
+
   // Ende Attribute
   public Mensa(){dbVerbinden();}
   public Mensa(int pID, String pVorname, String pName, String pPasswort) {
@@ -85,7 +86,7 @@ public class Mensa extends JFrame {
       //Überprüfen ob der Schüler genug auf dem Konto hat
       dbConnector.executeStatement("SELECT kontostand FROM konto WHERE uID = "+ schuelerID);
       qr = dbConnector.getCurrentQueryResult();
-      float kontostand = Float.parseFloat(qr.getData()[0][0]);
+      float kontostand = 1000;//Float.parseFloat(qr.getData()[0][0]);
       
       //Überprüfen ob es genug Artikel gibt
       dbConnector.executeStatement("SELECT Menge FROM produkte WHERE pID = "+ produktID);
@@ -104,9 +105,53 @@ public class Mensa extends JFrame {
       }
   }
   
-  public void geldAufladen(int uID, float pBetrag) {
+  
+  public ArrayList<String> statistik(){
+      ArrayList<String> rückgabe = new ArrayList<String>();
+      dbConnector.executeStatement("SELECT pId , Menge FROM bestellung ORDER BY pId");
+      QueryResult r = dbConnector.getCurrentQueryResult();
+      int pId = Integer.parseInt(r.getData()[0][0]);
+      dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE '"+pId+"'");
+      QueryResult na = dbConnector.getCurrentQueryResult();
+      String name = na.getData()[0][0];
+      int count = 0; 
+      for(int i = 0; i< r.getRowCount(); i++){
+        if(pId == Integer.parseInt(r.getData()[i][0]))
+            count = count + Integer.parseInt(r.getData()[i][1]);  
+        else{
+            rückgabe.add(name);
+            rückgabe.add(Integer.toString(count));
+            pId = Integer.parseInt(r.getData()[i][0]); 
+            count = 0 ;
+            count = count + Integer.parseInt(r.getData()[i][1]);
+            dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE '"+pId+"'");
+            QueryResult nam = dbConnector.getCurrentQueryResult();
+            name = nam.getData()[0][0];
+        }
+      }
+      rückgabe.add(name);
+      rückgabe.add(Integer.toString(count));
+      return rückgabe;
+    }
+   public void geldAufladen(int uID, float pBetrag) {
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
+      dbConnector.executeStatement("INSERT INTO bestellung(uID, Wert) VALUES('"+uID+"','"+pBetrag+"')");
+  }  
+  public ArrayList<String> getLager() {
+      ArrayList<String> lager = new ArrayList();
+      dbConnector.executeStatement("SELECT Name, Menge, Preis FROM produkte");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              lager.add(qr.getData()[x][y]);
+          }
+      }
+
+      return lager;
   }
+  public void preisaendern(float pBetrag , String pName){
+      dbConnector.executeStatement("UPDATE produkte SET preis = "+pBetrag+" WHERE name = '"+pName+"'");
+    }
   
   // Ende Methoden
   

@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class Nutzer extends JFrame {
@@ -54,6 +55,7 @@ public class Nutzer extends JFrame {
    else {
        System.out.println("Nutzer nicht gefunden oder falsches Passwort");
    }
+   checkPasswort(pPasswort);
  }
  
   public void kontoPinBearbeiten(int pAlterPin, int pNeuerPin) {
@@ -71,6 +73,48 @@ public class Nutzer extends JFrame {
     else {
        System.out.println("Konto nicht gefunden oder falsches Passwort");
     }
+  }
+  
+  public boolean checkPasswort(String pPasswort) {
+    boolean check = false;
+    String sql = ("SELECT passwort FROM nutzer WHERE uID LIKE '"+uID+"'");
+    dbConnector.executeStatement(sql);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    if(qr.getRowCount()==1){
+         if (pPasswort.equals(qr.getData()[0][0])){
+        check = true;
+      } 
+    }
+    return check;
+  }
+  
+  public int getID() {
+      return uID;
+  }
+  
+  public String getName() {
+      return vorname + " " + name;
+  }
+  
+  public String getKontostand() {
+        String sql = "SELECT kontostand from konto where uID = "+uID;
+        dbConnector.executeStatement(sql);
+        QueryResult qr = dbConnector.getCurrentQueryResult();
+        String kontostand = qr.getData()[0][0];
+        return kontostand + " €";
+  }
+  
+  public ArrayList<String> getKaeufe() {
+      ArrayList<String> kaeufe = new ArrayList();
+      dbConnector.executeStatement("SELECT bestellung.Datum, produkte.name, bestellung.menge, bestellung.wert FROM produkte, bestellung WHERE bestellung.uID = "+uID+" ORDER BY bestellung.Datum DESC");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              kaeufe.add(qr.getData()[x][y]);
+          }
+      }
+
+      return kaeufe;
   }
   // Ende Methoden
 }

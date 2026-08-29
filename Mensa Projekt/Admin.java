@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
 import java.util.Random;
-
+import java.util.ArrayList;
 
 public class Admin extends JFrame {
   // Anfang Attribute
@@ -84,6 +84,23 @@ public class Admin extends JFrame {
   public void schuelerLoeschen(int pID) {
       dbConnector.executeStatement("DELETE FROM nutzer WHERE uID = '"+pID+"';");
       dbConnector.executeStatement("DELETE FROM konto WHERE uID = '"+pID+"';");
+  }
+  
+  public String getName() {
+      return vorname + " " + name;
+  }
+  
+  public ArrayList<String> getSchueler() {
+      ArrayList<String> schueler = new ArrayList();
+      dbConnector.executeStatement("SELECT uID, vorname, name FROM nutzer WHERE Rolle LIKE 'Schüler' ORDER BY uID ASC");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              schueler.add(qr.getData()[x][y]);
+          }
+      }
+
+      return schueler;
   }
   // Ende Methoden
 

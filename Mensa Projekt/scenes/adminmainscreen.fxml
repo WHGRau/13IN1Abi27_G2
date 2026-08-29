@@ -38,7 +38,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -86,23 +85,15 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="14.0" prefHeight="36.0" prefWidth="78.0" text="Mensa">
+            <Button fx:id="adminLogout1" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" text="🚪 Logout" />
+            <Button fx:id="adminHome1" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text=" 🏠 Home" />
+            <Label fx:id="adminBegruessungLabel1" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
-                  <Font size="25.0" />
-               </font></Label>
-            <Button fx:id="buttonScene12" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="109.0" prefHeight="36.0" prefWidth="114.0" text="Aufladen">
-               <font>
-                  <Font size="25.0" />
+                  <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="userIDField2" layoutX="287.0" layoutY="163.0" promptText="Nutzer ID" />
-            <TextField fx:id="betragField" layoutX="287.0" layoutY="210.0" promptText="Betrag" />
-            <Button fx:id="aufladenKnopf" layoutX="287.0" layoutY="249.0" mnemonicParsing="false" onAction="#aufladen" prefHeight="25.0" prefWidth="149.0" text="Aufladen" />
-            <Button fx:id="homeButton2" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="aufladenButton2" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
-            <Button fx:id="hinzufuegenButton2" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
-            <Button fx:id="statistikButton2" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <Button fx:id="adminHinzufuegen1" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" onAction="#switchToAdminHinzufuegen" prefHeight="25.0" prefWidth="96.0" text="➕ Hinzufügen" />
+            <Button fx:id="adminSchueler1" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" text=" 👨‍💼Schüler" />
       </children>
     </AnchorPane>
   </children>

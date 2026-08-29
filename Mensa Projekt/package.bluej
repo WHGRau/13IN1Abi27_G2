@@ -2,6 +2,34 @@
 dependency1.from=Konto
 dependency1.to=DatabaseConnector
 dependency1.type=UsesDependency
+<<<<<<< HEAD
+dependency10.from=Mensa
+dependency10.to=QueryResult
+dependency10.type=UsesDependency
+dependency2.from=Admin
+dependency2.to=DatabaseConnector
+dependency2.type=UsesDependency
+dependency3.from=Admin
+dependency3.to=QueryResult
+dependency3.type=UsesDependency
+dependency4.from=Nutzer
+dependency4.to=DatabaseConnector
+dependency4.type=UsesDependency
+dependency5.from=Nutzer
+dependency5.to=QueryResult
+dependency5.type=UsesDependency
+dependency6.from=Login
+dependency6.to=DatabaseConnector
+dependency6.type=UsesDependency
+dependency7.from=Login
+dependency7.to=Mensa
+dependency7.type=UsesDependency
+dependency8.from=Login
+dependency8.to=QueryResult
+dependency8.type=UsesDependency
+dependency9.from=Mensa
+dependency9.to=DatabaseConnector
+=======
 dependency10.from=Login
 dependency10.to=Mensa
 dependency10.type=UsesDependency
@@ -49,22 +77,34 @@ dependency8.to=Nutzer
 dependency8.type=UsesDependency
 dependency9.from=Login
 dependency9.to=Admin
+>>>>>>> origin/main
 dependency9.type=UsesDependency
 editor.fx.0.height=1048
 editor.fx.0.width=1936
 editor.fx.0.x=-8
 editor.fx.0.y=-8
+<<<<<<< HEAD
+objectbench.height=137
+objectbench.width=1896
+=======
 objectbench.height=138
 objectbench.width=934
+>>>>>>> origin/main
 package.divider.horizontal=0.6
 package.divider.vertical=0.845580404685836
 package.editor.height=787
 package.editor.width=823
 package.editor.x=953
 package.editor.y=0
+<<<<<<< HEAD
+package.frame.height=1048
+package.frame.width=1936
+package.numDependencies=10
+=======
 package.frame.height=1039
 package.frame.width=974
 package.numDependencies=17
+>>>>>>> origin/main
 package.numTargets=8
 package.showExtends=true
 package.showUses=true

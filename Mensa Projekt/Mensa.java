@@ -14,7 +14,7 @@ public class Mensa extends JFrame {
   private String name;
   private String passwort;
   private int kID;
-  
+
   // Ende Attribute
   public Mensa(){dbVerbinden();}
   public Mensa(int pID, String pVorname, String pName, String pPasswort) {
@@ -39,20 +39,34 @@ public class Mensa extends JFrame {
     }
   }
   
-  public void produktAufnehmen(String pArtikel, int pAnzahl, float pPreis) {
+  public void neuespProduktHinzufuegen(String pArtikel, int pAnzahl, double pPreis, int pSoll) {
     //Überprüfen ob Produkt schon in der DB ist. Wenn ja -> Anzahl erhöhen. Wenn nein -> Produkt aufnehmen
     String sql = ("SELECT pID FROM produkte WHERE Name LIKE '"+pArtikel+"'");
     dbConnector.executeStatement(sql);
     QueryResult qr = dbConnector.getCurrentQueryResult();
     if(qr.getRowCount()==1){
-        dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
-        
+        //dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
+        System.out.println("Produkt schon vorhanden");
      }
     else {
        
-       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"')");
+       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge, Sollmenge,niedrig) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"','"+pSoll+"',0 )");
+       int a = istNiedrig(pArtikel);
+       dbConnector.executeStatement("UPDATE produkte SET niedrig = '"+a+"'WHERE Name LIKE '"+pArtikel+"'");
     }
-      
+    
+  }
+  public int istNiedrig(String pProdukt){
+    dbConnector.executeStatement("SELECT menge, Sollmenge FROM produkte WHERE Name LIKE '"+pProdukt+"'");
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    if(Integer.parseInt(qr.getData()[0][0]) <= Integer.parseInt(qr.getData()[0][1]) * 0.1){
+        return 1;
+    }
+    return 0;
+  }   
+  
+  public void produktLoeschen(String pArtikel){
+    dbConnector.executeStatement("DELETE FROM produkte WHERE Name LIKE '"+pArtikel+"'");
   }
   
   public void produktAufnehmen(String pArtikel, int pAnzahl) {

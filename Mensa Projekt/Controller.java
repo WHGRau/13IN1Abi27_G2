@@ -62,6 +62,9 @@ public class Controller {
     @FXML
     private Button verkaufenButton;
     
+    @FXML 
+    private Label verkaufLabel;
+    
     @FXML
     private TableView<ObservableList<String>> ProduktTable;
     
@@ -138,6 +141,22 @@ public class Controller {
     @FXML
     private Button buttonScene13;
     
+    @FXML
+    private TextField nameHinzufuegenTextfield;
+    
+    @FXML
+    private TextField anzahlHinzufuegenTextfield;
+      
+    @FXML
+    private TextField preisHinzufuegenTextfield;
+    
+    @FXML
+    private TextField sollHinzufuegenTextfield;
+    
+    @FXML
+    private Button prodHinzufuegenButton;
+    
+    
     //Elemente Mensa Statistik Screen
     
     @FXML
@@ -154,6 +173,16 @@ public class Controller {
     
     @FXML
     private Button buttonScene14;
+    
+    @FXML
+    private TableView<ObservableList<String>> statistikTable;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> produktStatistikColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> verkaufCountColumn;
+    
     
     //Elemente Nutzer Main Screen
     
@@ -398,6 +427,18 @@ public class Controller {
     }
     
     @FXML
+    public void produktHinzufuegen(ActionEvent event) {
+        if (mensa != null) {
+            String name = nameHinzufuegenTextfield.getText();
+            int anz = Integer.parseInt(anzahlHinzufuegenTextfield.getText());
+            double preis = Double.parseDouble(preisHinzufuegenTextfield.getText());
+            int soll = Integer.parseInt(sollHinzufuegenTextfield.getText());
+            
+            mensa.neuesProduktHinzufuegen(name, anz, preis, soll);
+        }
+    }
+    
+    @FXML
     public void verkaufEinfuegen(MouseEvent event) {
         String selectedID = Integer.toString( ProduktTable.getSelectionModel().getSelectedIndex());
         artikelIDField.setText(selectedID);
@@ -410,6 +451,23 @@ public class Controller {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    public void getStatistik() {
+        if (mensa!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = mensa.statistik();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i + 1< datenAusDb.size(); i += 2) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     
+                zeile.add(datenAusDb.get(i + 1)); 
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            statistikTable.setItems(tabelleDaten);
+        }
     }
     
     
@@ -439,6 +497,13 @@ public class Controller {
         stage.show();
     }
     
+    public void statistikInitialize() {
+
+        produktStatistikColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        verkaufCountColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        getStatistik();
+    }
+    
     @FXML
     public void switchToStatistik(ActionEvent event) throws IOException{
         
@@ -447,6 +512,7 @@ public class Controller {
         Controller neuerController = loader.getController();
         neuerController.setMensa(mensa);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.statistikInitialize();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -488,13 +554,13 @@ public class Controller {
             ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
             ArrayList<String> datenAusDb = nutzer.getKaeufe();
             // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
-            for (int i = 0; i < datenAusDb.size(); i += 4) {
+            for (int i = 0; i  < datenAusDb.size(); i += 4) {
                 ObservableList<String> zeile = FXCollections.observableArrayList();
                 
                 zeile.add(datenAusDb.get(i));     // Index 0: Datum
                 zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
                 zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
-                zeile.add(datenAusDb.get(i + 2)); // Index 3: Preis
+                zeile.add(datenAusDb.get(i + 3)); // Index 3: Preis
                 tabelleDaten.add(zeile);
             }
             // Der TableView übergeben

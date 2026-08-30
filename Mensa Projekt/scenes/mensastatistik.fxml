@@ -38,6 +38,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -90,7 +92,7 @@
                   <Font size="25.0" />
                </font></Label>
             <Button fx:id="buttonScene14" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="109.0" prefHeight="36.0" prefWidth="114.0" text="Statistik">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="58.0" prefHeight="36.0" prefWidth="114.0" text="Statistik">
                <font>
                   <Font size="25.0" />
                </font>
@@ -99,6 +101,12 @@
             <Button fx:id="aufladenButton4" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
             <Button fx:id="hinzufuegenButton4" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
             <Button fx:id="statistikButton4" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <TableView fx:id="statistikTable" layoutX="191.0" layoutY="101.0" prefHeight="200.0" prefWidth="247.0">
+              <columns>
+                <TableColumn fx:id="produktStatistikColumn" prefWidth="95.0" text="Produkt" />
+                <TableColumn fx:id="verkaufCountColumn" prefWidth="103.0" text="Anz. Verkäufe" />
+              </columns>
+            </TableView>
       </children>
     </AnchorPane>
   </children>

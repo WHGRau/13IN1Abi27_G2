@@ -106,7 +106,7 @@ public class Nutzer extends JFrame {
   
   public ArrayList<String> getKaeufe() {
       ArrayList<String> kaeufe = new ArrayList();
-      dbConnector.executeStatement("SELECT bestellung.Datum, produkte.name, bestellung.menge, bestellung.wert FROM produkte, bestellung WHERE bestellung.uID = "+uID+ " AND bestellung.pID = produkte.pID ORDER BY bestellung.Datum DESC");
+      dbConnector.executeStatement("SELECT bestellung.Datum, produkte.name, bestellung.menge, bestellung.wert, bestellung.typ FROM produkte, bestellung WHERE bestellung.uID = "+uID+ " AND bestellung.pID = produkte.pID ORDER BY bestellung.Datum DESC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {

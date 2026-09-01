@@ -104,7 +104,7 @@ public class Mensa extends JFrame {
           QueryResult ar = dbConnector.getCurrentQueryResult();
           int produktID = Integer.parseInt(ar.getData()[0][0]);
           LocalDateTime datum = LocalDateTime.now();
-          dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"')");
+          dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"', 'Kauf')");
       } else {
           System.out.println("Kontostand zu niedrig oder zu Bestand zu niedrig");
       }
@@ -138,10 +138,13 @@ public class Mensa extends JFrame {
       rückgabe.add(Integer.toString(count));
       return rückgabe;
     }
+    
    public void geldAufladen(int uID, float pBetrag) {
+      LocalDateTime datum = LocalDateTime.now();
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
-      dbConnector.executeStatement("INSERT INTO bestellung(uID, Wert) VALUES('"+uID+"','"+pBetrag+"')");
+      dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+pBetrag+"', ' 0', '"+datum+"', '"+uID+"', '0', 'Aufladen')");
   }  
+  
   public ArrayList<String> getLager() {
       ArrayList<String> lager = new ArrayList();
       dbConnector.executeStatement("SELECT Name, Menge, Preis FROM produkte");

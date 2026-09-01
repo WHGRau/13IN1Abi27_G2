@@ -15,7 +15,7 @@ public class Konto{
             sql = ("SELECT kontostand FROM konto WHERE uID LIKE '"+uID+"'");
             dbConnector.executeStatement(sql);
             qr = dbConnector.getCurrentQueryResult();
-            kontostand = Integer.parseInt(qr.getData()[0][0]);
+            kontostand = Float.parseFloat(qr.getData()[0][0]);
         } else {
            dbConnector.executeStatement("INSERT INTO konto(uID, Pin, Kontostand) VALUES('"+uID+"','0000','0')");
         }

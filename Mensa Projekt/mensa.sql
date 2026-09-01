@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Sep 2026 um 18:58
+-- Erstellungszeit: 01. Sep 2026 um 20:26
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -64,7 +64,9 @@ INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`, `Typ`) 
 (9, 1, 1, '2026-09-01 13:15:20', 21, 1, 'Kauf'),
 (11, 10, 0, '0000-00-00 00:00:00', 2, 0, 'Aufladen'),
 (12, 123, 0, '2026-09-01 18:02:54', 2, 0, 'Aufladen'),
-(13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Kauf');
+(13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Kauf'),
+(14, 1, 1, '2026-09-01 19:51:02', 2, 3, 'Kauf'),
+(15, 1, 1, '2026-09-01 19:51:03', 2, 3, 'Kauf');
 
 -- --------------------------------------------------------
 
@@ -84,14 +86,16 @@ CREATE TABLE `konto` (
 --
 
 INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
-(1, 2, 0, 259.6),
+(1, 2, 0, 257.2),
 (4, 24, 1234, 25.5),
 (5, 25, 4321, 28),
 (6, 26, 1111, 0),
 (7, 27, 2222, 5.5),
 (8, 28, 5555, 42.1),
 (9, 29, 9876, 12),
-(10, 30, 3333, 12.3);
+(10, 30, 3333, 12.3),
+(14, 34, 0, 0),
+(15, 35, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -101,6 +105,7 @@ INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
 
 CREATE TABLE `nutzer` (
   `uID` int(11) NOT NULL,
+  `username` text DEFAULT NULL,
   `Vorname` text NOT NULL,
   `Name` text NOT NULL,
   `Passwort` text NOT NULL,
@@ -111,27 +116,29 @@ CREATE TABLE `nutzer` (
 -- Daten für Tabelle `nutzer`
 --
 
-INSERT INTO `nutzer` (`uID`, `Vorname`, `Name`, `Passwort`, `Rolle`) VALUES
-(1, 'Julian', 'Kurz', '123abc', 'Admin'),
-(2, 'Paul', 'Schäfer', '123', 'Schüler'),
-(3, 'Jan', 'Stüttger', '123', 'Mensa'),
-(14, 'Laura', 'Müller', 'adminPass1', 'Admin'),
-(15, 'Markus', 'Schmidt', 'adminPass2', 'Admin'),
-(16, 'Sarah', 'Weber', 'adminPass3', 'Admin'),
-(17, 'Michael', 'Wagner', 'adminPass4', 'Admin'),
-(18, 'Elena', 'Fischer', 'adminPass5', 'Admin'),
-(19, 'Brigitte', 'Becker', 'mensaPass1', 'Mensa'),
-(20, 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa'),
-(21, 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa'),
-(22, 'Klaus', 'Koch', 'mensaPass4', 'Mensa'),
-(23, 'Andrea', 'Bauer', 'mensaPass5', 'Mensa'),
-(24, 'Maximilian', 'Richter', '123', 'Schüler'),
-(25, 'Sophie', 'Klein', 'schueler123', 'Schüler'),
-(26, 'Leon', 'Wolf', 'schueler123', 'Schüler'),
-(27, 'Emma', 'Neumann', 'schueler123', 'Schüler'),
-(28, 'Lukas', 'Schwarz', 'schueler123', 'Schüler'),
-(29, 'Mia', 'Zimmermann', 'schueler123', 'Schüler'),
-(30, 'Felix', 'Braun', 'schueler123', 'Schüler');
+INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Passwort`, `Rolle`) VALUES
+(1, 'julcool', 'Julian', 'Kurz', '123abc', 'Admin'),
+(2, 'pul', 'Paul', 'Schäfer', '123', 'Schüler'),
+(3, '2tast', 'Jan', 'Stüttger', '123', 'Mensa'),
+(14, '', 'Laura', 'Müller', 'adminPass1', 'Admin'),
+(15, '', 'Markus', 'Schmidt', 'adminPass2', 'Admin'),
+(16, '', 'Sarah', 'Weber', 'adminPass3', 'Admin'),
+(17, '', 'Michael', 'Wagner', 'adminPass4', 'Admin'),
+(18, '', 'Elena', 'Fischer', 'adminPass5', 'Admin'),
+(19, '', 'Brigitte', 'Becker', 'mensaPass1', 'Mensa'),
+(20, '', 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa'),
+(21, '', 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa'),
+(22, '', 'Klaus', 'Koch', 'mensaPass4', 'Mensa'),
+(23, '', 'Andrea', 'Bauer', 'mensaPass5', 'Mensa'),
+(24, '', 'Maximilian', 'Richter', '123', 'Schüler'),
+(25, '', 'Sophie', 'Klein', 'schueler123', 'Schüler'),
+(26, '', 'Leon', 'Wolf', 'schueler123', 'Schüler'),
+(27, '', 'Emma', 'Neumann', 'schueler123', 'Schüler'),
+(28, '', 'Lukas', 'Schwarz', 'schueler123', 'Schüler'),
+(29, '', 'Mia', 'Zimmermann', 'schueler123', 'Schüler'),
+(30, '', 'Felix', 'Braun', 'schueler123', 'Schüler'),
+(34, 'bennet34', 'Benjamin', 'Netanyahu', 'XGAFs', 'Schüler'),
+(35, 'johsch35', 'John', 'Schueler', 'fyoVY', 'Schüler');
 
 -- --------------------------------------------------------
 
@@ -155,7 +162,7 @@ CREATE TABLE `produkte` (
 INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) VALUES
 (1, 'Snickers', 1, 70, 0, 0),
 (2, 'Mars', 2, 5, 101, 1),
-(3, 'Twix', 1.2, 45, 50, 1),
+(3, 'Twix', 1.2, 43, 50, 1),
 (4, 'Bounty', 1.2, 60, 50, 0),
 (5, 'Cola 0.5l', 1.5, 120, 100, 0),
 (6, 'Fanta 0.5l', 1.5, 15, 100, 1),
@@ -226,19 +233,19 @@ ALTER TABLE `ankunft`
 -- AUTO_INCREMENT für Tabelle `bestellung`
 --
 ALTER TABLE `bestellung`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT für Tabelle `konto`
 --
 ALTER TABLE `konto`
-  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT für Tabelle `produkte`

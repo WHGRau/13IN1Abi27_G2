@@ -371,9 +371,9 @@ public class Controller {
     @FXML
     void login(ActionEvent event) {
         
-        int uID = Integer.parseInt(idField.getText());
+        String username = idField.getText();
         String passwort        = passwortField.getText(); 
-        Object loginErgebnis = login.login(uID, passwort);
+        Object loginErgebnis = login.login(username, passwort);
     
         if (loginErgebnis instanceof Mensa){
             mensa = (Mensa) loginErgebnis;

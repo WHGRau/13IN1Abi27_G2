@@ -13,15 +13,17 @@ public class Nutzer extends JFrame {
   private String vorname;
   private String name;
   private String passwort;
+  private String username;
   private int kID;
   private Konto konto;
   
   // Ende Attribute
   
-  public Nutzer(int pID, String pVorname, String pName, String pPasswort) {
+  public Nutzer(int pID , String pUsername, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
     super("");
     uID = pID;
+    username = pUsername;
     vorname = pVorname;
     name = pName;
     passwort = pPasswort;

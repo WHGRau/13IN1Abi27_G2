@@ -20,47 +20,51 @@ public class Login extends JFrame {
     super("");
    
     dbVerbinden();
+    
   }
   
   // Anfang Methoden
-  public Object login(int pID, String pPasswort) { 
+  public Object login(String username, String pPasswort) { 
       dbVerbinden();
-      dbConnector.executeStatement("SELECT Passwort FROM Nutzer WHERE uID LIKE '"+pID+"'");
+      dbConnector.executeStatement("SELECT uID FROM Nutzer WHERE username LIKE '"+username+"'");
+      QueryResult u = dbConnector.getCurrentQueryResult();
+      int uID = Integer.parseInt(u.getData()[0][0]);
+      dbConnector.executeStatement("SELECT Passwort FROM Nutzer WHERE uID LIKE '"+uID+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
       String passwort = r.getData()[0][0];
       if(passwort.equals(pPasswort)) {
           System.out.println("Anmeldedaten richtig!");
-          dbConnector.executeStatement("SELECT Rolle FROM Nutzer WHERE uID LIKE '"+pID+"'");
+          dbConnector.executeStatement("SELECT Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
           QueryResult s = dbConnector.getCurrentQueryResult();
           String rolle = s.getData()[0][0];
           if (rolle.equals("Schüler")) {
               System.out.println("Schüler");
-              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+pID+"'");
+              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
               QueryResult a = dbConnector.getCurrentQueryResult();
               String vorname = a.getData()[0][1];
               String name = a.getData()[0][2];
               rolle = a.getData()[0][3];
-              aktSchueler = erstelleSchueler(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
+              aktSchueler = erstelleSchueler(Integer.parseInt(a.getData()[0][0]),username, vorname, name, rolle );
               return aktSchueler;
           }
           else if (rolle.equals("Admin")) {
               System.out.println("Admin");
-              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+pID+"'");
+              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
               QueryResult a = dbConnector.getCurrentQueryResult();
               String vorname = a.getData()[0][1];
               String name = a.getData()[0][2];
               rolle = a.getData()[0][3];
-              aktAdmin = erstelleAdmin(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
+              aktAdmin = erstelleAdmin(Integer.parseInt(a.getData()[0][0]),username, vorname, name, rolle );
               return aktAdmin;
           }
           else if (rolle.equals("Mensa")) {
               System.out.println("Mensa");
-              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+pID+"'");
+              dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
               QueryResult a = dbConnector.getCurrentQueryResult();
               String vorname = a.getData()[0][1];
               String name = a.getData()[0][2];
               rolle = a.getData()[0][3];
-              aktMensa = erstelleMensa(Integer.parseInt(a.getData()[0][0]), vorname, name, rolle );
+              aktMensa = erstelleMensa(Integer.parseInt(a.getData()[0][0]),username, vorname, name, rolle );
               return aktMensa;
           }
           else {
@@ -83,18 +87,18 @@ public class Login extends JFrame {
     }
   }
   
-  private Nutzer erstelleSchueler(int pID, String pVorname, String pNachname, String pPasswort) {
-      Nutzer schueler = new Nutzer(pID, pVorname, pNachname, pPasswort);
+  private Nutzer erstelleSchueler(int uID , String username, String pVorname, String pNachname, String pPasswort) {
+      Nutzer schueler = new Nutzer(uID , username, pVorname, pNachname, pPasswort);
       return schueler;
   }
   
-  private Admin erstelleAdmin(int pID, String pVorname, String pName, String pPasswort) {
-      Admin admin = new Admin(pID, pVorname, pName, pPasswort); 
+  private Admin erstelleAdmin(int uID ,String username, String pVorname, String pName, String pPasswort) {
+      Admin admin = new Admin(uID , username, pVorname, pName, pPasswort); 
       return admin;
   }
   
-  private Mensa erstelleMensa(int pID, String pVorname, String pName, String pPasswort) {
-      Mensa mensa = new Mensa(pID, pVorname, pName, pPasswort); 
+  private Mensa erstelleMensa(int uID ,String username, String pVorname, String pName, String pPasswort) {
+      Mensa mensa = new Mensa(uID , username, pVorname, pName, pPasswort); 
       return mensa;
   }
   // Ende Methoden

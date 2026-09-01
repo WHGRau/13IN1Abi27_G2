@@ -17,7 +17,7 @@ public class Mensa extends JFrame {
 
   // Ende Attribute
   public Mensa(){dbVerbinden();}
-  public Mensa(int pID, String pVorname, String pName, String pPasswort) {
+  public Mensa(int pID, String username , String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
     super("");
     uID = pID;

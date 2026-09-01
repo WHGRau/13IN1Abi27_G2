@@ -160,6 +160,24 @@ public class Mensa extends JFrame {
   public void preisaendern(float pBetrag , String pName){
       dbConnector.executeStatement("UPDATE produkte SET preis = "+pBetrag+" WHERE name = '"+pName+"'");
     }
+  public ArrayList<String> bestandMesser(){
+    ArrayList<String> rückgabe = new ArrayList<String>();
+    dbConnector.executeStatement("SELECT Name FROM produkte");
+    QueryResult r = dbConnector.getCurrentQueryResult();
+
+    if(r == null){
+        return rückgabe;
+    }
+
+    for(int i = 0; i < r.getRowCount(); i++){
+        String name = r.getData()[i][0];
+        if(istNiedrig(name) == 1){
+            rückgabe.add(name);
+        }
+    }
+
+    return rückgabe;
+   }
   
   // Ende Methoden
   

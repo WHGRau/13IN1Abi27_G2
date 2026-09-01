@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 24. Aug 2026 um 20:49
--- Server-Version: 10.4.32-MariaDB
--- PHP-Version: 8.2.12
+-- Erstellungszeit: 01. Sep 2026 um 10:02
+-- Server-Version: 10.4.28-MariaDB
+-- PHP-Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,6 +49,14 @@ CREATE TABLE `bestellung` (
   `pID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Daten für Tabelle `bestellung`
+--
+
+INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`) VALUES
+(3, 10, 10, '2026-09-01 09:56:15', 2, 1),
+(4, 10, 5, '2026-09-01 09:57:26', 2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -67,7 +75,7 @@ CREATE TABLE `konto` (
 --
 
 INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
-(1, 2, 0, 0);
+(1, 2, 0, -20);
 
 -- --------------------------------------------------------
 
@@ -89,8 +97,8 @@ CREATE TABLE `nutzer` (
 
 INSERT INTO `nutzer` (`uID`, `Vorname`, `Name`, `Passwort`, `Rolle`) VALUES
 (1, 'Julian', 'Kurz', '123abc', 'Admin'),
-(2, 'Paul', 'Schäfer', 'JJhsq', 'Schüler'),
-(3, 'Jan', 'Stüttger', 'RcXad', 'Mensa');
+(2, 'Paul', 'Schäfer', '123', 'Schüler'),
+(3, 'Jan', 'Stüttger', '123', 'Mensa');
 
 -- --------------------------------------------------------
 
@@ -102,15 +110,18 @@ CREATE TABLE `produkte` (
   `pID` int(11) NOT NULL,
   `Name` text NOT NULL,
   `Preis` float NOT NULL,
-  `Menge` int(11) NOT NULL
+  `Menge` int(11) NOT NULL,
+  `Sollwert` int(11) NOT NULL,
+  `niedrig` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `produkte`
 --
 
-INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`) VALUES
-(1, 'Snickers', 1, 85);
+INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) VALUES
+(1, 'Snickers', 1, 75, 0, 0),
+(2, 'Mars', 2, 5, 101, 1);
 
 --
 -- Indizes der exportierten Tabellen
@@ -162,7 +173,7 @@ ALTER TABLE `ankunft`
 -- AUTO_INCREMENT für Tabelle `bestellung`
 --
 ALTER TABLE `bestellung`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `konto`
@@ -180,7 +191,7 @@ ALTER TABLE `nutzer`
 -- AUTO_INCREMENT für Tabelle `produkte`
 --
 ALTER TABLE `produkte`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints der exportierten Tabellen

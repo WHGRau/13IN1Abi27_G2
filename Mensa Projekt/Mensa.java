@@ -59,7 +59,7 @@ public class Mensa extends JFrame {
     
   }
   public int istNiedrig(String pProdukt){
-    dbConnector.executeStatement("SELECT menge, Sollmenge FROM produkte WHERE Name LIKE '"+pProdukt+"'");
+    dbConnector.executeStatement("SELECT menge, Sollwert FROM produkte WHERE Name LIKE '"+pProdukt+"'");
     QueryResult qr = dbConnector.getCurrentQueryResult();
     if(Integer.parseInt(qr.getData()[0][0]) <= Integer.parseInt(qr.getData()[0][1]) * 0.1){
         return 1;

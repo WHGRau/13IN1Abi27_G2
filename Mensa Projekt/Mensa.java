@@ -78,17 +78,23 @@ public class Mensa extends JFrame {
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
   }
   
-  public void verkaufen(int produktID, int schuelerID, int pMenge) {
+  public void verkaufen(int produktID, String chipID, int pMenge) {
+      //user Id von Chip auslesen
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Chip LIKE "+chipID);
+      QueryResult user = dbConnector.getCurrentQueryResult();
+      int schuelerID = Integer.parseInt(user.getData()[0][0]);
+      
       //Geld vom Konto abziehen
+      
       dbConnector.executeStatement("SELECT preis FROM produkte WHERE pID LIKE "+produktID);
       QueryResult qr = dbConnector.getCurrentQueryResult();
       float preis = Float.parseFloat(qr.getData()[0][0]);
       float ges = pMenge * preis;
       
       //Überprüfen ob der Schüler genug auf dem Konto hat
-      dbConnector.executeStatement("SELECT kontostand FROM konto WHERE uID = "+ schuelerID);
+      dbConnector.executeStatement("SELECT kontostand FROM konto WHERE Chip Like "+ chipID);
       qr = dbConnector.getCurrentQueryResult();
-      float kontostand = 1000;//Float.parseFloat(qr.getData()[0][0]);
+      float kontostand = Float.parseFloat(qr.getData()[0][0]);
       
       //Überprüfen ob es genug Artikel gibt
       dbConnector.executeStatement("SELECT Menge FROM produkte WHERE pID = "+ produktID);
@@ -96,13 +102,14 @@ public class Mensa extends JFrame {
       int menge = Integer.parseInt(qr.getData()[0][0]);
       
       if (kontostand >= ges && pMenge < menge) {
-          dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID ="+schuelerID);
+          dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID Like"+ schuelerID);
           //Produktmenge verringern
           dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE pID = " + produktID);
           //In Bestell Tabelle einfügen
           LocalDateTime datum = LocalDateTime.now();
           dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"')");
       } else {
+          if(kontostand < ges)
           System.out.println("Kontostand zu niedrig oder zu Bestand zu niedrig");
       }
   }

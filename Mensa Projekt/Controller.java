@@ -407,10 +407,10 @@ public class Controller {
     public void verkaufen(ActionEvent event) {
         if (mensa != null) {
             int pID = Integer.parseInt(artikelIDField.getText());
-            int uID = Integer.parseInt(userIDField.getText());
+            String chip = userIDField.getText();
             int menge = Integer.parseInt(mengeField.getText());
             
-            mensa.verkaufen(pID, uID, menge);
+            mensa.verkaufen(pID, chip, menge);
             zeigeLager();
         }
     }

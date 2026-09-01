@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Sep 2026 um 10:02
+-- Erstellungszeit: 01. Sep 2026 um 11:19
 -- Server-Version: 10.4.28-MariaDB
 -- PHP-Version: 8.2.4
 
@@ -75,7 +75,7 @@ CREATE TABLE `konto` (
 --
 
 INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
-(1, 2, 0, -20);
+(1, 2, 0, 1000);
 
 -- --------------------------------------------------------
 
@@ -88,17 +88,18 @@ CREATE TABLE `nutzer` (
   `Vorname` text NOT NULL,
   `Name` text NOT NULL,
   `Passwort` text NOT NULL,
-  `Rolle` text NOT NULL
+  `Rolle` text NOT NULL,
+  `Chip` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `nutzer`
 --
 
-INSERT INTO `nutzer` (`uID`, `Vorname`, `Name`, `Passwort`, `Rolle`) VALUES
-(1, 'Julian', 'Kurz', '123abc', 'Admin'),
-(2, 'Paul', 'Schäfer', '123', 'Schüler'),
-(3, 'Jan', 'Stüttger', '123', 'Mensa');
+INSERT INTO `nutzer` (`uID`, `Vorname`, `Name`, `Passwort`, `Rolle`, `Chip`) VALUES
+(1, 'Julian', 'Kurz', '123abc', 'Admin', '0'),
+(2, 'Paul', 'Schäfer', '123', 'Schüler', '0009831976'),
+(3, 'Jan', 'Stüttger', '123', 'Mensa', '0');
 
 -- --------------------------------------------------------
 

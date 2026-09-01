@@ -1,4 +1,7 @@
- 
+// email import
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import java.util.Properties;
 
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -829,6 +832,27 @@ public class Controller {
             }
             // Der TableView übergeben
             schuelerTable.setItems(tabelleDaten);
+        }
+    }
+    
+    //E-mail stuff
+    @FXML
+    public void onSendenGeklickt() {
+        EmailService emailService = new EmailService(
+            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
+            "jspv nbmu iwxr jpxi"           // euer App-Passwort
+        );
+    
+        try {
+            emailService.emailSenden(
+                "joshiwinner659@gmail.com",
+                "Testbetreff",
+                "Hallo, das ist eine Testnachricht!"
+            );
+            System.out.println("E-Mail erfolgreich gesendet!");
+        } catch (MessagingException e) {
+            System.err.println("Fehler beim Senden: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

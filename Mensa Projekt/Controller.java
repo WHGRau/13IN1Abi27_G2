@@ -444,11 +444,10 @@ public class Controller {
     @FXML
     public void verkaufen(ActionEvent event) {
         if (mensa != null) {
-            int pID = Integer.parseInt(artikelIDField.getText());
             int uID = Integer.parseInt(userIDField.getText());
             int menge = Integer.parseInt(mengeField.getText());
             
-            mensa.verkaufen(pID, uID, menge);
+            mensa.verkaufen(artikelIDField.getText(), uID, menge);
             zeigeLager();
         }
     }
@@ -478,8 +477,14 @@ public class Controller {
     
     @FXML
     public void verkaufEinfuegen(MouseEvent event) {
-        String selectedID = Integer.toString( ProduktTable.getSelectionModel().getSelectedIndex());
-        artikelIDField.setText(selectedID);
+        ObservableList<String> selectedRow = ProduktTable.getSelectionModel().getSelectedItem();
+        
+        if (selectedRow != null) {
+            String produktName = selectedRow.get(0);
+            System.out.println(produktName);
+            artikelIDField.setText(produktName);
+        }
+        
     }
     
     @FXML
@@ -495,7 +500,8 @@ public class Controller {
         }
         
     }
-
+    
+    
     @FXML
     public void switchtoScene1(ActionEvent event) throws IOException{      
         Parent root = FXMLLoader.load(getClass().getResource("scenes/scene1.fxml"));

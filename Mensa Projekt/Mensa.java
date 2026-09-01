@@ -78,9 +78,9 @@ public class Mensa extends JFrame {
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
   }
   
-  public void verkaufen(int produktID, int schuelerID, int pMenge) {
+  public void verkaufen(String produktName, int schuelerID, int pMenge) {
       //Geld vom Konto abziehen
-      dbConnector.executeStatement("SELECT preis FROM produkte WHERE pID LIKE "+produktID);
+      dbConnector.executeStatement("SELECT preis FROM produkte WHERE name LIKE '"+produktName+"'");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       float preis = Float.parseFloat(qr.getData()[0][0]);
       float ges = pMenge * preis;
@@ -91,15 +91,18 @@ public class Mensa extends JFrame {
       float kontostand = 1000;//Float.parseFloat(qr.getData()[0][0]);
       
       //Überprüfen ob es genug Artikel gibt
-      dbConnector.executeStatement("SELECT Menge FROM produkte WHERE pID = "+ produktID);
+      dbConnector.executeStatement("SELECT Menge FROM produkte WHERE name LIKE '"+produktName+"'");
       qr = dbConnector.getCurrentQueryResult();
       int menge = Integer.parseInt(qr.getData()[0][0]);
       
       if (kontostand >= ges && pMenge < menge) {
           dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID ="+schuelerID);
           //Produktmenge verringern
-          dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE pID = " + produktID);
+          dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE name LIKE '"+produktName+"'");
           //In Bestell Tabelle einfügen
+          dbConnector.executeStatement("SELECT pId FROM produkte WHERE name LIKE '"+produktName+"'");
+          QueryResult ar = dbConnector.getCurrentQueryResult();
+          int produktID = Integer.parseInt(ar.getData()[0][0]);
           LocalDateTime datum = LocalDateTime.now();
           dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"')");
       } else {

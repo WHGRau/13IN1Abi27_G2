@@ -126,7 +126,19 @@ public class Controller {
     
     //Elemente Mensa Hinzufügen Screen
     
-     @FXML
+    @FXML
+    private TableView<ObservableList<String>> ProduktTable2;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> ProduktColumn2;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> MengeColumn2;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> PreisColumn2;
+    
+    @FXML
     private Button homeButton3;
     
     @FXML
@@ -339,6 +351,13 @@ public class Controller {
         PreisColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
         zeigeLager();
     }
+    
+    public void hinzufuegenInitialize(){
+        ProduktColumn2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        MengeColumn2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        PreisColumn2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        zeigeLager2();
+    }
 
     @FXML
     void login(ActionEvent event) {
@@ -404,13 +423,31 @@ public class Controller {
     }
     
     @FXML
+    public void zeigeLager2() {
+        if (mensa != null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = mensa.getLager();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 3) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Name
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Preis
+                zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            ProduktTable2.setItems(tabelleDaten);
+        }
+    }
+    
+    @FXML
     public void verkaufen(ActionEvent event) {
         if (mensa != null) {
-            int pID = Integer.parseInt(artikelIDField.getText());
             int uID = Integer.parseInt(userIDField.getText());
             int menge = Integer.parseInt(mengeField.getText());
             
-            mensa.verkaufen(pID, uID, menge);
+            mensa.verkaufen(artikelIDField.getText(), uID, menge);
             zeigeLager();
         }
     }
@@ -418,7 +455,6 @@ public class Controller {
     @FXML
     public void aufladen(ActionEvent event) {
         if (mensa != null) {
-            System.out.println("hey");
             int uID = Integer.parseInt(userIDField2.getText());
             float betrag = Float.parseFloat(betragField.getText());
             
@@ -435,15 +471,37 @@ public class Controller {
             int soll = Integer.parseInt(sollHinzufuegenTextfield.getText());
             
             mensa.neuesProduktHinzufuegen(name, anz, preis, soll);
+            hinzufuegenInitialize();
         }
     }
     
     @FXML
     public void verkaufEinfuegen(MouseEvent event) {
-        String selectedID = Integer.toString( ProduktTable.getSelectionModel().getSelectedIndex());
-        artikelIDField.setText(selectedID);
+        ObservableList<String> selectedRow = ProduktTable.getSelectionModel().getSelectedItem();
+        
+        if (selectedRow != null) {
+            String produktName = selectedRow.get(0);
+            System.out.println(produktName);
+            artikelIDField.setText(produktName);
+        }
+        
     }
-
+    
+    @FXML
+    public void hinzuEinfuegen(MouseEvent event) {
+        ObservableList<String> selectedRow = ProduktTable2.getSelectionModel().getSelectedItem();
+        
+        if (selectedRow != null) {
+            String produktName = selectedRow.get(0);
+            String produktPreis = selectedRow.get(2);
+            System.out.println(produktName);
+            nameHinzufuegenTextfield.setText(produktName);
+            preisHinzufuegenTextfield.setText(produktPreis);
+        }
+        
+    }
+    
+    
     @FXML
     public void switchtoScene1(ActionEvent event) throws IOException{      
         Parent root = FXMLLoader.load(getClass().getResource("scenes/scene1.fxml"));
@@ -485,12 +543,17 @@ public class Controller {
     }
     
     @FXML
-    public void switchToHinzufuegen(ActionEvent event) throws IOException{
-        
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensahinzufuegen.fxml"));
+    public void switchToHinzufuegen(ActionEvent event) throws IOException {
+        System.out.println("switch");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensahinzufuegen.fxml"));
         Parent root = loader.load();
         Controller neuerController = loader.getController();
         neuerController.setMensa(mensa);
+        
+        // VORHER:  hinzufuegenInitialize();
+        // NACHHER:
+        neuerController.hinzufuegenInitialize(); // <-- Hier "neuerController." davor setzen!
+        
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

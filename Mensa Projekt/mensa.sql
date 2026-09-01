@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Sep 2026 um 20:26
+-- Erstellungszeit: 01. Sep 2026 um 22:19
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -120,23 +120,23 @@ INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Passwort`, `Rolle`)
 (1, 'julcool', 'Julian', 'Kurz', '123abc', 'Admin'),
 (2, 'pul', 'Paul', 'Schäfer', '123', 'Schüler'),
 (3, '2tast', 'Jan', 'Stüttger', '123', 'Mensa'),
-(14, '', 'Laura', 'Müller', 'adminPass1', 'Admin'),
-(15, '', 'Markus', 'Schmidt', 'adminPass2', 'Admin'),
-(16, '', 'Sarah', 'Weber', 'adminPass3', 'Admin'),
-(17, '', 'Michael', 'Wagner', 'adminPass4', 'Admin'),
-(18, '', 'Elena', 'Fischer', 'adminPass5', 'Admin'),
-(19, '', 'Brigitte', 'Becker', 'mensaPass1', 'Mensa'),
-(20, '', 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa'),
-(21, '', 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa'),
-(22, '', 'Klaus', 'Koch', 'mensaPass4', 'Mensa'),
-(23, '', 'Andrea', 'Bauer', 'mensaPass5', 'Mensa'),
-(24, '', 'Maximilian', 'Richter', '123', 'Schüler'),
-(25, '', 'Sophie', 'Klein', 'schueler123', 'Schüler'),
-(26, '', 'Leon', 'Wolf', 'schueler123', 'Schüler'),
-(27, '', 'Emma', 'Neumann', 'schueler123', 'Schüler'),
-(28, '', 'Lukas', 'Schwarz', 'schueler123', 'Schüler'),
-(29, '', 'Mia', 'Zimmermann', 'schueler123', 'Schüler'),
-(30, '', 'Felix', 'Braun', 'schueler123', 'Schüler'),
+(14, 'laumül14', 'Laura', 'Müller', 'adminPass1', 'Admin'),
+(15, 'marsch15', 'Markus', 'Schmidt', 'adminPass2', 'Admin'),
+(16, 'sarweb16', 'Sarah', 'Weber', 'adminPass3', 'Admin'),
+(17, 'micwag17', 'Michael', 'Wagner', 'adminPass4', 'Admin'),
+(18, 'elefis18', 'Elena', 'Fischer', 'adminPass5', 'Admin'),
+(19, 'bribec19', 'Brigitte', 'Becker', 'mensaPass1', 'Mensa'),
+(20, 'thohof20', 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa'),
+(21, 'sabsch21', 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa'),
+(22, 'klakoc22', 'Klaus', 'Koch', 'mensaPass4', 'Mensa'),
+(23, 'andbau23', 'Andrea', 'Bauer', 'mensaPass5', 'Mensa'),
+(24, 'maxric24', 'Maximilian', 'Richter', '123', 'Schüler'),
+(25, 'sopkle25', 'Sophie', 'Klein', 'schueler123', 'Schüler'),
+(26, 'leowol26', 'Leon', 'Wolf', 'schueler123', 'Schüler'),
+(27, 'emmneu27', 'Emma', 'Neumann', 'schueler123', 'Schüler'),
+(28, 'luksch28', 'Lukas', 'Schwarz', 'schueler123', 'Schüler'),
+(29, 'miazim29', 'Mia', 'Zimmermann', 'schueler123', 'Schüler'),
+(30, 'felbra30', 'Felix', 'Braun', 'schueler123', 'Schüler'),
 (34, 'bennet34', 'Benjamin', 'Netanyahu', 'XGAFs', 'Schüler'),
 (35, 'johsch35', 'John', 'Schueler', 'fyoVY', 'Schüler');
 

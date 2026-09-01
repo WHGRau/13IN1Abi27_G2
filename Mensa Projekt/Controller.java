@@ -216,6 +216,9 @@ public class Controller {
     @FXML
     private TableColumn<ObservableList<String>, String> mengeColumn1;
     
+    @FXML
+    private TableColumn<ObservableList<String>, String> typColumn;
+    
     //Elemente Nutzer Passwort Ändern
     
      @FXML
@@ -321,6 +324,12 @@ public class Controller {
     
     @FXML
     private TableColumn<ObservableList<String>, String> schuelerNameColumn;
+    
+    @FXML
+    private Button schuelerLoeschButton;
+    
+    @FXML
+    private TextField loeschIdTextfield;
  
     // Verbindung vom Controller zum Model   
     private Login login;
@@ -418,7 +427,6 @@ public class Controller {
     @FXML
     public void aufladen(ActionEvent event) {
         if (mensa != null) {
-            System.out.println("hey");
             int uID = Integer.parseInt(userIDField2.getText());
             float betrag = Float.parseFloat(betragField.getText());
             
@@ -554,13 +562,14 @@ public class Controller {
             ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
             ArrayList<String> datenAusDb = nutzer.getKaeufe();
             // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
-            for (int i = 0; i  < datenAusDb.size(); i += 4) {
+            for (int i = 0; i  < datenAusDb.size(); i += 5) {
                 ObservableList<String> zeile = FXCollections.observableArrayList();
                 
                 zeile.add(datenAusDb.get(i));     // Index 0: Datum
                 zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
                 zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
                 zeile.add(datenAusDb.get(i + 3)); // Index 3: Preis
+                zeile.add(datenAusDb.get(i + 4)); // Index 4: Typ
                 tabelleDaten.add(zeile);
             }
             // Der TableView übergeben
@@ -576,6 +585,7 @@ public class Controller {
         productColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
         mengeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
         preisColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        typColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
         zeigeKaeufe();
     }
     
@@ -722,6 +732,21 @@ public class Controller {
             addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         } else {
             addSchuelerLabel.setText("Die Person konnte nicht hinzugefügt werden!");
+        }
+    }
+    
+    public void adminSchuelerLoeschen() {
+        int uID = Integer.parseInt(loeschIdTextfield.getText());
+        admin.schuelerLoeschen(uID);
+        adminSchuelerInitialize();
+    }
+    
+     @FXML
+    public void loeschIDEinfuegen(MouseEvent event) {
+        ObservableList<String> selectedRow = schuelerTable.getSelectionModel().getSelectedItem();
+        if (selectedRow != null) {
+            String schuelerID = selectedRow.get(0);
+            loeschIdTextfield.setText(schuelerID);
         }
     }
     

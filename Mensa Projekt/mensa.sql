@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Sep 2026 um 10:02
--- Server-Version: 10.4.28-MariaDB
--- PHP-Version: 8.2.4
+-- Erstellungszeit: 01. Sep 2026 um 18:58
+-- Server-Version: 10.4.32-MariaDB
+-- PHP-Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,16 +46,25 @@ CREATE TABLE `bestellung` (
   `Menge` int(11) NOT NULL,
   `Datum` datetime NOT NULL DEFAULT current_timestamp(),
   `uID` int(11) NOT NULL,
-  `pID` int(11) NOT NULL
+  `pID` int(11) NOT NULL,
+  `Typ` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `bestellung`
 --
 
-INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`) VALUES
-(3, 10, 10, '2026-09-01 09:56:15', 2, 1),
-(4, 10, 5, '2026-09-01 09:57:26', 2, 2);
+INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`, `Typ`) VALUES
+(3, 10, 10, '2026-09-01 09:56:15', 2, 1, 'Kauf'),
+(4, 10, 5, '2026-09-01 09:57:26', 2, 2, 'Kauf'),
+(5, 3, 2, '2026-09-01 10:15:00', 14, 5, 'Kauf'),
+(6, 5, 2, '2026-09-01 11:30:12', 15, 11, 'Kauf'),
+(7, 3, 3, '2026-09-01 12:05:45', 16, 8, 'Kauf'),
+(8, 6, 5, '2026-09-01 12:40:00', 18, 3, 'Kauf'),
+(9, 1, 1, '2026-09-01 13:15:20', 21, 1, 'Kauf'),
+(11, 10, 0, '0000-00-00 00:00:00', 2, 0, 'Aufladen'),
+(12, 123, 0, '2026-09-01 18:02:54', 2, 0, 'Aufladen'),
+(13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Kauf');
 
 -- --------------------------------------------------------
 
@@ -75,7 +84,14 @@ CREATE TABLE `konto` (
 --
 
 INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
-(1, 2, 0, -20);
+(1, 2, 0, 259.6),
+(4, 24, 1234, 25.5),
+(5, 25, 4321, 28),
+(6, 26, 1111, 0),
+(7, 27, 2222, 5.5),
+(8, 28, 5555, 42.1),
+(9, 29, 9876, 12),
+(10, 30, 3333, 12.3);
 
 -- --------------------------------------------------------
 
@@ -98,7 +114,24 @@ CREATE TABLE `nutzer` (
 INSERT INTO `nutzer` (`uID`, `Vorname`, `Name`, `Passwort`, `Rolle`) VALUES
 (1, 'Julian', 'Kurz', '123abc', 'Admin'),
 (2, 'Paul', 'Schäfer', '123', 'Schüler'),
-(3, 'Jan', 'Stüttger', '123', 'Mensa');
+(3, 'Jan', 'Stüttger', '123', 'Mensa'),
+(14, 'Laura', 'Müller', 'adminPass1', 'Admin'),
+(15, 'Markus', 'Schmidt', 'adminPass2', 'Admin'),
+(16, 'Sarah', 'Weber', 'adminPass3', 'Admin'),
+(17, 'Michael', 'Wagner', 'adminPass4', 'Admin'),
+(18, 'Elena', 'Fischer', 'adminPass5', 'Admin'),
+(19, 'Brigitte', 'Becker', 'mensaPass1', 'Mensa'),
+(20, 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa'),
+(21, 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa'),
+(22, 'Klaus', 'Koch', 'mensaPass4', 'Mensa'),
+(23, 'Andrea', 'Bauer', 'mensaPass5', 'Mensa'),
+(24, 'Maximilian', 'Richter', '123', 'Schüler'),
+(25, 'Sophie', 'Klein', 'schueler123', 'Schüler'),
+(26, 'Leon', 'Wolf', 'schueler123', 'Schüler'),
+(27, 'Emma', 'Neumann', 'schueler123', 'Schüler'),
+(28, 'Lukas', 'Schwarz', 'schueler123', 'Schüler'),
+(29, 'Mia', 'Zimmermann', 'schueler123', 'Schüler'),
+(30, 'Felix', 'Braun', 'schueler123', 'Schüler');
 
 -- --------------------------------------------------------
 
@@ -120,8 +153,28 @@ CREATE TABLE `produkte` (
 --
 
 INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) VALUES
-(1, 'Snickers', 1, 75, 0, 0),
-(2, 'Mars', 2, 5, 101, 1);
+(1, 'Snickers', 1, 70, 0, 0),
+(2, 'Mars', 2, 5, 101, 1),
+(3, 'Twix', 1.2, 45, 50, 1),
+(4, 'Bounty', 1.2, 60, 50, 0),
+(5, 'Cola 0.5l', 1.5, 120, 100, 0),
+(6, 'Fanta 0.5l', 1.5, 15, 100, 1),
+(7, 'Sprite 0.5l', 1.5, 80, 80, 0),
+(8, 'Mineralwasser still 0.5l', 1, 200, 150, 0),
+(9, 'Mineralwasser medium 0.5l', 1, 140, 150, 1),
+(10, 'Apfelschorle 0.5l', 1.8, 30, 80, 1),
+(11, 'Käsebrötchen', 2.5, 12, 40, 1),
+(12, 'Salami-Baguette', 3.2, 5, 25, 1),
+(13, 'Schokomuffin', 1.8, 22, 20, 0),
+(14, 'Blaubeermuffin', 1.8, 5, 20, 1),
+(15, 'Gummibärchen', 1.5, 55, 40, 0),
+(16, 'Paprika Chips', 1.6, 10, 30, 1),
+(17, 'Butterbrezel', 1.5, 4, 35, 1),
+(18, 'Apfel', 0.6, 45, 50, 1),
+(19, 'Banane', 0.8, 60, 40, 0),
+(20, 'Naturjoghurt', 1.2, 12, 20, 1),
+(21, 'Eistee Pfirsich 0.5l', 1.5, 75, 60, 0),
+(22, 'Kinder Bueno', 1.3, 85, 50, 0);
 
 --
 -- Indizes der exportierten Tabellen
@@ -173,25 +226,25 @@ ALTER TABLE `ankunft`
 -- AUTO_INCREMENT für Tabelle `bestellung`
 --
 ALTER TABLE `bestellung`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `konto`
 --
 ALTER TABLE `konto`
-  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT für Tabelle `produkte`
 --
 ALTER TABLE `produkte`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints der exportierten Tabellen

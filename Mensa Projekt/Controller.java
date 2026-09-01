@@ -53,7 +53,16 @@ public class Controller {
     @FXML
     private Label anmeldeLabel;
     
-
+    @FXML
+    private Button passwortVergessenButton;
+    
+    //Elemente der Passwort Reset Screen
+    
+    @FXML
+    private TextField passwortResetField;
+    
+    @FXML
+    private Button PasswortResetButton;
    
     /* ------------------------------
      * Elemente des Mensa Homescreen 
@@ -513,6 +522,15 @@ public class Controller {
         
     }
     
+    @FXML
+    public void switchtoScene1() throws IOException{      
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/passwortReset.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) PasswortResetButton.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     @FXML
     public void switchtoScene1(ActionEvent event) throws IOException{      
@@ -836,8 +854,21 @@ public class Controller {
     }
     
     //E-mail stuff
+    
     @FXML
-    public void onSendenGeklickt() {
+    public void sendEmail(ActionEvent event) {
+        String email = passwortResetField.getText();
+        onSendenGeklickt(email);
+        try {
+            switchtoScene1();
+        } catch (IOException e) {
+            System.err.println("Fehler beim Szenenwechsel: " + e.getMessage()); 
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void onSendenGeklickt(String pEmail) {
         EmailService emailService = new EmailService(
             "mensamaxxing@gmail.com",        // eure Gmail-Adresse
             "jspv nbmu iwxr jpxi"           // euer App-Passwort
@@ -845,15 +876,25 @@ public class Controller {
     
         try {
             emailService.emailSenden(
-                "joshiwinner659@gmail.com",
-                "Testbetreff",
-                "Hallo, das ist eine Testnachricht!"
+                 pEmail,
+                "Zurückgesetztes Passwort",
+                "Hallo! Dein neues Passwort lautet: "
             );
             System.out.println("E-Mail erfolgreich gesendet!");
         } catch (MessagingException e) {
             System.err.println("Fehler beim Senden: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    public void switchToPasswortReset(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/passwortReset.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
     

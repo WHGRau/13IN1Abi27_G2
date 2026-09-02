@@ -13,15 +13,17 @@ public class Nutzer extends JFrame {
   private String vorname;
   private String name;
   private String passwort;
+  private String username;
   private int kID;
   private Konto konto;
   
   // Ende Attribute
   
-  public Nutzer(int pID, String pVorname, String pName, String pPasswort) {
+  public Nutzer(int pID , String pUsername, String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
     super("");
     uID = pID;
+    username = pUsername;
     vorname = pVorname;
     name = pName;
     passwort = pPasswort;
@@ -106,7 +108,7 @@ public class Nutzer extends JFrame {
   
   public ArrayList<String> getKaeufe() {
       ArrayList<String> kaeufe = new ArrayList();
-      dbConnector.executeStatement("SELECT bestellung.Datum, produkte.name, bestellung.menge, bestellung.wert FROM produkte, bestellung WHERE bestellung.uID = "+uID+ " AND bestellung.pID = produkte.pID ORDER BY bestellung.Datum DESC");
+      dbConnector.executeStatement("SELECT bestellung.Datum, produkte.name, bestellung.menge, bestellung.wert, bestellung.typ FROM produkte, bestellung WHERE bestellung.uID = "+uID+ " AND bestellung.pID = produkte.pID ORDER BY bestellung.Datum DESC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {

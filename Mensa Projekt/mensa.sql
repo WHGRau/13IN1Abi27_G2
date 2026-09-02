@@ -161,7 +161,7 @@ CREATE TABLE `produkte` (
 --
 
 INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) VALUES
-(1, 'Snickers', 1, 67, 0, 0),
+(1, 'Snickers', 1, 70, 0, 0),
 (2, 'Mars', 2, 5, 101, 1),
 (3, 'Twix', 1.2, 43, 50, 1),
 (4, 'Bounty', 1.2, 60, 50, 0),

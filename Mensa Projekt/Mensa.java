@@ -17,7 +17,7 @@ public class Mensa extends JFrame {
 
   // Ende Attribute
   public Mensa(){dbVerbinden();}
-  public Mensa(int pID, String pVorname, String pName, String pPasswort) {
+  public Mensa(int pID, String username , String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierung
     super("");
     uID = pID;
@@ -99,17 +99,20 @@ public class Mensa extends JFrame {
       float kontostand = Float.parseFloat(qr.getData()[0][0]);
       
       //Überprüfen ob es genug Artikel gibt
-      dbConnector.executeStatement("SELECT Menge FROM produkte WHERE pID = "+ produktID);
+      dbConnector.executeStatement("SELECT Menge FROM produkte WHERE name LIKE '"+produktName+"'");
       qr = dbConnector.getCurrentQueryResult();
       int menge = Integer.parseInt(qr.getData()[0][0]);
       
       if (kontostand >= ges && pMenge < menge) {
           dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID Like"+ schuelerID);
           //Produktmenge verringern
-          dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE pID = " + produktID);
+          dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE name LIKE '"+produktName+"'");
           //In Bestell Tabelle einfügen
+          dbConnector.executeStatement("SELECT pId FROM produkte WHERE name LIKE '"+produktName+"'");
+          QueryResult ar = dbConnector.getCurrentQueryResult();
+          int produktID = Integer.parseInt(ar.getData()[0][0]);
           LocalDateTime datum = LocalDateTime.now();
-          dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"')");
+          dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"', 'Kauf')");
       } else {
           if(kontostand < ges)
           System.out.println("Kontostand zu niedrig oder zu Bestand zu niedrig");
@@ -144,10 +147,13 @@ public class Mensa extends JFrame {
       rückgabe.add(Integer.toString(count));
       return rückgabe;
     }
+    
    public void geldAufladen(int uID, float pBetrag) {
+      LocalDateTime datum = LocalDateTime.now();
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
-      dbConnector.executeStatement("INSERT INTO bestellung(uID, Wert) VALUES('"+uID+"','"+pBetrag+"')");
+      dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+pBetrag+"', ' 0', '"+datum+"', '"+uID+"', '0', 'Aufladen')");
   }  
+  
   public ArrayList<String> getLager() {
       ArrayList<String> lager = new ArrayList();
       dbConnector.executeStatement("SELECT Name, Menge, Preis FROM produkte");
@@ -163,6 +169,24 @@ public class Mensa extends JFrame {
   public void preisaendern(float pBetrag , String pName){
       dbConnector.executeStatement("UPDATE produkte SET preis = "+pBetrag+" WHERE name = '"+pName+"'");
     }
+  public ArrayList<String> bestandMesser(){
+    ArrayList<String> rückgabe = new ArrayList<String>();
+    dbConnector.executeStatement("SELECT Name FROM produkte");
+    QueryResult r = dbConnector.getCurrentQueryResult();
+
+    if(r == null){
+        return rückgabe;
+    }
+
+    for(int i = 0; i < r.getRowCount(); i++){
+        String name = r.getData()[i][0];
+        if(istNiedrig(name) == 1){
+            rückgabe.add(name);
+        }
+    }
+
+    return rückgabe;
+   }
   
   // Ende Methoden
   

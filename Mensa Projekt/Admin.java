@@ -16,8 +16,9 @@ public class Admin extends JFrame {
   private int kID;
   
   // Ende Attribute
-  
-  public Admin(int pID, String pVorname, String pName, String pPasswort) {
+  public Admin(){
+    dbVerbinden();}
+  public Admin(int pID, String pUsername ,  String pVorname, String pName, String pPasswort) {
     // Frame-Initialisierunga
     super("");
     uID = pID;
@@ -48,6 +49,7 @@ public class Admin extends JFrame {
       QueryResult r = dbConnector.getCurrentQueryResult();
       int id = Integer.parseInt(r.getData()[0][0]);
       System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
+      erzeugeUsername(id);
       Konto konto = new Konto(id);
   }
   
@@ -57,6 +59,7 @@ public class Admin extends JFrame {
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
       int id = Integer.parseInt(r.getData()[0][0]);
+      erzeugeUsername(id);
       System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
   }
   
@@ -64,7 +67,7 @@ public class Admin extends JFrame {
     dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' WHERE uID ='"+pID+"';");
   }
   
-  private String erzeugePasswort()
+    private String erzeugePasswort()
     {
         String zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random zufall = new Random();
@@ -77,6 +80,22 @@ public class Admin extends JFrame {
         }
 
         return passwort;
+    }
+    
+    
+    public void erzeugeUsername(int uID)
+    {
+        
+      dbConnector.executeStatement("SELECT vorname, name FROM Nutzer WHERE uID LIKE '"+uID+"'");
+      QueryResult r = dbConnector.getCurrentQueryResult(); 
+      String vorname = r.getData()[0][0];
+      String nachname = r.getData()[0][1];
+      vorname = vorname.substring(0, 3);
+      nachname = nachname.substring(0, 3);
+      vorname = vorname.toLowerCase();
+      nachname = nachname.toLowerCase();
+      String username = vorname + nachname + Integer.toString(uID);
+      dbConnector.executeStatement("UPDATE nutzer SET username = '"+username+"' WHERE uID ='"+uID+"';");
     }
   
  

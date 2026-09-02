@@ -100,6 +100,9 @@ public class Controller {
     
     @FXML
     private Button statistikButton;
+    
+    @FXML
+    private Label statusLabel;
 
     //Elemente Mensa Aufladen Screen
     
@@ -460,6 +463,19 @@ public class Controller {
             String chip = userIDField.getText();
             int menge = Integer.parseInt(mengeField.getText());
             
+            String status = mensa.verkaufen(artikelIDField.getText(), uID, menge);
+            if (status.equals("erfolgreich")) {
+                statusLabel.setText("Transaktion erfolgreich!");
+            }
+            else if (status.equals("kontostand zu niedrig")) {
+                statusLabel.setText("Kontostand zu niedrig!");
+            }
+            else if (status.equals("Produkt nicht mehr vorhanden")) {
+                statusLabel.setText("Produkt nicht mehr vorhanden!");    
+            }
+            else if (status.equals("Kontostand und Produkt leer")) {
+                statusLabel.setText("Kontostand und Produkt leer!");
+            }
             mensa.verkaufen(pID, chip, menge);
             mensaInitialize();
             zeigeLager();

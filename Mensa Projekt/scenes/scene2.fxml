@@ -113,6 +113,7 @@
             <Button fx:id="aufladenButton" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
             <Button fx:id="hinzufuegenButton" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
             <Button fx:id="statistikButton" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <Label fx:id="statusLabel" layoutX="138.0" layoutY="314.0" />
       </children>
     </AnchorPane>
   </children>

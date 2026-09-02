@@ -1,4 +1,4 @@
-import java.awt.*;
+ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -78,7 +78,9 @@ public class Mensa extends JFrame {
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
   }
   
-  public void verkaufen(int produktID, String chipID, int pMenge) {
+  public String verkaufen(String produktName, int schuelerID, int pMenge) {
+      String status = "";
+      //Geld vom Konto abziehen
       //user Id von Chip auslesen
       
       
@@ -103,8 +105,8 @@ public class Mensa extends JFrame {
       qr = dbConnector.getCurrentQueryResult();
       int menge = Integer.parseInt(qr.getData()[0][0]);
       
-      if (kontostand >= ges && pMenge < menge) {
-          dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID Like"+ schuelerID);
+      if (kontostand >= ges && pMenge <= menge) {
+          dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID ="+schuelerID);
           //Produktmenge verringern
           dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE name LIKE '"+produktName+"'");
           //In Bestell Tabelle einfügen
@@ -112,11 +114,20 @@ public class Mensa extends JFrame {
           QueryResult ar = dbConnector.getCurrentQueryResult();
           int produktID = Integer.parseInt(ar.getData()[0][0]);
           LocalDateTime datum = LocalDateTime.now();
-          dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"', 'Kauf')");
+          String sqlAnweisung = "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"', 'Kauf')";
+          dbConnector.executeStatement(sqlAnweisung);
+          status = "erfolgreich";
       } else {
-          if(kontostand < ges)
-          System.out.println("Kontostand zu niedrig oder zu Bestand zu niedrig");
-      }
+          if (kontostand < ges){
+              status = "kontostand zu niedrig";
+          } else if (pMenge > menge){
+                  status = "Produkt nicht mehr vorhanden";
+          } else {
+                  status = "Kontostand und Produkt leer";
+              }
+          }
+      
+      return status;
   }
   
   

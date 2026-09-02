@@ -1,4 +1,4 @@
-import java.awt.*;
+ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -78,8 +78,10 @@ public class Mensa extends JFrame {
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
   }
   
-  public void verkaufen(String produktName, int schuelerID, int pMenge) {
+  public String verkaufen(String produktName, int schuelerID, int pMenge) {
+      String status = "";
       //Geld vom Konto abziehen
+      
       dbConnector.executeStatement("SELECT preis FROM produkte WHERE name LIKE '"+produktName+"'");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       float preis = Float.parseFloat(qr.getData()[0][0]);
@@ -88,14 +90,14 @@ public class Mensa extends JFrame {
       //Überprüfen ob der Schüler genug auf dem Konto hat
       dbConnector.executeStatement("SELECT kontostand FROM konto WHERE uID = "+ schuelerID);
       qr = dbConnector.getCurrentQueryResult();
-      float kontostand = 1000;//Float.parseFloat(qr.getData()[0][0]);
+      float kontostand = Float.parseFloat(qr.getData()[0][0]);
       
       //Überprüfen ob es genug Artikel gibt
       dbConnector.executeStatement("SELECT Menge FROM produkte WHERE name LIKE '"+produktName+"'");
       qr = dbConnector.getCurrentQueryResult();
       int menge = Integer.parseInt(qr.getData()[0][0]);
       
-      if (kontostand >= ges && pMenge < menge) {
+      if (kontostand >= ges && pMenge <= menge) {
           dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID ="+schuelerID);
           //Produktmenge verringern
           dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE name LIKE '"+produktName+"'");
@@ -104,10 +106,20 @@ public class Mensa extends JFrame {
           QueryResult ar = dbConnector.getCurrentQueryResult();
           int produktID = Integer.parseInt(ar.getData()[0][0]);
           LocalDateTime datum = LocalDateTime.now();
-          dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"', 'Kauf')");
+          String sqlAnweisung = "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"', 'Kauf')";
+          dbConnector.executeStatement(sqlAnweisung);
+          status = "erfolgreich";
       } else {
-          System.out.println("Kontostand zu niedrig oder zu Bestand zu niedrig");
-      }
+          if (kontostand < ges){
+              status = "kontostand zu niedrig";
+          } else if (pMenge > menge){
+                  status = "Produkt nicht mehr vorhanden";
+          } else {
+                  status = "Kontostand und Produkt leer";
+              }
+          }
+      
+      return status;
   }
   
   

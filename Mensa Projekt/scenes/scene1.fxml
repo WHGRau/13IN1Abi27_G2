@@ -92,7 +92,7 @@
           </font>
         </Label>
             <Button id="anmeldeButton" fx:id="anmeldeButton" layoutX="190.0" layoutY="211.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="260.0" text="Anmelden" />
-            <TextField id="idField" fx:id="idField" layoutX="190.0" layoutY="113.0" prefHeight="25.0" prefWidth="260.0" promptText="Nutzer ID" />
+            <TextField id="idField" fx:id="idField" layoutX="190.0" layoutY="113.0" prefHeight="25.0" prefWidth="260.0" promptText="Nutzername" />
             <TextField id="passwortField" fx:id="passwortField" accessibleRole="PASSWORD_FIELD" layoutX="190.0" layoutY="165.0" prefHeight="25.0" prefWidth="260.0" promptText="Passwort" />
             <Label fx:id="anmeldeLabel" layoutX="190.0" layoutY="248.0" prefHeight="17.0" prefWidth="260.0" textFill="RED">
                <font>

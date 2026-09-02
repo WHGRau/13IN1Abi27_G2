@@ -411,6 +411,7 @@ public class Controller {
             int menge = Integer.parseInt(mengeField.getText());
             
             mensa.verkaufen(pID, chip, menge);
+            mensaInitialize();
             zeigeLager();
         }
     }

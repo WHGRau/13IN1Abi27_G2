@@ -100,12 +100,13 @@
             <TextField fx:id="nameTextfield" layoutX="246.0" layoutY="156.0" promptText="Nachname" />
             <CheckBox fx:id="schuelerCheckbox" layoutX="246.0" layoutY="72.0" mnemonicParsing="false" text="Schüler / Lehrer" />
             <CheckBox fx:id="lehrerCheckbox" layoutX="246.0" layoutY="99.0" mnemonicParsing="false" text="Mensa" />
-            <Button fx:id="addSchuelerButton" layoutX="246.0" layoutY="194.0" mnemonicParsing="false" onAction="#adminSchuelerHinzufuegen" prefHeight="25.0" prefWidth="149.0" text="Hinzufügen" />
+            <Button fx:id="addSchuelerButton" layoutX="246.0" layoutY="229.0" mnemonicParsing="false" onAction="#adminSchuelerHinzufuegen" prefHeight="25.0" prefWidth="149.0" text="Hinzufügen" />
             <Label fx:id="addSchuelerLabel" layoutX="246.0" layoutY="241.0" textFill="#c9b715">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
+            <TextField fx:id="mailTextfield" layoutX="246.0" layoutY="194.0" promptText="E-mail Adresse" />
       </children>
     </AnchorPane>
   </children>

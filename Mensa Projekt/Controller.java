@@ -332,6 +332,9 @@ public class Controller {
     private Button adminHinzufuegen3;
     
     @FXML
+    private TextField mailTextfield;
+    
+    @FXML
     private Button adminSchueler3;
 
     @FXML
@@ -809,11 +812,11 @@ public class Controller {
     
     public void adminSchuelerHinzufuegen() {
         if (schuelerCheckbox.isSelected() == true && lehrerCheckbox.isSelected() == false) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText());
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(),mailTextfield.getText());
             addSchuelerLabel.setText("Der Schüler/Lehrer "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         }
         else if (schuelerCheckbox.isSelected() == false && lehrerCheckbox.isSelected() == true) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText());
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), mailTextfield.getText());
             addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         } else {
             addSchuelerLabel.setText("Die Person konnte nicht hinzugefügt werden!");
@@ -869,17 +872,20 @@ public class Controller {
     
     @FXML
     public void onSendenGeklickt(String pEmail) {
+        System.out.println("senden anfang");
+        String neuesP = new Admin().erzeugePasswort();
         EmailService emailService = new EmailService(
-            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
-            "jspv nbmu iwxr jpxi"           // euer App-Passwort
+            "mensamaxxing@gmail.com",      
+            "jspv nbmu iwxr jpxi"           // App passwort
         );
-    
+        System.out.println("senden mitte");
         try {
             emailService.emailSenden(
                  pEmail,
                 "Zurückgesetztes Passwort",
-                "Hallo! Dein neues Passwort lautet: "
+                "Hallo! Dein neues Passwort lautet: " + neuesP 
             );
+            new Login().passwortzuruck(neuesP , pEmail);
             System.out.println("E-Mail erfolgreich gesendet!");
         } catch (MessagingException e) {
             System.err.println("Fehler beim Senden: " + e.getMessage());

@@ -81,8 +81,16 @@ public class Mensa extends JFrame {
   public String verkaufen(String produktName, int schuelerID, int pMenge) {
       String status = "";
       //Geld vom Konto abziehen
+      //user Id von Chip auslesen
       
-      dbConnector.executeStatement("SELECT preis FROM produkte WHERE name LIKE '"+produktName+"'");
+      
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Chip LIKE '"+chipID+"'");
+      QueryResult user = dbConnector.getCurrentQueryResult();
+      int schuelerID = Integer.parseInt(user.getData()[0][0]);
+      
+      //Geld vom Konto abziehen
+      
+      dbConnector.executeStatement("SELECT preis FROM produkte WHERE pID = "+produktID);
       QueryResult qr = dbConnector.getCurrentQueryResult();
       float preis = Float.parseFloat(qr.getData()[0][0]);
       float ges = pMenge * preis;

@@ -78,25 +78,28 @@ public class Mensa extends JFrame {
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
   }
   
-  public String verkaufen(String produktName, int schuelerID, int pMenge) {
+  public String verkaufen(String produktName, String chipID, int pMenge) {
       String status = "";
       //Geld vom Konto abziehen
       //user Id von Chip auslesen
       
+      dbConnector.executeStatement("SELECT pID FROM produkte WHERE name LIKE '"+produktName+"'");
+      QueryResult prod = dbConnector.getCurrentQueryResult();
+      int pID= Integer.parseInt(prod.getData()[0][0]);
       
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Chip LIKE '"+chipID+"'");
       QueryResult user = dbConnector.getCurrentQueryResult();
-      int schuelerID = Integer.parseInt(user.getData()[0][0]);
+      int uID = Integer.parseInt(user.getData()[0][0]);
       
       //Geld vom Konto abziehen
       
-      dbConnector.executeStatement("SELECT preis FROM produkte WHERE pID = "+produktID);
+      dbConnector.executeStatement("SELECT preis FROM produkte WHERE pID = "+pID);
       QueryResult qr = dbConnector.getCurrentQueryResult();
       float preis = Float.parseFloat(qr.getData()[0][0]);
       float ges = pMenge * preis;
       
       //Überprüfen ob der Schüler genug auf dem Konto hat
-      dbConnector.executeStatement("SELECT kontostand FROM konto WHERE uID = "+ schuelerID);
+      dbConnector.executeStatement("SELECT kontostand FROM konto WHERE uID = "+ uID);
       qr = dbConnector.getCurrentQueryResult();
       float kontostand = Float.parseFloat(qr.getData()[0][0]);
       
@@ -106,7 +109,7 @@ public class Mensa extends JFrame {
       int menge = Integer.parseInt(qr.getData()[0][0]);
       
       if (kontostand >= ges && pMenge <= menge) {
-          dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID ="+schuelerID);
+          dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand - "+ges+" WHERE uID ="+uID);
           //Produktmenge verringern
           dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE name LIKE '"+produktName+"'");
           //In Bestell Tabelle einfügen
@@ -114,7 +117,7 @@ public class Mensa extends JFrame {
           QueryResult ar = dbConnector.getCurrentQueryResult();
           int produktID = Integer.parseInt(ar.getData()[0][0]);
           LocalDateTime datum = LocalDateTime.now();
-          String sqlAnweisung = "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+schuelerID+"','"+produktID+"', 'Kauf')";
+          String sqlAnweisung = "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+uID+"','"+produktID+"', 'Kauf')";
           dbConnector.executeStatement(sqlAnweisung);
           status = "erfolgreich";
       } else {

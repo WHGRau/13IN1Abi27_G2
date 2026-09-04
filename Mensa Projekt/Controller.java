@@ -459,11 +459,10 @@ public class Controller {
     @FXML
     public void verkaufen(ActionEvent event) {
         if (mensa != null) {
-            int pID = Integer.parseInt(artikelIDField.getText());
             String chip = userIDField.getText();
             int menge = Integer.parseInt(mengeField.getText());
             
-            String status = mensa.verkaufen(artikelIDField.getText(), uID, menge);
+            String status = mensa.verkaufen(artikelIDField.getText(), chip, menge);
             if (status.equals("erfolgreich")) {
                 statusLabel.setText("Transaktion erfolgreich!");
             }
@@ -476,7 +475,7 @@ public class Controller {
             else if (status.equals("Kontostand und Produkt leer")) {
                 statusLabel.setText("Kontostand und Produkt leer!");
             }
-            mensa.verkaufen(pID, chip, menge);
+            mensa.verkaufen(artikelIDField.getText(), chip, menge);
             mensaInitialize();
             zeigeLager();
         }

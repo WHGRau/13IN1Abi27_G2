@@ -42,15 +42,24 @@ public class Admin extends JFrame {
     }
   }
 
-    public void schuelerHinzufuegen(String pVorname, String pName) {
+    public void schuelerHinzufuegen(String pVorname, String pName , String pGmail) {
+      System.out.println("hinzufügen start");
       String passwort = erzeugePasswort();
-      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Schüler')");
-      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
-      QueryResult r = dbConnector.getCurrentQueryResult();
-      int id = Integer.parseInt(r.getData()[0][0]);
-      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
-      erzeugeUsername(id);
-      Konto konto = new Konto(id);
+      dbConnector.executeStatement("SELECT email FROM nutzer WHERE email LIKE '"+pGmail+"'");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      if (qr.getRowCount() == 0){
+          System.out.println("hinzufügen 1");
+          dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle, email) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Schüler','"+pGmail+"')");
+          System.out.println("hinzufügen 2");
+          dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
+          System.out.println("hinzufügen 3");
+          QueryResult r = dbConnector.getCurrentQueryResult();
+          int id = Integer.parseInt(r.getData()[0][0]);
+          System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
+          erzeugeUsername(id);
+          Konto konto = new Konto(id);
+      }
+      else System.out.println("w mail schon vorhanden");
   }
   
   public void mensaPersonalHinzufuegen(String pVorname, String pName) {
@@ -67,7 +76,7 @@ public class Admin extends JFrame {
     dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' WHERE uID ='"+pID+"';");
   }
   
-    private String erzeugePasswort()
+    public String erzeugePasswort()
     {
         String zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random zufall = new Random();

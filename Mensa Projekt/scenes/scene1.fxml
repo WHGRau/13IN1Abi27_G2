@@ -99,6 +99,11 @@
                   <Font size="15.0" />
                </font>
             </Label>
+            <Button fx:id="passwortVergessenButton" layoutX="14.0" layoutY="340.0" mnemonicParsing="false" onAction="#switchToPasswortReset" prefHeight="0.0" prefWidth="154.0" text="Passwort vergessen?">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
       </children>
     </AnchorPane>
   </children>

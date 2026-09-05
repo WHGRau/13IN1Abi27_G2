@@ -53,7 +53,16 @@ public class Controller {
     @FXML
     private Label anmeldeLabel;
     
-
+    @FXML
+    private Button passwortVergessenButton;
+    
+    //Elemente der Passwort Reset Screen
+    
+    @FXML
+    private TextField passwortResetField;
+    
+    @FXML
+    private Button PasswortResetButton;
    
     /* ------------------------------
      * Elemente des Mensa Homescreen 
@@ -326,6 +335,9 @@ public class Controller {
     private Button adminHinzufuegen3;
     
     @FXML
+    private TextField mailTextfield;
+    
+    @FXML
     private Button adminSchueler3;
 
     @FXML
@@ -530,6 +542,15 @@ public class Controller {
         
     }
     
+    @FXML
+    public void switchtoScene1() throws IOException{      
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/passwortReset.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) PasswortResetButton.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     @FXML
     public void switchtoScene1(ActionEvent event) throws IOException{      
@@ -808,11 +829,11 @@ public class Controller {
     
     public void adminSchuelerHinzufuegen() {
         if (schuelerCheckbox.isSelected() == true && lehrerCheckbox.isSelected() == false) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText());
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(),mailTextfield.getText());
             addSchuelerLabel.setText("Der Schüler/Lehrer "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         }
         else if (schuelerCheckbox.isSelected() == false && lehrerCheckbox.isSelected() == true) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText());
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), mailTextfield.getText());
             addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         } else {
             addSchuelerLabel.setText("Die Person konnte nicht hinzugefügt werden!");
@@ -853,24 +874,50 @@ public class Controller {
     }
     
     //E-mail stuff
-    @FXML
-    public void onSendenGeklickt() {
-        EmailService emailService = new EmailService(
-            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
-            "jspv nbmu iwxr jpxi"           // euer App-Passwort
-        );
     
+    @FXML
+    public void sendEmail(ActionEvent event) {
+        String email = passwortResetField.getText();
+        onSendenGeklickt(email);
+        try {
+            switchtoScene1();
+        } catch (IOException e) {
+            System.err.println("Fehler beim Szenenwechsel: " + e.getMessage()); 
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void onSendenGeklickt(String pEmail) {
+        System.out.println("senden anfang");
+        String neuesP = new Admin().erzeugePasswort();
+        EmailService emailService = new EmailService(
+            "mensamaxxing@gmail.com",      
+            "jspv nbmu iwxr jpxi"           // App passwort
+        );
+        System.out.println("senden mitte");
         try {
             emailService.emailSenden(
-                "joshiwinner659@gmail.com",
-                "Testbetreff",
-                "Hallo, das ist eine Testnachricht!"
+                 pEmail,
+                "Zurückgesetztes Passwort",
+                "Hallo! Dein neues Passwort lautet: " + neuesP 
             );
+            new Login().passwortzuruck(neuesP , pEmail);
             System.out.println("E-Mail erfolgreich gesendet!");
         } catch (MessagingException e) {
             System.err.println("Fehler beim Senden: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    public void switchToPasswortReset(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/passwortReset.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
     

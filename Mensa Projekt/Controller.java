@@ -496,10 +496,10 @@ public class Controller {
     @FXML
     public void aufladen(ActionEvent event) {
         if (mensa != null) {
-            int uID = Integer.parseInt(userIDField2.getText());
+            String chipID = userIDField2.getText();
             float betrag = Float.parseFloat(betragField.getText());
             
-            mensa.geldAufladen(uID, betrag);
+            mensa.geldAufladen(chipID, betrag);
         }
     }
     

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Sep 2026 um 22:19
--- Server-Version: 10.4.32-MariaDB
--- PHP-Version: 8.2.12
+-- Erstellungszeit: 02. Sep 2026 um 08:32
+-- Server-Version: 10.4.28-MariaDB
+-- PHP-Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -109,36 +109,37 @@ CREATE TABLE `nutzer` (
   `Vorname` text NOT NULL,
   `Name` text NOT NULL,
   `Passwort` text NOT NULL,
-  `Rolle` text NOT NULL
+  `Rolle` text NOT NULL,
+  `Chip` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `nutzer`
 --
 
-INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Passwort`, `Rolle`) VALUES
-(1, 'julcool', 'Julian', 'Kurz', '123abc', 'Admin'),
-(2, 'pul', 'Paul', 'Schäfer', '123', 'Schüler'),
-(3, '2tast', 'Jan', 'Stüttger', '123', 'Mensa'),
-(14, 'laumül14', 'Laura', 'Müller', 'adminPass1', 'Admin'),
-(15, 'marsch15', 'Markus', 'Schmidt', 'adminPass2', 'Admin'),
-(16, 'sarweb16', 'Sarah', 'Weber', 'adminPass3', 'Admin'),
-(17, 'micwag17', 'Michael', 'Wagner', 'adminPass4', 'Admin'),
-(18, 'elefis18', 'Elena', 'Fischer', 'adminPass5', 'Admin'),
-(19, 'bribec19', 'Brigitte', 'Becker', 'mensaPass1', 'Mensa'),
-(20, 'thohof20', 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa'),
-(21, 'sabsch21', 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa'),
-(22, 'klakoc22', 'Klaus', 'Koch', 'mensaPass4', 'Mensa'),
-(23, 'andbau23', 'Andrea', 'Bauer', 'mensaPass5', 'Mensa'),
-(24, 'maxric24', 'Maximilian', 'Richter', '123', 'Schüler'),
-(25, 'sopkle25', 'Sophie', 'Klein', 'schueler123', 'Schüler'),
-(26, 'leowol26', 'Leon', 'Wolf', 'schueler123', 'Schüler'),
-(27, 'emmneu27', 'Emma', 'Neumann', 'schueler123', 'Schüler'),
-(28, 'luksch28', 'Lukas', 'Schwarz', 'schueler123', 'Schüler'),
-(29, 'miazim29', 'Mia', 'Zimmermann', 'schueler123', 'Schüler'),
-(30, 'felbra30', 'Felix', 'Braun', 'schueler123', 'Schüler'),
-(34, 'bennet34', 'Benjamin', 'Netanyahu', 'XGAFs', 'Schüler'),
-(35, 'johsch35', 'John', 'Schueler', 'fyoVY', 'Schüler');
+INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Passwort`, `Rolle`, `Chip`) VALUES
+(1, 'julcool', 'Julian', 'Kurz', '123abc', 'Admin', NULL),
+(2, 'pul', 'Paul', 'Schäfer', '123', 'Schüler', '0009831976'),
+(3, '2tast', 'Jan', 'Stüttger', '123', 'Mensa', NULL),
+(14, 'laumül14', 'Laura', 'Müller', 'adminPass1', 'Admin', NULL),
+(15, 'marsch15', 'Markus', 'Schmidt', 'adminPass2', 'Admin', NULL),
+(16, 'sarweb16', 'Sarah', 'Weber', 'adminPass3', 'Admin', NULL),
+(17, 'micwag17', 'Michael', 'Wagner', 'adminPass4', 'Admin', NULL),
+(18, 'elefis18', 'Elena', 'Fischer', 'adminPass5', 'Admin', NULL),
+(19, 'bribec19', 'Brigitte', 'Becker', 'mensaPass1', 'Mensa', NULL),
+(20, 'thohof20', 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa', NULL),
+(21, 'sabsch21', 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa', NULL),
+(22, 'klakoc22', 'Klaus', 'Koch', 'mensaPass4', 'Mensa', NULL),
+(23, 'andbau23', 'Andrea', 'Bauer', 'mensaPass5', 'Mensa', NULL),
+(24, 'maxric24', 'Maximilian', 'Richter', '123', 'Schüler', '0009966769'),
+(25, 'sopkle25', 'Sophie', 'Klein', 'schueler123', 'Schüler', '0009968524'),
+(26, 'leowol26', 'Leon', 'Wolf', 'schueler123', 'Schüler', '0001608134'),
+(27, 'emmneu27', 'Emma', 'Neumann', 'schueler123', 'Schüler', '0009977009'),
+(28, 'luksch28', 'Lukas', 'Schwarz', 'schueler123', 'Schüler', NULL),
+(29, 'miazim29', 'Mia', 'Zimmermann', 'schueler123', 'Schüler', NULL),
+(30, 'felbra30', 'Felix', 'Braun', 'schueler123', 'Schüler', NULL),
+(34, 'bennet34', 'Benjamin', 'Netanyahu', 'XGAFs', 'Schüler', NULL),
+(35, 'johsch35', 'John', 'Schueler', 'fyoVY', 'Schüler', NULL);
 
 -- --------------------------------------------------------
 

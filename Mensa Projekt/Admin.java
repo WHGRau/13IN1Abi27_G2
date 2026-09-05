@@ -89,7 +89,7 @@ public class Admin extends JFrame {
     dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' WHERE uID ='"+pID+"';");
   }
   
-    private String erzeugePasswort()
+    public String erzeugePasswort()
     {
         String zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random zufall = new Random();

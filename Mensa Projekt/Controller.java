@@ -343,6 +343,9 @@ public class Controller {
     private Button adminHinzufuegen3;
     
     @FXML
+    private TextField mailTextfield;
+    
+    @FXML
     private Button adminSchueler3;
 
     @FXML
@@ -501,10 +504,10 @@ public class Controller {
     @FXML
     public void aufladen(ActionEvent event) {
         if (mensa != null) {
-            int uID = Integer.parseInt(userIDField2.getText());
+            String chipID = userIDField2.getText();
             float betrag = Float.parseFloat(betragField.getText());
             
-            mensa.geldAufladen(uID, betrag);
+            mensa.geldAufladen(chipID, betrag);
         }
     }
     
@@ -547,6 +550,15 @@ public class Controller {
         
     }
     
+    @FXML
+    public void switchtoScene1() throws IOException{      
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/passwortReset.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) PasswortResetButton.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     @FXML
     public void switchtoScene1(ActionEvent event) throws IOException{      
@@ -904,6 +916,16 @@ public class Controller {
         } else {
             resetLabel.setText("Die E-Mail Adresse wurde nicht gefunden!");
         }
+    }
+    
+    @FXML
+    public void switchToPasswortReset(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/passwortReset.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
     

@@ -81,6 +81,10 @@ public class Login extends JFrame {
       return null;
   }
   
+  public void passwortzuruck(String pPasswort , String pEmail){
+        dbConnector.executeStatement("UPDATE nutzer SET passwort = '"+pPasswort+"' WHERE email LIKE '"+pEmail+"'");
+    }
+  
   public void dbVerbinden() {
     dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
     String fehler = dbConnector.getErrorMessage();

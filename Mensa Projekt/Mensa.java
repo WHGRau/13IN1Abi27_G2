@@ -162,7 +162,10 @@ public class Mensa extends JFrame {
       return rückgabe;
     }
     
-   public void geldAufladen(int uID, float pBetrag) {
+   public void geldAufladen(String chipID, float pBetrag) {
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Chip LIKE '"+chipID+"'");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      int uID = Integer.parseInt(qr.getData()[0][0]);
       LocalDateTime datum = LocalDateTime.now();
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
       dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+pBetrag+"', ' 0', '"+datum+"', '"+uID+"', '0', 'Aufladen')");

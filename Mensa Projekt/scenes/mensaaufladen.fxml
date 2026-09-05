@@ -96,7 +96,7 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="userIDField2" layoutX="287.0" layoutY="163.0" promptText="Nutzer ID" />
+            <TextField fx:id="userIDField2" layoutX="287.0" layoutY="163.0" promptText="Nutzer  Chip" />
             <TextField fx:id="betragField" layoutX="287.0" layoutY="210.0" promptText="Betrag" />
             <Button fx:id="aufladenKnopf" layoutX="287.0" layoutY="249.0" mnemonicParsing="false" onAction="#aufladen" prefHeight="25.0" prefWidth="149.0" text="Aufladen" />
             <Button fx:id="homeButton2" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />

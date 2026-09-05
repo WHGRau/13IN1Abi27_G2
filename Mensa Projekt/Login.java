@@ -106,7 +106,7 @@ public class Login extends JFrame {
       return mensa;
   }
   
-  private boolean checkEmail(String email) {
+  public boolean checkEmail(String email) {
       // Methode liefert true wenn es die Email gibt und False wenn es sie nicht gibt      
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Email LIKE '"+email+"'");
       QueryResult qr = dbConnector.getCurrentQueryResult();
@@ -154,7 +154,7 @@ public class Login extends JFrame {
             emailService.emailSenden(
                 email,
                 "Ihr Mensa Passwort wurde zurückgesetzt",
-                "Guten Tag, Ihr MensaMaxxing Passwort wurde zurückgetzt. Ihr neues Passwort lautet: "+passwort+" Bitte ändern sie es beim nächsten Anmelden zu einem von ihnen gewählten Passwort."
+                "Guten Tag, Ihr MensaMaxxing Passwort wurde zurückgetzt. Ihr neues Passwort lautet: "+passwort+ " \n Bitte ändern sie es beim nächsten Anmelden zu einem von ihnen gewählten Passwort."
             );
             System.out.println("E-Mail erfolgreich gesendet!");
         } catch (MessagingException e) {

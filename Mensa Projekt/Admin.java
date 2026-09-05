@@ -155,7 +155,7 @@ public class Admin extends JFrame {
             emailService.emailSenden(
                 email,
                 "Sie wurden regestriert",
-                "Guten Tag, ein Admin hat für sie ein MensaMaxxing Konto erstellt. Nutzername: "+username+" Passwort: "+passwort+ "Bitte ändern sie das Passwort nach der ersten Anmeldung."
+                "Guten Tag, ein Admin hat für sie ein MensaMaxxing Konto erstellt. \n Nutzername: "+username+" \n Passwort: "+passwort+ " \n Bitte ändern sie das Passwort nach der ersten Anmeldung."
             );
             System.out.println("E-Mail erfolgreich gesendet!");
         } catch (MessagingException e) {

@@ -87,7 +87,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="adminLogout2" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" text="🚪 Logout" />
+            <Button fx:id="adminLogout2" layoutX="31.0" layoutY="256.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" text="🚪 Logout" />
             <Button fx:id="adminHome2" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" text=" 🏠 Home" />
             <Label fx:id="adminBegruessungLabel2" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
@@ -107,6 +107,7 @@
                </font>
             </Label>
             <TextField fx:id="eMailTextfield" layoutX="246.0" layoutY="194.0" promptText="E-Mail Adresse" />
+            <Button fx:id="adminEinlass2" layoutX="31.0" layoutY="217.0" mnemonicParsing="false" onAction="#switchToEinlass" prefHeight="25.0" prefWidth="96.0" text="📷 Einlass" />
       </children>
     </AnchorPane>
   </children>

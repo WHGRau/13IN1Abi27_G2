@@ -344,7 +344,10 @@ public class Controller {
     @FXML
     private Label adminBegruessungLabel1;
     
-     //Elemente Admin Main Screen
+    @FXML
+    private Button adminEinlass1;
+    
+     //Elemente Admin Schüler Screen
     
     @FXML
     private Button adminHome2;
@@ -358,6 +361,9 @@ public class Controller {
     @FXML
     private Button adminSchueler2;
 
+      
+    @FXML
+    private Button adminEinlass2;
     @FXML
     private Label adminBegruessungLabel2;
     
@@ -398,6 +404,10 @@ public class Controller {
     
     @FXML
     private Button adminSchueler3;
+    
+    @FXML
+    private Button adminEinlass3;
+
 
     @FXML
     private Label adminBegruessungLabel3;
@@ -419,6 +429,45 @@ public class Controller {
     
     @FXML
     private TextField loeschIdTextfield;
+    
+    //Elemente Admin Einlass Screen
+    
+    @FXML
+    private Button adminHome4;
+    
+    @FXML
+    private Button adminLogout4;
+    
+    @FXML
+    private Button adminHinzufuegen4;
+    
+    
+    @FXML
+    private Button adminSchueler4;
+    
+    @FXML
+    private Button adminEinlass4;
+
+    @FXML
+    private Label adminBegruessungLabel4;
+    
+    @FXML
+    private TableView<ObservableList<String>> einlassTable;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> einlassDatumColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> einlassVornameColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> einlassNameColumn;
+    
+    @FXML
+    private Button schuelerSuchButton;
+    
+    @FXML
+    private TextField suchIDTextfield;
  
     // Verbindung vom Controller zum Model   
     private Login login;
@@ -895,6 +944,29 @@ public class Controller {
         stage.show();
     }
     
+    @FXML
+    public void switchToEinlass(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/admineinlass.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setAdmin(admin);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.adminEinlassInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void adminEinlassInitialize() {
+        adminBegruessungLabel4.setText("Hallo, "+admin.getName()+"!");
+        
+        einlassDatumColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        einlassVornameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        einlassNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        
+        getVerspaetung();
+    }
+    
     public void adminHinzufuegenInitialize() {
         adminBegruessungLabel2.setText("Hallo, "+admin.getName()+"!");
     }
@@ -983,6 +1055,24 @@ public class Controller {
             }
             // Der TableView übergeben
             schuelerTable.setItems(tabelleDaten);
+        }
+    }
+    
+    public void getVerspaetung() {
+        if (admin!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = admin.getVerspaetungen();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 3) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Datum
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
+                zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            einlassTable.setItems(tabelleDaten);
         }
     }
     

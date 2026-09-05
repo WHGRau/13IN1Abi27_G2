@@ -163,6 +163,32 @@ public class Admin extends JFrame {
             e.printStackTrace();
         }
     }
+    
+  //EINLASS METHODEN
+  
+  public ArrayList<String> getVerspaetungen() {
+      ArrayList<String> ankunft = new ArrayList();
+      dbConnector.executeStatement("SELECT Datum, nutzer.vorname, nutzer.name FROM ankunft, nutzer WHERE nutzer.uID = ankunft.uID;");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              ankunft.add(qr.getData()[x][y]);
+          }
+      }
+      return ankunft;
+  }
+  
+  public ArrayList<String> getVerspaetungen(int uID) {
+      ArrayList<String> ankunft = new ArrayList();
+      dbConnector.executeStatement("SELECT ankuft.datum, nutzer.vorname, nutzer.nachname FROM ankunft, nutzer WHERE nutzer.uID = ankuft.uID AND nutzer.uID = "+uID);
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              ankunft.add(qr.getData()[x][y]);
+          }
+      }
+      return ankunft;
+  }
   // Ende Methoden
 
 }

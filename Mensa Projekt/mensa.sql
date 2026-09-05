@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Sep 2026 um 13:35
+-- Erstellungszeit: 05. Sep 2026 um 16:22
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -30,9 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `ankunft` (
   `aID` int(11) NOT NULL,
   `uID` int(11) NOT NULL,
-  `Datum` date NOT NULL,
-  `Uhrzeit` time NOT NULL
+  `Datum` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `ankunft`
+--
+
+INSERT INTO `ankunft` (`aID`, `uID`, `Datum`) VALUES
+(1, 2, '2026-09-01 08:15:03');
 
 -- --------------------------------------------------------
 
@@ -62,7 +68,6 @@ INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`, `Typ`) 
 (7, 3, 3, '2026-09-01 12:05:45', 16, 8, 'Kauf'),
 (8, 6, 5, '2026-09-01 12:40:00', 18, 3, 'Kauf'),
 (9, 1, 1, '2026-09-01 13:15:20', 21, 1, 'Kauf'),
-(11, 10, 0, '0000-00-00 00:00:00', 2, 0, 'Aufladen'),
 (12, 123, 0, '2026-09-01 18:02:54', 2, 0, 'Aufladen'),
 (13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Kauf'),
 (14, 1, 1, '2026-09-01 19:51:02', 2, 3, 'Kauf'),
@@ -119,7 +124,7 @@ CREATE TABLE `nutzer` (
 
 INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Email`, `Passwort`, `Rolle`, `Chip`) VALUES
 (1, 'julkur1', 'Julian', 'Kurz', '', '123abc', 'Admin', NULL),
-(2, 'pul', 'Paul', 'Schäfer', 'joshiwinner659@gmail.com', '123', 'Schüler', '0009831976'),
+(2, 'pul', 'Paul', 'Schäfer', 'joshiwinner659@gmail.com', 'PLoCI', 'Schüler', '0009831976'),
 (3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '123', 'Mensa', NULL),
 (14, 'laumül14', 'Laura', 'Müller', '', 'adminPass1', 'Admin', NULL),
 (15, 'marsch15', 'Markus', 'Schmidt', '', 'adminPass2', 'Admin', NULL),
@@ -227,7 +232,7 @@ ALTER TABLE `produkte`
 -- AUTO_INCREMENT für Tabelle `ankunft`
 --
 ALTER TABLE `ankunft`
-  MODIFY `aID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `aID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `bestellung`

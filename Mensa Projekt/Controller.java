@@ -65,6 +65,9 @@ public class Controller {
     private Button PasswortResetButton;
     
     @FXML
+    private Button HomeButton;
+    
+    @FXML
     private Label resetLabel;
     
 

@@ -98,6 +98,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
+            <Button id="anmeldeButton" fx:id="HomeButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="152.0" text="Zurück zum Homescreen" />
       </children>
     </AnchorPane>
   </children>

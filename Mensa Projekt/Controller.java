@@ -116,6 +116,9 @@ public class Controller {
     private Button statistikButton;
     
     @FXML
+    private Button verlaufButton;
+    
+    @FXML
     private Label statusLabel;
 
     //Elemente Mensa Aufladen Screen
@@ -131,6 +134,9 @@ public class Controller {
     
     @FXML
     private Button statistikButton2;
+    
+    @FXML
+    private Button verlaufButton2;
     
     @FXML
     private Button buttonScene12;
@@ -171,6 +177,9 @@ public class Controller {
     private Button statistikButton3;
     
     @FXML
+    private Button verlaufButton3;
+    
+    @FXML
     private Button buttonScene13;
     
     @FXML
@@ -204,6 +213,9 @@ public class Controller {
     private Button statistikButton4;
     
     @FXML
+    private Button verlaufButton4;
+    
+    @FXML
     private Button buttonScene14;
     
     @FXML
@@ -215,7 +227,43 @@ public class Controller {
     @FXML
     private TableColumn<ObservableList<String>, String> verkaufCountColumn;
     
+    //Elemente Mensa Verlauf
     
+    @FXML
+    private Button homeButton5;
+    
+    @FXML
+    private Button aufladenButton5;
+    
+    @FXML
+    private Button hinzufuegenButton5;
+    
+    @FXML
+    private Button statistikButton5;
+    
+    @FXML
+    private Button verlaufButton5;
+    
+    @FXML
+    private Button buttonScene15;
+    
+    @FXML
+    private TableView<ObservableList<String>> verlaufTable;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> datumVerlaufColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> typVerlaufColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> produktVerlaufColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> mengeVerlaufColumn;
+    
+    @FXML
+    private TableColumn<ObservableList<String>, String> nutzernameVerlaufColumn;
     //Elemente Nutzer Main Screen
     
     @FXML
@@ -663,6 +711,51 @@ public class Controller {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    //Mensa Verlauf Methoden
+    @FXML
+    public void switchToVerlauf(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensaverlauf.fxml"));
+        Parent root = loader.load();
+        Controller neuerController = loader.getController();
+        neuerController.setMensa(mensa);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        neuerController.verlaufInitialize();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void verlaufInitialize() {
+
+        datumVerlaufColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
+        typVerlaufColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
+        produktVerlaufColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
+        mengeVerlaufColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        nutzernameVerlaufColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(4)));
+        getVerlauf();
+        
+    }
+    
+    public void getVerlauf() {
+         if (mensa!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = mensa.getVerlauf();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i + 1< datenAusDb.size(); i += 5) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     
+                zeile.add(datenAusDb.get(i + 1)); 
+                zeile.add(datenAusDb.get(i + 2));
+                zeile.add(datenAusDb.get(i + 3));
+                zeile.add(datenAusDb.get(i + 4));
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            verlaufTable.setItems(tabelleDaten);
+        }
     }
  
     public void setMensa(Mensa pMensa) {

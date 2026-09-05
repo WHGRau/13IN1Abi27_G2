@@ -92,7 +92,7 @@
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene1" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Button fx:id="buttonScene1" layoutX="31.0" layoutY="276.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
             <TableView fx:id="ProduktTable" layoutX="399.0" layoutY="88.0" onMouseClicked="#verkaufEinfuegen" prefHeight="200.0" prefWidth="227.0">
               <columns>
                 <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name" />
@@ -114,6 +114,7 @@
             <Button fx:id="hinzufuegenButton" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
             <Button fx:id="statistikButton" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
             <Label fx:id="statusLabel" layoutX="138.0" layoutY="314.0" />
+            <Button fx:id="verlaufButton1" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" text="🕛 Verlauf" />
       </children>
     </AnchorPane>
   </children>

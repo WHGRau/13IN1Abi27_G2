@@ -92,7 +92,7 @@
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene13" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Button fx:id="buttonScene13" layoutX="31.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="71.0" prefHeight="36.0" prefWidth="149.0" text="Hinzufügen">
                <font>
                   <Font size="25.0" />
@@ -114,6 +114,7 @@
                   <TableColumn fx:id="PreisColumn2" prefWidth="75.0" text="Preis" />
               </columns>
             </TableView>
+            <Button fx:id="verlaufButton3" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" text="🕛 Verlauf" />
       </children>
     </AnchorPane>
   </children>

@@ -90,7 +90,7 @@
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene12" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Button fx:id="buttonScene12" layoutX="31.0" layoutY="274.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="109.0" prefHeight="36.0" prefWidth="114.0" text="Aufladen">
                <font>
                   <Font size="25.0" />
@@ -103,6 +103,7 @@
             <Button fx:id="aufladenButton2" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
             <Button fx:id="hinzufuegenButton2" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
             <Button fx:id="statistikButton2" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <Button fx:id="verlaufButton2" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" text="🕛 Verlauf" />
       </children>
     </AnchorPane>
   </children>

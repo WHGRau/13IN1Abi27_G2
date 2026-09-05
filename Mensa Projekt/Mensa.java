@@ -136,10 +136,10 @@ public class Mensa extends JFrame {
   
   public ArrayList<String> statistik(){
       ArrayList<String> rückgabe = new ArrayList<String>();
-      dbConnector.executeStatement("SELECT pId , Menge FROM bestellung ORDER BY pId");
+      dbConnector.executeStatement("SELECT pID , Menge FROM bestellung WHERE Typ LIKE 'Kauf' ORDER BY pId");
       QueryResult r = dbConnector.getCurrentQueryResult();
       int pId = Integer.parseInt(r.getData()[0][0]);
-      dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE '"+pId+"'");
+      dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE "+pId);
       QueryResult na = dbConnector.getCurrentQueryResult();
       String name = na.getData()[0][0];
       int count = 0; 
@@ -152,7 +152,7 @@ public class Mensa extends JFrame {
             pId = Integer.parseInt(r.getData()[i][0]); 
             count = 0 ;
             count = count + Integer.parseInt(r.getData()[i][1]);
-            dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID LIKE '"+pId+"'");
+            dbConnector.executeStatement("SELECT Name FROM produkte WHERE pID = "+pId);
             QueryResult nam = dbConnector.getCurrentQueryResult();
             name = nam.getData()[0][0];
         }
@@ -204,7 +204,31 @@ public class Mensa extends JFrame {
 
     return rückgabe;
    }
+   
+    public ArrayList<String> getVerlauf() {
+      
+        ArrayList<String> verlauf = new ArrayList<>();
+        dbConnector.executeStatement("SELECT bestellung.Datum, bestellung.Typ, produkte.name, bestellung.Menge, nutzer.username FROM bestellung JOIN nutzer ON bestellung.uID = nutzer.uID LEFT JOIN produkte ON bestellung.pID = produkte.pID");      
+        QueryResult qr = dbConnector.getCurrentQueryResult();
+        
+    
+        String[][] data = qr.getData();
+        
+    
+        // Wenn alles da ist, können wir sicher iterieren
+        for (int x = 0; x < qr.getRowCount(); x++) {
+            for (int y = 0; y < qr.getColumnCount(); y++) {
+                if (data[x][y] == null) {
+                    verlauf.add("--");
+                } else {
+                    verlauf.add(data[x][y]);
+                }
+            }
+        }
+    
+        return verlauf;
+    }
+}
   
   // Ende Methoden
   
-}

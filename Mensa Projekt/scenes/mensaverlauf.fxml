@@ -91,23 +91,26 @@
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene14" layoutX="31.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="58.0" prefHeight="36.0" prefWidth="114.0" text="Statistik">
+            <Button fx:id="buttonScene15" layoutX="31.0" layoutY="276.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="58.0" prefHeight="36.0" prefWidth="114.0" text="Verlauf">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button fx:id="homeButton4" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="aufladenButton4" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
-            <Button fx:id="hinzufuegenButton4" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
-            <Button fx:id="statistikButton4" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
-            <TableView fx:id="statistikTable" layoutX="191.0" layoutY="101.0" prefHeight="200.0" prefWidth="247.0">
+            <Button fx:id="homeButton5" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
+            <Button fx:id="aufladenButton5" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
+            <Button fx:id="hinzufuegenButton5" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
+            <Button fx:id="statistikButton5" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <TableView fx:id="verlaufTable" layoutX="181.0" layoutY="97.0" prefHeight="200.0" prefWidth="436.0">
               <columns>
-                <TableColumn fx:id="produktStatistikColumn" prefWidth="95.0" text="Produkt" />
-                <TableColumn fx:id="verkaufCountColumn" prefWidth="103.0" text="Anz. Verkäufe" />
+                <TableColumn fx:id="datumVerlaufColumn" prefWidth="112.0" text="Datum" />
+                <TableColumn fx:id="typVerlaufColumn" prefWidth="65.0" text="Typ" />
+                  <TableColumn fx:id="produktVerlaufColumn" prefWidth="81.0" text="Produkt" />
+                  <TableColumn fx:id="mengeVerlaufColumn" prefWidth="64.0" text="Menge" />
+                  <TableColumn fx:id="nutzernameVerlaufColumn" prefWidth="113.0" text="Nutzername" />
               </columns>
             </TableView>
-            <Button fx:id="verlaufButton4" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" text="🕛 Verlauf" />
+            <Button fx:id="verlaufButton5" layoutX="31.0" layoutY="238.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" text="🕛 Verlauf" />
       </children>
     </AnchorPane>
   </children>

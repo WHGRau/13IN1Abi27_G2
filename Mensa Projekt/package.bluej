@@ -59,10 +59,17 @@ dependency8.type=UsesDependency
 dependency9.from=Login
 dependency9.to=Mensa
 dependency9.type=UsesDependency
+<<<<<<< HEAD
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
+=======
 editor.fx.0.height=739
 editor.fx.0.width=816
 editor.fx.0.x=552
 editor.fx.0.y=98
+>>>>>>> e860c906062896992fe1c267372d15dc6e6abf7e
 objectbench.height=138
 objectbench.width=1896
 package.divider.horizontal=0.6
@@ -71,8 +78,13 @@ package.editor.height=796
 package.editor.width=1785
 package.editor.x=0
 package.editor.y=0
+<<<<<<< HEAD
+package.frame.height=1039
+package.frame.width=974
+=======
 package.frame.height=1048
 package.frame.width=1936
+>>>>>>> e860c906062896992fe1c267372d15dc6e6abf7e
 package.numDependencies=20
 package.numTargets=13
 package.showExtends=true

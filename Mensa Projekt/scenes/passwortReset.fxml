@@ -91,19 +91,13 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <Button id="anmeldeButton" fx:id="anmeldeButton" layoutX="190.0" layoutY="211.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="260.0" text="Anmelden" />
-            <TextField id="idField" fx:id="idField" layoutX="190.0" layoutY="113.0" prefHeight="25.0" prefWidth="260.0" promptText="Nutzer ID" />
-            <TextField id="passwortField" fx:id="passwortField" accessibleRole="PASSWORD_FIELD" layoutX="190.0" layoutY="165.0" prefHeight="25.0" prefWidth="260.0" promptText="Passwort" />
+            <Button id="anmeldeButton" fx:id="PasswortResetButton" layoutX="190.0" layoutY="175.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="25.0" prefWidth="260.0" text="Passwort anfordern" />
+            <TextField id="idField" fx:id="passwortResetField" layoutX="190.0" layoutY="134.0" prefHeight="25.0" prefWidth="260.0" promptText="Email" />
             <Label fx:id="anmeldeLabel" layoutX="190.0" layoutY="248.0" prefHeight="17.0" prefWidth="260.0" textFill="RED">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="passwortVergessenButton" layoutX="14.0" layoutY="340.0" mnemonicParsing="false" onAction="#switchToPasswortReset" prefHeight="0.0" prefWidth="154.0" text="Passwort vergessen?">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
       </children>
     </AnchorPane>
   </children>

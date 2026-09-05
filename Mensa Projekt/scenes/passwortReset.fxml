@@ -91,9 +91,9 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <Button id="anmeldeButton" fx:id="PasswortResetButton" layoutX="190.0" layoutY="175.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="25.0" prefWidth="260.0" text="Passwort anfordern" />
-            <TextField id="idField" fx:id="passwortResetField" layoutX="190.0" layoutY="134.0" prefHeight="25.0" prefWidth="260.0" promptText="Email" />
-            <Label fx:id="anmeldeLabel" layoutX="190.0" layoutY="248.0" prefHeight="17.0" prefWidth="260.0" textFill="RED">
+            <Button id="anmeldeButton" fx:id="PasswortResetButton" layoutX="176.0" layoutY="175.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="25.0" prefWidth="289.0" text="Passwort anfordern" />
+            <TextField id="idField" fx:id="passwortResetField" layoutX="176.0" layoutY="139.0" prefHeight="25.0" prefWidth="289.0" promptText="Email" />
+            <Label fx:id="resetLabel" layoutX="150.0" layoutY="243.0" prefHeight="21.0" prefWidth="342.0" textFill="RED">
                <font>
                   <Font size="15.0" />
                </font>

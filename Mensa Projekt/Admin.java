@@ -6,6 +6,11 @@ import java.sql.*;
 import java.util.Random;
 import java.util.ArrayList;
 
+// email import
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import java.util.Properties;
+
 public class Admin extends JFrame {
   // Anfang Attribute
   private DatabaseConnector dbConnector;
@@ -42,34 +47,42 @@ public class Admin extends JFrame {
     }
   }
 
-    public void schuelerHinzufuegen(String pVorname, String pName , String pGmail) {
-      System.out.println("hinzufügen start");
-      String passwort = erzeugePasswort();
-      dbConnector.executeStatement("SELECT email FROM nutzer WHERE email LIKE '"+pGmail+"'");
-      QueryResult qr = dbConnector.getCurrentQueryResult();
-      if (qr.getRowCount() == 0){
-          System.out.println("hinzufügen 1");
-          dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle, email) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Schüler','"+pGmail+"')");
-          System.out.println("hinzufügen 2");
+    public void schuelerHinzufuegen(String pVorname, String pName, String pEmail) {
+      if(checkEmail(pEmail) == false) {
+          String passwort = erzeugePasswort();
+          dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Schüler')");
           dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
-          System.out.println("hinzufügen 3");
           QueryResult r = dbConnector.getCurrentQueryResult();
           int id = Integer.parseInt(r.getData()[0][0]);
           System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
-          erzeugeUsername(id);
+          String username = erzeugeUsername(id);
+          emailSenden(pEmail,  username, passwort);
           Konto konto = new Konto(id);
+      } else {
+          System.out.println("Da die Email bereits mit einem Konto verknüpft ist, kann kein Nutzer erstellt werden");
       }
-      else System.out.println("w mail schon vorhanden");
   }
   
-  public void mensaPersonalHinzufuegen(String pVorname, String pName) {
+  private boolean checkEmail(String email) {
+      // Methode liefert true wenn es die Email gibt und False wenn es sie nicht gibt      
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Email LIKE '"+email+"'");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      return qr.getData().length > 0;
+  }
+  
+  public void mensaPersonalHinzufuegen(String pVorname, String pName, String pEmail) {
+      if(checkEmail(pEmail) == false) {
       String passwort = erzeugePasswort();
-      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Mensa')");
+      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Mensa')");
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
       int id = Integer.parseInt(r.getData()[0][0]);
-      erzeugeUsername(id);
+      String username = erzeugeUsername(id);
+      emailSenden(pEmail,  username, passwort);
       System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
+    } else {
+          System.out.println("Da die Email bereits mit einem Konto verknüpft ist, kann kein Nutzer erstellt werden");
+      }
   }
   
   public void schuelerBearbeiten(int pID, String pName, String pVorname){
@@ -92,7 +105,7 @@ public class Admin extends JFrame {
     }
     
     
-    public void erzeugeUsername(int uID)
+    public String erzeugeUsername(int uID)
     {
         
       dbConnector.executeStatement("SELECT vorname, name FROM Nutzer WHERE uID LIKE '"+uID+"'");
@@ -105,6 +118,7 @@ public class Admin extends JFrame {
       nachname = nachname.toLowerCase();
       String username = vorname + nachname + Integer.toString(uID);
       dbConnector.executeStatement("UPDATE nutzer SET username = '"+username+"' WHERE uID ='"+uID+"';");
+      return username;
     }
   
  
@@ -130,6 +144,25 @@ public class Admin extends JFrame {
 
       return schueler;
   }
+  
+  private void emailSenden(String email, String username, String passwort) {
+        EmailService emailService = new EmailService(
+            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
+            "jspv nbmu iwxr jpxi"           // euer App-Passwort
+        );
+    
+        try {
+            emailService.emailSenden(
+                email,
+                "Sie wurden regestriert",
+                "Guten Tag, ein Admin hat für sie ein MensaMaxxing Konto erstellt. \n Nutzername: "+username+" \n Passwort: "+passwort+ " \n Bitte ändern sie das Passwort nach der ersten Anmeldung."
+            );
+            System.out.println("E-Mail erfolgreich gesendet!");
+        } catch (MessagingException e) {
+            System.err.println("Fehler beim Senden: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
   // Ende Methoden
 
 }

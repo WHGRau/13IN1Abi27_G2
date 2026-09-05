@@ -106,7 +106,7 @@
                </font>
             </Label>
             <TextField fx:id="artikelIDField" layoutX="138.0" layoutY="155.0" promptText="Artikelname" />
-            <TextField fx:id="userIDField" layoutX="138.0" layoutY="197.0" promptText="Nutzerchip" />
+            <TextField fx:id="userIDField" layoutX="138.0" layoutY="197.0" promptText="Nutzer Chip" />
             <TextField fx:id="mengeField" layoutX="138.0" layoutY="236.0" promptText="Menge" text="1" />
             <Button fx:id="verkaufenButton" layoutX="138.0" layoutY="276.0" mnemonicParsing="false" onAction="#verkaufen" prefHeight="25.0" prefWidth="88.0" text="Verkaufen" />
             <Button fx:id="homeButton" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />

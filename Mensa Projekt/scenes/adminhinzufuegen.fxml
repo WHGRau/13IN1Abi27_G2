@@ -106,7 +106,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="mailTextfield" layoutX="246.0" layoutY="194.0" promptText="E-mail Adresse" />
+            <TextField fx:id="eMailTextfield" layoutX="246.0" layoutY="194.0" promptText="E-Mail Adresse" />
       </children>
     </AnchorPane>
   </children>

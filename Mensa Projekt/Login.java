@@ -3,8 +3,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.sql.*;
+import java.util.Random;
 
-
+// email import
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import java.util.Properties;
 
 public class Login extends JFrame {
   // Anfang Attribute
@@ -105,6 +109,63 @@ public class Login extends JFrame {
       Mensa mensa = new Mensa(uID , username, pVorname, pName, pPasswort); 
       return mensa;
   }
+  
+  public boolean checkEmail(String email) {
+      // Methode liefert true wenn es die Email gibt und False wenn es sie nicht gibt      
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Email LIKE '"+email+"'");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      return qr.getData().length > 0;
+  }
+  
+  public void resetPasswort(String email) {
+      if(checkEmail(email)) {
+          //userID holen
+          dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Email LIKE '"+email+"'");
+          QueryResult qr = dbConnector.getCurrentQueryResult();
+          int uID = Integer.parseInt(qr.getData()[0][0]);
+          
+          //Passwort generieren und in Datenbank aktualisieren
+          String passwortNeu = erzeugePasswort();
+          dbConnector.executeStatement("UPDATE nutzer SET passwort = '"+passwortNeu+"' WHERE uID ="+uID);
+          
+          //Email senden
+          emailSenden(email, passwortNeu);
+      }
+  }
+  
+    private String erzeugePasswort()
+    {
+        String zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random zufall = new Random();
+        String passwort = "";
+
+        for (int i = 0; i < 5; i++)
+        {
+            int index = zufall.nextInt(zeichen.length());
+            passwort += zeichen.charAt(index);
+        }
+
+        return passwort;
+    }
+    
+    private void emailSenden(String email, String passwort) {
+        EmailService emailService = new EmailService(
+            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
+            "jspv nbmu iwxr jpxi"           // euer App-Passwort
+        );
+    
+        try {
+            emailService.emailSenden(
+                email,
+                "Ihr Mensa Passwort wurde zurückgesetzt",
+                "Guten Tag, Ihr MensaMaxxing Passwort wurde zurückgetzt. Ihr neues Passwort lautet: "+passwort+ " \n Bitte ändern sie es beim nächsten Anmelden zu einem von ihnen gewählten Passwort."
+            );
+            System.out.println("E-Mail erfolgreich gesendet!");
+        } catch (MessagingException e) {
+            System.err.println("Fehler beim Senden: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
   // Ende Methoden
   
   public static void main(String[] args) {

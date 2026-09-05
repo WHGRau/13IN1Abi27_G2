@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 02. Sep 2026 um 08:32
--- Server-Version: 10.4.28-MariaDB
--- PHP-Version: 8.2.4
+-- Erstellungszeit: 05. Sep 2026 um 13:35
+-- Server-Version: 10.4.32-MariaDB
+-- PHP-Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -94,7 +94,6 @@ INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
 (8, 28, 5555, 42.1),
 (9, 29, 9876, 12),
 (10, 30, 3333, 12.3),
-(14, 34, 0, 0),
 (15, 35, 0, 0);
 
 -- --------------------------------------------------------
@@ -108,6 +107,7 @@ CREATE TABLE `nutzer` (
   `username` text DEFAULT NULL,
   `Vorname` text NOT NULL,
   `Name` text NOT NULL,
+  `Email` text NOT NULL,
   `Passwort` text NOT NULL,
   `Rolle` text NOT NULL,
   `Chip` text DEFAULT NULL
@@ -117,29 +117,28 @@ CREATE TABLE `nutzer` (
 -- Daten für Tabelle `nutzer`
 --
 
-INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Passwort`, `Rolle`, `Chip`) VALUES
-(1, 'julcool', 'Julian', 'Kurz', '123abc', 'Admin', NULL),
-(2, 'pul', 'Paul', 'Schäfer', '123', 'Schüler', '0009831976'),
-(3, '2tast', 'Jan', 'Stüttger', '123', 'Mensa', NULL),
-(14, 'laumül14', 'Laura', 'Müller', 'adminPass1', 'Admin', NULL),
-(15, 'marsch15', 'Markus', 'Schmidt', 'adminPass2', 'Admin', NULL),
-(16, 'sarweb16', 'Sarah', 'Weber', 'adminPass3', 'Admin', NULL),
-(17, 'micwag17', 'Michael', 'Wagner', 'adminPass4', 'Admin', NULL),
-(18, 'elefis18', 'Elena', 'Fischer', 'adminPass5', 'Admin', NULL),
-(19, 'bribec19', 'Brigitte', 'Becker', 'mensaPass1', 'Mensa', NULL),
-(20, 'thohof20', 'Thomas', 'Hoffmann', 'mensaPass2', 'Mensa', NULL),
-(21, 'sabsch21', 'Sabine', 'Schäfer', 'mensaPass3', 'Mensa', NULL),
-(22, 'klakoc22', 'Klaus', 'Koch', 'mensaPass4', 'Mensa', NULL),
-(23, 'andbau23', 'Andrea', 'Bauer', 'mensaPass5', 'Mensa', NULL),
-(24, 'maxric24', 'Maximilian', 'Richter', '123', 'Schüler', '0009966769'),
-(25, 'sopkle25', 'Sophie', 'Klein', 'schueler123', 'Schüler', '0009968524'),
-(26, 'leowol26', 'Leon', 'Wolf', 'schueler123', 'Schüler', '0001608134'),
-(27, 'emmneu27', 'Emma', 'Neumann', 'schueler123', 'Schüler', '0009977009'),
-(28, 'luksch28', 'Lukas', 'Schwarz', 'schueler123', 'Schüler', NULL),
-(29, 'miazim29', 'Mia', 'Zimmermann', 'schueler123', 'Schüler', NULL),
-(30, 'felbra30', 'Felix', 'Braun', 'schueler123', 'Schüler', NULL),
-(34, 'bennet34', 'Benjamin', 'Netanyahu', 'XGAFs', 'Schüler', NULL),
-(35, 'johsch35', 'John', 'Schueler', 'fyoVY', 'Schüler', NULL);
+INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Email`, `Passwort`, `Rolle`, `Chip`) VALUES
+(1, 'julkur1', 'Julian', 'Kurz', '', '123abc', 'Admin', NULL),
+(2, 'pul', 'Paul', 'Schäfer', 'joshiwinner659@gmail.com', '123', 'Schüler', '0009831976'),
+(3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '123', 'Mensa', NULL),
+(14, 'laumül14', 'Laura', 'Müller', '', 'adminPass1', 'Admin', NULL),
+(15, 'marsch15', 'Markus', 'Schmidt', '', 'adminPass2', 'Admin', NULL),
+(16, 'sarweb16', 'Sarah', 'Weber', '', 'adminPass3', 'Admin', NULL),
+(17, 'micwag17', 'Michael', 'Wagner', '', 'adminPass4', 'Admin', NULL),
+(18, 'elefis18', 'Elena', 'Fischer', '', 'adminPass5', 'Admin', NULL),
+(19, 'bribec19', 'Brigitte', 'Becker', '', 'mensaPass1', 'Mensa', NULL),
+(20, 'thohof20', 'Thomas', 'Hoffmann', '', 'mensaPass2', 'Mensa', NULL),
+(21, 'sabsch21', 'Sabine', 'Schäfer', '', 'mensaPass3', 'Mensa', NULL),
+(22, 'klakoc22', 'Klaus', 'Koch', '', 'mensaPass4', 'Mensa', NULL),
+(23, 'andbau23', 'Andrea', 'Bauer', '', 'mensaPass5', 'Mensa', NULL),
+(24, 'maxric24', 'Maximilian', 'Richter', '', '123', 'Schüler', '0009966769'),
+(25, 'sopkle25', 'Sophie', 'Klein', '', 'schueler123', 'Schüler', '0009968524'),
+(26, 'leowol26', 'Leon', 'Wolf', '', 'schueler123', 'Schüler', '0001608134'),
+(27, 'emmneu27', 'Emma', 'Neumann', '', 'schueler123', 'Schüler', '0009977009'),
+(28, 'luksch28', 'Lukas', 'Schwarz', '', 'schueler123', 'Schüler', NULL),
+(29, 'miazim29', 'Mia', 'Zimmermann', '', 'schueler123', 'Schüler', NULL),
+(30, 'felbra30', 'Felix', 'Braun', '', 'schueler123', 'Schüler', NULL),
+(35, 'johsch35', 'John', 'Schueler', '', 'fyoVY', 'Schüler', NULL);
 
 -- --------------------------------------------------------
 
@@ -240,13 +239,13 @@ ALTER TABLE `bestellung`
 -- AUTO_INCREMENT für Tabelle `konto`
 --
 ALTER TABLE `konto`
-  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `kID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT für Tabelle `produkte`

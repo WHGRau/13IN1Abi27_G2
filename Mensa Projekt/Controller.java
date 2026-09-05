@@ -54,15 +54,20 @@ public class Controller {
     private Label anmeldeLabel;
     
     @FXML
-    private Button passwortVergessenButton;
+    private Button vergessenButton;
     
-    //Elemente der Passwort Reset Screen
+    //Elemente Passwort Reset Screen
     
     @FXML
     private TextField passwortResetField;
     
     @FXML
     private Button PasswortResetButton;
+    
+    @FXML
+    private Label resetLabel;
+    
+
    
     /* ------------------------------
      * Elemente des Mensa Homescreen 
@@ -318,6 +323,9 @@ public class Controller {
     private TextField nameTextfield;
     
     @FXML
+    private TextField eMailTextfield;
+    
+    @FXML
     private Button addSchuelerButton;
     
     @FXML 
@@ -556,6 +564,15 @@ public class Controller {
     public void switchtoScene1(ActionEvent event) throws IOException{      
         Parent root = FXMLLoader.load(getClass().getResource("scenes/scene1.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    public void switchToLogin() throws IOException{      
+        Parent root = FXMLLoader.load(getClass().getResource("scenes/scene1.fxml"));
+        Stage stage = (Stage)(PasswortResetButton).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -829,11 +846,11 @@ public class Controller {
     
     public void adminSchuelerHinzufuegen() {
         if (schuelerCheckbox.isSelected() == true && lehrerCheckbox.isSelected() == false) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(),mailTextfield.getText());
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
             addSchuelerLabel.setText("Der Schüler/Lehrer "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         }
         else if (schuelerCheckbox.isSelected() == false && lehrerCheckbox.isSelected() == true) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), mailTextfield.getText());
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
             addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         } else {
             addSchuelerLabel.setText("Die Person konnte nicht hinzugefügt werden!");
@@ -873,40 +890,31 @@ public class Controller {
         }
     }
     
-    //E-mail stuff
+    @FXML
+    public void switchToPasswortReset(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/passwortReset.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
+    //E-mail stuff
     @FXML
     public void sendEmail(ActionEvent event) {
         String email = passwortResetField.getText();
-        onSendenGeklickt(email);
-        try {
-            switchtoScene1();
-        } catch (IOException e) {
-            System.err.println("Fehler beim Szenenwechsel: " + e.getMessage()); 
-            e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    public void onSendenGeklickt(String pEmail) {
-        System.out.println("senden anfang");
-        String neuesP = new Admin().erzeugePasswort();
-        EmailService emailService = new EmailService(
-            "mensamaxxing@gmail.com",      
-            "jspv nbmu iwxr jpxi"           // App passwort
-        );
-        System.out.println("senden mitte");
-        try {
-            emailService.emailSenden(
-                 pEmail,
-                "Zurückgesetztes Passwort",
-                "Hallo! Dein neues Passwort lautet: " + neuesP 
-            );
-            new Login().passwortzuruck(neuesP , pEmail);
-            System.out.println("E-Mail erfolgreich gesendet!");
-        } catch (MessagingException e) {
-            System.err.println("Fehler beim Senden: " + e.getMessage());
-            e.printStackTrace();
+        if (login.checkEmail(email) == true) {
+            login.resetPasswort(email);
+            try {
+                switchToLogin();
+            }
+             catch (IOException e) {
+                e.printStackTrace();
+                resetLabel.setText("Fehler beim Laden der Szene!");
+            }
+        } else {
+            resetLabel.setText("Die E-Mail Adresse wurde nicht gefunden!");
         }
     }
     

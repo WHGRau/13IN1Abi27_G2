@@ -62,14 +62,24 @@ public class Admin extends JFrame {
       else System.out.println("w mail schon vorhanden");
   }
   
-  public void mensaPersonalHinzufuegen(String pVorname, String pName) {
+  public void mensaPersonalHinzufuegen(String pVorname, String pName, String pGmail) {
+      System.out.println("hinzufügen start");
       String passwort = erzeugePasswort();
-      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Mensa')");
-      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
-      QueryResult r = dbConnector.getCurrentQueryResult();
-      int id = Integer.parseInt(r.getData()[0][0]);
-      erzeugeUsername(id);
-      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
+      dbConnector.executeStatement("SELECT email FROM nutzer WHERE email LIKE '"+pGmail+"'");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      if (qr.getRowCount() == 0){
+          System.out.println("hinzufügen 1");
+          dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, passwort, rolle, email) VALUES('"+pVorname+"','"+pName+"','"+passwort+"','Mensa','"+pGmail+"')");
+          System.out.println("hinzufügen 2");
+          dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
+          System.out.println("hinzufügen 3");
+          QueryResult r = dbConnector.getCurrentQueryResult();
+          int id = Integer.parseInt(r.getData()[0][0]);
+          System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
+          erzeugeUsername(id);
+          Konto konto = new Konto(id);
+      }
+      else System.out.println("w mail schon vorhanden");
   }
   
   public void schuelerBearbeiten(int pID, String pName, String pVorname){

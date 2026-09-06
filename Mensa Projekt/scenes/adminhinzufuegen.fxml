@@ -85,22 +85,22 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="adminLogout2" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" text="🚪 Logout" />
-            <Button fx:id="adminHome2" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" text=" 🏠 Home" />
+            <Button fx:id="adminLogout2" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
+            <Button fx:id="adminHome2" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
             <Label fx:id="adminBegruessungLabel2" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="adminHinzufuegen2" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="➕ Hinzufügen" />
-            <Button fx:id="adminSchueler2" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" text=" 👨‍💼Schüler" />
+            <Button fx:id="adminHinzufuegen2" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="➕ Hinzufügen" textFill="WHITE" />
+            <Button fx:id="adminSchueler2" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
             <TextField fx:id="vornameTextfield" layoutX="246.0" layoutY="120.0" promptText="Vorname" />
             <TextField fx:id="nameTextfield" layoutX="246.0" layoutY="156.0" promptText="Nachname" />
-            <CheckBox fx:id="schuelerCheckbox" layoutX="246.0" layoutY="72.0" mnemonicParsing="false" text="Schüler / Lehrer" />
-            <CheckBox fx:id="lehrerCheckbox" layoutX="246.0" layoutY="99.0" mnemonicParsing="false" text="Mensa" />
-            <Button fx:id="addSchuelerButton" layoutX="246.0" layoutY="229.0" mnemonicParsing="false" onAction="#adminSchuelerHinzufuegen" prefHeight="25.0" prefWidth="149.0" text="Hinzufügen" />
+            <CheckBox fx:id="schuelerCheckbox" layoutX="246.0" layoutY="72.0" mnemonicParsing="false" style="-fx-background-color: #F1F5F9;" text="Schüler / Lehrer" />
+            <CheckBox fx:id="lehrerCheckbox" layoutX="246.0" layoutY="99.0" mnemonicParsing="false" style="-fx-background-color: #F1F5F9;" text="Mensa" />
+            <Button fx:id="addSchuelerButton" layoutX="246.0" layoutY="229.0" mnemonicParsing="false" onAction="#adminSchuelerHinzufuegen" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #059669;" text="Hinzufügen" textFill="WHITE" />
             <Label fx:id="addSchuelerLabel" layoutX="246.0" layoutY="241.0" textFill="#c9b715">
                <font>
                   <Font size="18.0" />

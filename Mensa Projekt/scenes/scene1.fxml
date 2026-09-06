@@ -84,14 +84,14 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
         <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Button id="anmeldeButton" fx:id="anmeldeButton" layoutX="190.0" layoutY="211.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="260.0" text="Anmelden" />
+            <Button id="anmeldeButton" fx:id="anmeldeButton" layoutX="190.0" layoutY="211.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #1E3A8A;" text="Anmelden" textFill="WHITE" />
             <TextField id="idField" fx:id="idField" layoutX="190.0" layoutY="113.0" prefHeight="25.0" prefWidth="260.0" promptText="Username" />
             <TextField id="passwortField" fx:id="passwortField" accessibleRole="PASSWORD_FIELD" layoutX="190.0" layoutY="165.0" prefHeight="25.0" prefWidth="260.0" promptText="Passwort" />
             <Label fx:id="anmeldeLabel" layoutX="190.0" layoutY="248.0" prefHeight="17.0" prefWidth="260.0" textFill="RED">
@@ -99,7 +99,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="vergessenButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToPasswortReset" prefHeight="25.0" prefWidth="135.0" text="Passwort Vergessen?" />
+            <Button fx:id="vergessenButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToPasswortReset" prefHeight="25.0" prefWidth="135.0" style="-fx-background-color: #475569;" text="Passwort Vergessen?" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

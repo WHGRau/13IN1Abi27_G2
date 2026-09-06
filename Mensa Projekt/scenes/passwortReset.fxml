@@ -84,21 +84,21 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
         <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Button id="anmeldeButton" fx:id="PasswortResetButton" layoutX="176.0" layoutY="175.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="25.0" prefWidth="289.0" text="Passwort anfordern" />
+            <Button id="anmeldeButton" fx:id="PasswortResetButton" layoutX="176.0" layoutY="175.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="25.0" prefWidth="289.0" style="-fx-background-color: #1E3A8A;" text="Passwort anfordern" textFill="WHITE" />
             <TextField id="idField" fx:id="passwortResetField" layoutX="176.0" layoutY="139.0" prefHeight="25.0" prefWidth="289.0" promptText="Email" />
             <Label fx:id="resetLabel" layoutX="150.0" layoutY="243.0" prefHeight="21.0" prefWidth="342.0" textFill="RED">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button id="anmeldeButton" fx:id="HomeButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="152.0" text="Zurück zum Homescreen" />
+            <Button id="anmeldeButton" fx:id="HomeButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #475569;" text="Zurück zum Homescreen" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

@@ -84,11 +84,11 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="nutzerLogout2" layoutX="31.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Button fx:id="nutzerHome2" layoutX="31.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToNutzer" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="passwortAendern" layoutX="245.0" layoutY="220.0" mnemonicParsing="false" onAction="#passwortAendern" prefHeight="25.0" prefWidth="149.0" text="Passwort ändern" />
+            <Button fx:id="nutzerLogout2" layoutX="31.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
+            <Button fx:id="nutzerHome2" layoutX="31.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToNutzer" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
+            <Button fx:id="passwortAendern" layoutX="245.0" layoutY="220.0" mnemonicParsing="false" onAction="#passwortAendern" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #1E3A8A;" text="Passwort ändern" textFill="WHITE" />
             <Label fx:id="begruessungLabel2" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
                   <Font size="24.0" />

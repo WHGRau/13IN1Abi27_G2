@@ -83,17 +83,17 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="adminLogout1" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" text="🚪 Logout" />
-            <Button fx:id="adminHome1" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text=" 🏠 Home" />
+            <Button fx:id="adminLogout1" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
+            <Button fx:id="adminHome1" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
             <Label fx:id="adminBegruessungLabel1" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="adminHinzufuegen1" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" onAction="#switchToAdminHinzufuegen" prefHeight="25.0" prefWidth="96.0" text="➕ Hinzufügen" />
-            <Button fx:id="adminSchueler1" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" text=" 👨‍💼Schüler" />
+            <Button fx:id="adminHinzufuegen1" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" onAction="#switchToAdminHinzufuegen" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="➕ Hinzufügen" textFill="WHITE" />
+            <Button fx:id="adminSchueler1" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

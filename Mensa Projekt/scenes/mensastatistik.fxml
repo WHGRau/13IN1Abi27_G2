@@ -85,29 +85,29 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="14.0" prefHeight="36.0" prefWidth="78.0" text="Mensa">
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene14" layoutX="31.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="58.0" prefHeight="36.0" prefWidth="114.0" text="Statistik">
+            <Button fx:id="buttonScene14" layoutX="31.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="190.0" layoutY="58.0" prefHeight="36.0" prefWidth="199.0" text="Statistik">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button fx:id="homeButton4" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="aufladenButton4" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
-            <Button fx:id="hinzufuegenButton4" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
-            <Button fx:id="statistikButton4" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
-            <TableView fx:id="statistikTable" layoutX="191.0" layoutY="101.0" prefHeight="200.0" prefWidth="247.0">
+            <Button fx:id="homeButton4" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
+            <Button fx:id="aufladenButton4" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="💵 Aufladen" textFill="WHITE" />
+            <Button fx:id="hinzufuegenButton4" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="➕ Produkt" textFill="WHITE" />
+            <Button fx:id="statistikButton4" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="📊 Statistik" textFill="WHITE" />
+            <TableView fx:id="statistikTable" layoutX="191.0" layoutY="101.0" prefHeight="200.0" prefWidth="199.0">
               <columns>
-                <TableColumn fx:id="produktStatistikColumn" prefWidth="95.0" text="Produkt" />
-                <TableColumn fx:id="verkaufCountColumn" prefWidth="103.0" text="Anz. Verkäufe" />
+                <TableColumn fx:id="produktStatistikColumn" prefWidth="95.0" style="-fx-background-color: #F1F5F9;" text="Produkt" />
+                <TableColumn fx:id="verkaufCountColumn" prefWidth="103.0" style="-fx-background-color: #F1F5F9;" text="Anz. Verkäufe" />
               </columns>
             </TableView>
-            <Button fx:id="verlaufButton4" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" text="🕛 Verlauf" />
+            <Button fx:id="verlaufButton4" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="🕛 Verlauf" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

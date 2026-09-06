@@ -86,35 +86,35 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="14.0" prefHeight="36.0" prefWidth="78.0" text="Mensa">
                <font>
                   <Font size="25.0" />
                </font></Label>
-            <Button fx:id="buttonScene13" layoutX="31.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" text="🚪 Logout" />
+            <Button fx:id="buttonScene13" layoutX="31.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="71.0" prefHeight="36.0" prefWidth="149.0" text="Hinzufügen">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button fx:id="homeButton3" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" text=" 🏠 Home" />
-            <Button fx:id="aufladenButton3" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" text="💵 Aufladen" />
-            <Button fx:id="hinzufuegenButton3" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" text="➕ Produkt" />
-            <Button fx:id="statistikButton3" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" text="📊 Statistik" />
+            <Button fx:id="homeButton3" layoutX="31.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToMensa" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
+            <Button fx:id="aufladenButton3" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="💵 Aufladen" textFill="WHITE" />
+            <Button fx:id="hinzufuegenButton3" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="➕ Produkt" textFill="WHITE" />
+            <Button fx:id="statistikButton3" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="📊 Statistik" textFill="WHITE" />
             <TextField fx:id="nameHinzufuegenTextfield" layoutX="180.0" layoutY="114.0" onMouseClicked="#hinzuEinfuegen" promptText="Name" />
             <TextField fx:id="anzahlHinzufuegenTextfield" layoutX="180.0" layoutY="155.0" promptText="Anzahl" />
             <TextField fx:id="preisHinzufuegenTextfield" layoutX="180.0" layoutY="197.0" promptText="Preis" />
             <TextField fx:id="sollHinzufuegenTextfield" layoutX="180.0" layoutY="236.0" promptText="Sollwert" />
-            <Button fx:id="prodHinzufuegenButton" layoutX="180.0" layoutY="273.0" mnemonicParsing="false" onAction="#produktHinzufuegen" text="Hinzufügen" />
+            <Button fx:id="prodHinzufuegenButton" layoutX="180.0" layoutY="273.0" mnemonicParsing="false" onAction="#produktHinzufuegen" style="-fx-background-color: #1E3A8A;" text="Hinzufügen" textFill="WHITE" />
             <TableView fx:id="ProduktTable2" layoutX="354.0" layoutY="88.0" onMouseClicked="#hinzuEinfuegen" prefHeight="200.0" prefWidth="226.0">
               <columns>
-                <TableColumn fx:id="ProduktColumn2" prefWidth="75.0" text="Produkt" />
-                <TableColumn fx:id="MengeColumn2" prefWidth="75.0" text="Menge" />
-                  <TableColumn fx:id="PreisColumn2" prefWidth="75.0" text="Preis" />
+                <TableColumn fx:id="ProduktColumn2" prefWidth="75.0" style="-fx-background-color: #F1F5F9;" text="Produkt" />
+                <TableColumn fx:id="MengeColumn2" prefWidth="75.0" style="-fx-background-color: #F1F5F9;" text="Menge" />
+                  <TableColumn fx:id="PreisColumn2" prefWidth="75.0" style="-fx-background-color: #F1F5F9;" text="Preis" />
               </columns>
             </TableView>
-            <Button fx:id="verlaufButton3" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" text="🕛 Verlauf" />
+            <Button fx:id="verlaufButton3" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="🕛 Verlauf" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

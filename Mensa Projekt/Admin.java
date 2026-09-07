@@ -123,9 +123,18 @@ public class Admin extends JFrame {
   
  
   
-  public void schuelerLoeschen(int pID) {
-      dbConnector.executeStatement("DELETE FROM nutzer WHERE uID = '"+pID+"';");
-      dbConnector.executeStatement("DELETE FROM konto WHERE uID = '"+pID+"';");
+  public void userLoeschen(int pID) {
+      dbConnector.executeStatement("SELECT Rolle FROM nutzer WHERE uID = "+pID);
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      if(qr != null)  {
+          String rolle = qr.getData()[0][0];
+          if (!rolle.equals("Admin")) {
+          dbConnector.executeStatement("DELETE FROM nutzer WHERE uID = '"+pID+"';");
+          if (rolle.equals("Schüler")) {
+              dbConnector.executeStatement("DELETE FROM konto WHERE uID = '"+pID+"';");
+            }
+        }
+    }
   }
   
   public String getName() {
@@ -134,7 +143,7 @@ public class Admin extends JFrame {
   
   public ArrayList<String> getSchueler() {
       ArrayList<String> schueler = new ArrayList();
-      dbConnector.executeStatement("SELECT uID, vorname, name FROM nutzer WHERE Rolle LIKE 'Schüler' ORDER BY uID ASC");
+      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Schüler' ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {
@@ -144,6 +153,58 @@ public class Admin extends JFrame {
 
       return schueler;
   }
+  
+  public ArrayList<String> getMensa() {
+      ArrayList<String> schueler = new ArrayList();
+      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Mensa' ORDER BY uID ASC");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              schueler.add(qr.getData()[x][y]);
+          }
+      }
+
+      return schueler;
+  }
+  
+  public ArrayList<String> getUser() {
+      ArrayList<String> schueler = new ArrayList();
+      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Mensa' OR Rolle LIKE 'Schüler' OR Rolle LIKE 'Admin' ORDER BY uID ASC");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              schueler.add(qr.getData()[x][y]);
+          }
+      }
+
+      return schueler;
+  }
+  
+  public ArrayList<String> getAdmin() {
+      ArrayList<String> schueler = new ArrayList();
+      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Admin' ORDER BY uID ASC");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              schueler.add(qr.getData()[x][y]);
+          }
+      }
+
+      return schueler;
+  }
+  
+  public String getUserEmail(int uID) {
+      String email = "";
+      dbConnector.executeStatement("SELECT email FROM nutzer WHERE uID = "+uID);
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      if(qr == null) {
+          email = "--";
+      } else {
+          email = qr.getData()[0][0];
+      }
+      return email;
+  }
+
   
   private void emailSenden(String email, String username, String passwort) {
         EmailService emailService = new EmailService(

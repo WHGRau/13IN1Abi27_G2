@@ -12,15 +12,14 @@ public class Nutzer extends JFrame {
   private int uID;
   private String vorname;
   private String name;
-  private String passwort;
+  private String passwort; // enthaelt den BCrypt-Hash, nicht das Klartext-Passwort
   private String username;
   private int kID;
   private Konto konto;
-  
+
   // Ende Attribute
-  
+
   public Nutzer(int pID , String pUsername, String pVorname, String pName, String pPasswort) {
-    // Frame-Initialisierung
     super("");
     uID = pID;
     username = pUsername;
@@ -30,7 +29,7 @@ public class Nutzer extends JFrame {
     konto = new Konto(pID);
     dbVerbinden();
   }
-  
+
   // Anfang Methoden
   public void dbVerbinden() {
     dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
@@ -42,73 +41,78 @@ public class Nutzer extends JFrame {
     }
   }
 
+  /**
+   * Aendert das Passwort, nachdem das alte Passwort erfolgreich geprueft wurde.
+   * Das neue Passwort wird vor dem Speichern mit BCrypt gehasht.
+   */
   public void passwortBearbeiten(String pPasswort, String pAltesPasswort){
-    String sql = ("SELECT passwort FROM nutzer WHERE uID LIKE '"+uID+"'");
-    dbConnector.executeStatement(sql);
+    dbConnector.executeStatement("SELECT Passwort FROM nutzer WHERE uID = ?", uID);
     QueryResult qr = dbConnector.getCurrentQueryResult();
-    if(qr.getRowCount()==1){
-        if (pAltesPasswort.equals(qr.getData()[0][0])){
-            dbConnector.executeStatement("UPDATE nutzer SET Passwort = '"+pPasswort+"' WHERE uID ='"+uID+"';");
-        }
-        else {
-            System.out.println("Nutzer nicht gefunden oder falsches Passwort");
-        }
+
+    if (qr != null && qr.getRowCount() == 1) {
+      String gespeicherterHash = qr.getData()[0][0];
+      if (PasswortUtil.pruefePasswort(pAltesPasswort, gespeicherterHash)) {
+        String neuerHash = PasswortUtil.hashPasswort(pPasswort);
+        dbConnector.executeStatement("UPDATE nutzer SET Passwort = ? WHERE uID = ?", neuerHash, uID);
+        passwort = neuerHash;
+      } else {
+        System.out.println("Nutzer nicht gefunden oder falsches Passwort");
+      }
+    } else {
+      System.out.println("Nutzer nicht gefunden oder falsches Passwort");
     }
-   else {
-       System.out.println("Nutzer nicht gefunden oder falsches Passwort");
-   }
-   checkPasswort(pPasswort);
- }
- 
+  }
+
   public void kontoPinBearbeiten(int pAlterPin, int pNeuerPin) {
-    String sql = ("SELECT pin FROM konto WHERE uID LIKE '"+uID+"'");
-    dbConnector.executeStatement(sql);
+    dbConnector.executeStatement("SELECT Pin FROM konto WHERE uID = ?", uID);
     QueryResult qr = dbConnector.getCurrentQueryResult();
-    if(qr.getRowCount()==1){
-        if (pAlterPin == Integer.parseInt(qr.getData()[0][0])){
-            dbConnector.executeStatement("UPDATE konto SET pin = '"+pNeuerPin+"' WHERE uID ='"+uID+"';");
-        }
-        else {
-            System.out.println("Konto nicht gefunden oder falsches Passwort");
-        }
-    }
-    else {
-       System.out.println("Konto nicht gefunden oder falsches Passwort");
+    if (qr != null && qr.getRowCount() == 1) {
+      if (pAlterPin == Integer.parseInt(qr.getData()[0][0])) {
+        dbConnector.executeStatement("UPDATE konto SET Pin = ? WHERE uID = ?", pNeuerPin, uID);
+      } else {
+        System.out.println("Konto nicht gefunden oder falsches Passwort");
+      }
+    } else {
+      System.out.println("Konto nicht gefunden oder falsches Passwort");
     }
   }
-  
+
+  /**
+   * Prueft ein eingegebenes Klartext-Passwort gegen den in der DB gespeicherten
+   * BCrypt-Hash.
+   */
   public boolean checkPasswort(String pPasswort) {
-    boolean check = false;
-    String sql = ("SELECT passwort FROM nutzer WHERE uID LIKE '"+uID+"'");
-    dbConnector.executeStatement(sql);
+    dbConnector.executeStatement("SELECT Passwort FROM nutzer WHERE uID = ?", uID);
     QueryResult qr = dbConnector.getCurrentQueryResult();
-    if(qr.getRowCount()==1){
-         if (pPasswort.equals(qr.getData()[0][0])){
-        check = true;
-      } 
+    if (qr != null && qr.getRowCount() == 1) {
+      String gespeicherterHash = qr.getData()[0][0];
+      return PasswortUtil.pruefePasswort(pPasswort, gespeicherterHash);
     }
-    return check;
+    return false;
   }
-  
+
   public int getID() {
       return uID;
   }
-  
+
   public String getName() {
       return vorname + " " + name;
   }
-  
+
   public String getKontostand() {
-        String sql = "SELECT kontostand from konto where uID = "+uID;
-        dbConnector.executeStatement(sql);
-        QueryResult qr = dbConnector.getCurrentQueryResult();
-        String kontostand = qr.getData()[0][0];
-        return kontostand + " €";
+    dbConnector.executeStatement("SELECT Kontostand FROM konto WHERE uID = ?", uID);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    String kontostand = qr.getData()[0][0];
+    return kontostand + " €";
   }
-  
+
   public ArrayList<String> getKaeufe() {
       ArrayList<String> kaeufe = new ArrayList();
-      dbConnector.executeStatement("SELECT bestellung.Datum, produkte.name, bestellung.menge, bestellung.wert, bestellung.typ FROM produkte, bestellung WHERE bestellung.uID = "+uID+ " AND bestellung.pID = produkte.pID ORDER BY bestellung.Datum DESC");
+      dbConnector.executeStatement(
+          "SELECT bestellung.Datum, produkte.Name, bestellung.Menge, bestellung.Wert, bestellung.Typ " +
+          "FROM produkte, bestellung " +
+          "WHERE bestellung.uID = ? AND bestellung.pID = produkte.pID ORDER BY bestellung.Datum DESC",
+          uID);
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {

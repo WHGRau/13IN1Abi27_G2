@@ -106,13 +106,13 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TableView fx:id="kaufHistoryTable" layoutX="142.0" layoutY="139.0" prefHeight="165.0" prefWidth="445.0">
+            <TableView fx:id="kaufHistoryTable" layoutX="142.0" layoutY="139.0" prefHeight="165.0" prefWidth="445.0" style="-fx-background-color: #F1F5F9;">
               <columns>
-                <TableColumn fx:id="dateColumn" prefWidth="115.0" style="-fx-background-color: #F1F5F9;" text="Datum" />
-                <TableColumn fx:id="productColumn" prefWidth="83.0" style="-fx-background-color: #F1F5F9;" text="Produkt" />
-                  <TableColumn fx:id="mengeColumn1" prefWidth="77.0" style="-fx-background-color: #F1F5F9;" text="Menge" />
-                  <TableColumn fx:id="preisColumn1" prefWidth="68.0" style="-fx-background-color: #F1F5F9;" text="Preis" />
-                  <TableColumn fx:id="typColumn" prefWidth="101.0" style="-fx-background-color: #F1F5F9;" text="Typ" />
+                <TableColumn fx:id="dateColumn" prefWidth="115.0" text="Datum" />
+                <TableColumn fx:id="productColumn" prefWidth="83.0" text="Produkt" />
+                  <TableColumn fx:id="mengeColumn1" prefWidth="77.0" text="Menge" />
+                  <TableColumn fx:id="preisColumn1" prefWidth="68.0" text="Preis" />
+                  <TableColumn fx:id="typColumn" prefWidth="101.0" text="Typ" />
               </columns>
             </TableView>
             <Text layoutX="142.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verlauf" wrappingWidth="46.458984375">

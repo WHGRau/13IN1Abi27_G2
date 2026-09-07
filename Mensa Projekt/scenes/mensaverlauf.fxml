@@ -101,11 +101,11 @@
             <Button fx:id="aufladenButton5" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="💵 Aufladen" textFill="WHITE" />
             <Button fx:id="hinzufuegenButton5" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="➕ Produkt" textFill="WHITE" />
             <Button fx:id="statistikButton5" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="📊 Statistik" textFill="WHITE" />
-            <TableView fx:id="verlaufTable" layoutX="181.0" layoutY="97.0" prefHeight="200.0" prefWidth="436.0">
+            <TableView fx:id="verlaufTable" layoutX="181.0" layoutY="97.0" prefHeight="200.0" prefWidth="436.0" style="-fx-background-color: #F1F5F9;">
               <columns>
-                <TableColumn fx:id="datumVerlaufColumn" prefWidth="112.0" style="-fx-background-color: #F1F5F9;" text="Datum" />
-                <TableColumn fx:id="typVerlaufColumn" prefWidth="65.0" style="-fx-background-color: #F1F5F9;" text="Typ" />
-                  <TableColumn fx:id="produktVerlaufColumn" prefWidth="81.0" style="-fx-background-color: #F1F5F9;" text="Produkt" />
+                <TableColumn fx:id="datumVerlaufColumn" prefWidth="112.0" text="Datum" />
+                <TableColumn fx:id="typVerlaufColumn" prefWidth="65.0" text="Typ" />
+                  <TableColumn fx:id="produktVerlaufColumn" prefWidth="81.0" text="Produkt" />
                   <TableColumn fx:id="mengeVerlaufColumn" prefWidth="64.0" text="Menge" />
                   <TableColumn fx:id="nutzernameVerlaufColumn" prefWidth="113.0" text="Nutzername" />
               </columns>

@@ -93,11 +93,11 @@
                   <Font size="25.0" />
                </font></Label>
             <Button fx:id="buttonScene1" layoutX="31.0" layoutY="276.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
-            <TableView fx:id="ProduktTable" layoutX="399.0" layoutY="88.0" onMouseClicked="#verkaufEinfuegen" prefHeight="200.0" prefWidth="227.0" style="-fx-background-color: #FFFFFF;">
+            <TableView fx:id="ProduktTable" layoutX="399.0" layoutY="88.0" onMouseClicked="#verkaufEinfuegen" prefHeight="200.0" prefWidth="227.0" style="-fx-background-color: #F1F5F9;">
               <columns>
-                <TableColumn fx:id="NameColumn" prefWidth="75.0" style="-fx-background-color: #F1F5F9;" text="Name" />
-                <TableColumn fx:id="MengeColumn" prefWidth="75.0" style="-fx-background-color: #F1F5F9;" text="Menge" />
-                  <TableColumn fx:id="PreisColumn" prefWidth="75.0" style="-fx-background-color: #F1F5F9;" text="Preis" />
+                <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="MengeColumn" prefWidth="75.0" text="Menge" />
+                  <TableColumn fx:id="PreisColumn" prefWidth="75.0" text="Preis" />
               </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="108.0" prefHeight="36.0" prefWidth="114.0" text="Verkaufen" textFill="#0f172a">

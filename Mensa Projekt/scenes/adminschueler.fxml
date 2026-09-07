@@ -89,7 +89,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="adminLogout3" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
+            <Button fx:id="adminLogout3" layoutX="31.0" layoutY="258.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
             <Button fx:id="adminHome3" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
             <Label fx:id="adminBegruessungLabel3" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
@@ -97,7 +97,7 @@
                </font>
             </Label>
             <Button fx:id="adminHinzufuegen3" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" onAction="#switchToAdminHinzufuegen" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="➕ Hinzufügen" textFill="WHITE" />
-            <Button fx:id="adminSchueler3" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
+            <Button fx:id="adminSchueler3" layoutX="31.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
             <TableView fx:id="schuelerTable" layoutX="163.0" layoutY="106.0" onMouseClicked="#loeschIDEinfuegen" prefHeight="200.0" prefWidth="289.0" style="-fx-background-color: #F1F5F9;">
               <columns>
                 <TableColumn fx:id="schuelerIdColumn" prefWidth="33.0" text="ID" />
@@ -108,6 +108,7 @@
             <TextField fx:id="loeschIdTextfield" layoutX="474.0" layoutY="132.0" prefHeight="25.0" prefWidth="114.0" promptText="Schüler ID" />
             <Text layoutX="474.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schüler löschen" />
             <Button fx:id="schuelerLoeschButton" layoutX="474.0" layoutY="169.0" mnemonicParsing="false" onAction="#adminSchuelerLoeschen" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: #DC2626;" text="Löschen" textFill="WHITE" />
+            <Button fx:id="adminBearbeiten3" layoutX="31.0" layoutY="182.0" mnemonicParsing="false" onAction="#switchToAdminSchuelerBearb" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="Bearbeiten" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

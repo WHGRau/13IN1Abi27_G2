@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
 
 // Imports für Tableview
 import javafx.scene.control.TableColumn;
@@ -362,10 +362,10 @@ public class Controller {
     private Label adminBegruessungLabel2;
     
     @FXML
-    private CheckBox schuelerCheckbox;
+    private RadioButton schuelerRadioButton;
     
     @FXML
-    private CheckBox lehrerCheckbox;
+    private RadioButton mensaRadioButton;
     
     @FXML
     private TextField vornameTextfield;
@@ -960,11 +960,11 @@ public class Controller {
     // Admin Methoden
     
     public void adminSchuelerHinzufuegen() {
-        if (schuelerCheckbox.isSelected() == true && lehrerCheckbox.isSelected() == false) {
+        if (schuelerRadioButton.isSelected() == true && mensaRadioButton.isSelected() == false) {
             admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
             addSchuelerLabel.setText("Der Schüler/Lehrer "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         }
-        else if (schuelerCheckbox.isSelected() == false && lehrerCheckbox.isSelected() == true) {
+        else if (schuelerRadioButton.isSelected() == false && mensaRadioButton.isSelected() == true) {
             admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
             addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         } else {

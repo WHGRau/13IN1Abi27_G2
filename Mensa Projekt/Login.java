@@ -32,6 +32,11 @@ public class Login extends JFrame {
       dbVerbinden();
       dbConnector.executeStatement("SELECT uID FROM Nutzer WHERE username LIKE '"+username+"'");
       QueryResult u = dbConnector.getCurrentQueryResult();
+      
+      if (u == null || u.getData() == null || u.getData().length == 0) {
+        System.out.println("Benutzername nicht gefunden!");
+        return null; 
+      }
       int uID = Integer.parseInt(u.getData()[0][0]);
       dbConnector.executeStatement("SELECT Passwort FROM Nutzer WHERE uID LIKE '"+uID+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();

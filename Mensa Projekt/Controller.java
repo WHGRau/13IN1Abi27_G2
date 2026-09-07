@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
 
 // Imports für Tableview
 import javafx.scene.control.TableColumn;
@@ -368,10 +368,10 @@ public class Controller {
     private Label adminBegruessungLabel2;
     
     @FXML
-    private CheckBox schuelerCheckbox;
+    private RadioButton schuelerRadioButton;
     
     @FXML
-    private CheckBox lehrerCheckbox;
+    private RadioButton mensaRadioButton;
     
     @FXML
     private TextField vornameTextfield;
@@ -424,6 +424,9 @@ public class Controller {
     private TableColumn<ObservableList<String>, String> schuelerNameColumn;
     
     @FXML
+    private TableColumn<ObservableList<String>, String> schuelerRolleColumn;
+    
+    @FXML
     private Button schuelerLoeschButton;
     
     @FXML
@@ -467,6 +470,20 @@ public class Controller {
     @FXML
     private TextField eMailTextfield2;
     
+    @FXML
+    private Button alleFilterButton;
+    
+    @FXML
+    private Button schuelerFilterButton;
+    
+    @FXML
+    private Button mensaFilterButton;
+    
+    @FXML
+    private Button adminFilterButton;
+    
+    @FXML
+    private Label emailLabel;
  
     // Verbindung vom Controller zum Model   
     private Login login;
@@ -530,7 +547,7 @@ public class Controller {
                 // Optional: Fehlermeldung für den Nutzer anzeigen
             }
         }
-        else if (loginErgebnis == null) {
+        else {
             anmeldeLabel.setText("Die Anmeldedaten sind falsch!");
         }
            
@@ -979,7 +996,8 @@ public class Controller {
         schuelerIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
         schuelerVornameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
         schuelerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
-        getSchueler();
+        schuelerRolleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(3)));
+        getUser();
     }
     
     public void setAdmin(Admin pAdmin) {
@@ -989,11 +1007,11 @@ public class Controller {
     // Admin Methoden
     
     public void adminSchuelerHinzufuegen() {
-        if (schuelerCheckbox.isSelected() == true && lehrerCheckbox.isSelected() == false) {
+        if (schuelerRadioButton.isSelected() == true && mensaRadioButton.isSelected() == false) {
             admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
             addSchuelerLabel.setText("Der Schüler/Lehrer "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         }
-        else if (schuelerCheckbox.isSelected() == false && lehrerCheckbox.isSelected() == true) {
+        else if (schuelerRadioButton.isSelected() == false && mensaRadioButton.isSelected() == true) {
             admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
             addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         } else {
@@ -1003,7 +1021,7 @@ public class Controller {
     
     public void adminSchuelerLoeschen() {
         int uID = Integer.parseInt(loeschIdTextfield.getText());
-        admin.schuelerLoeschen(uID);
+        admin.userLoeschen(uID);
         adminSchuelerInitialize();
     }
     
@@ -1013,20 +1031,100 @@ public class Controller {
         if (selectedRow != null) {
             String schuelerID = selectedRow.get(0);
             loeschIdTextfield.setText(schuelerID);
+            int uID = Integer.parseInt(selectedRow.get(0));
+            emailLabel.setText(admin.getUserEmail(uID));
         }
     }
     
-    public void getSchueler() {
+    
+    public void getSchueler(ActionEvent event) {
         if (admin!= null) {
             ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
             ArrayList<String> datenAusDb = admin.getSchueler();
             // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
-            for (int i = 0; i < datenAusDb.size(); i += 3) {
+            for (int i = 0; i < datenAusDb.size(); i += 4) {
                 ObservableList<String> zeile = FXCollections.observableArrayList();
                 
                 zeile.add(datenAusDb.get(i));     // Index 0: Datum
                 zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
-                zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
+                zeile.add(datenAusDb.get(i + 2));
+                zeile.add(datenAusDb.get(i + 3));// Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            schuelerTable.setItems(tabelleDaten);
+        }
+    }
+    
+    public void getMensa(ActionEvent event) {
+        if (admin!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = admin.getMensa();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 4) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Datum
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
+                zeile.add(datenAusDb.get(i + 2));
+                zeile.add(datenAusDb.get(i + 3));// Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            schuelerTable.setItems(tabelleDaten);
+        }
+    }
+    
+    public void getUser(ActionEvent event) {
+        if (admin!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = admin.getUser();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 4) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Datum
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
+                zeile.add(datenAusDb.get(i + 2));
+                zeile.add(datenAusDb.get(i + 3));// Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            schuelerTable.setItems(tabelleDaten);
+        }
+    }
+    
+    public void getAdmin(ActionEvent event) {
+        if (admin!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = admin.getAdmin();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 4) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Datum
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
+                zeile.add(datenAusDb.get(i + 2));
+                zeile.add(datenAusDb.get(i + 3));// Index 2: Menge
+                tabelleDaten.add(zeile);
+            }
+            // Der TableView übergeben
+            schuelerTable.setItems(tabelleDaten);
+        }
+    }
+    
+    public void getUser() {
+        if (admin!= null) {
+            ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
+            ArrayList<String> datenAusDb = admin.getUser();
+            // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
+            for (int i = 0; i < datenAusDb.size(); i += 4) {
+                ObservableList<String> zeile = FXCollections.observableArrayList();
+                
+                zeile.add(datenAusDb.get(i));     // Index 0: Datum
+                zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
+                zeile.add(datenAusDb.get(i + 2));
+                zeile.add(datenAusDb.get(i + 3));// Index 2: Menge
                 tabelleDaten.add(zeile);
             }
             // Der TableView übergeben

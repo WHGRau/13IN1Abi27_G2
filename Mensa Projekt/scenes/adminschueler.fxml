@@ -97,18 +97,28 @@
                </font>
             </Label>
             <Button fx:id="adminHinzufuegen3" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" onAction="#switchToAdminHinzufuegen" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="➕ Hinzufügen" textFill="WHITE" />
-            <Button fx:id="adminSchueler3" layoutX="31.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
-            <TableView fx:id="schuelerTable" layoutX="163.0" layoutY="106.0" onMouseClicked="#loeschIDEinfuegen" prefHeight="200.0" prefWidth="289.0" style="-fx-background-color: #F1F5F9;">
+            <Button fx:id="adminSchueler3" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
+            <TableView fx:id="schuelerTable" layoutX="142.0" layoutY="106.0" onMouseClicked="#loeschIDEinfuegen" prefHeight="200.0" prefWidth="327.0" style="-fx-background-color: #F1F5F9;">
               <columns>
                 <TableColumn fx:id="schuelerIdColumn" prefWidth="33.0" text="ID" />
-                <TableColumn fx:id="schuelerVornameColumn" prefWidth="135.0" text="Vorname" />
-                  <TableColumn fx:id="schuelerNameColumn" prefWidth="120.0" text="Name" />
+                <TableColumn fx:id="schuelerVornameColumn" prefWidth="97.0" text="Vorname" />
+                  <TableColumn fx:id="schuelerNameColumn" prefWidth="102.0" text="Name" />
+                  <TableColumn fx:id="schuelerRolleColumn" prefWidth="93.0" text="Rolle" />
               </columns>
             </TableView>
-            <TextField fx:id="loeschIdTextfield" layoutX="474.0" layoutY="132.0" prefHeight="25.0" prefWidth="114.0" promptText="Schüler ID" />
-            <Text layoutX="474.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schüler löschen" />
-            <Button fx:id="schuelerLoeschButton" layoutX="474.0" layoutY="169.0" mnemonicParsing="false" onAction="#adminSchuelerLoeschen" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: #DC2626;" text="Löschen" textFill="WHITE" />
+            <TextField fx:id="loeschIdTextfield" layoutX="482.0" layoutY="241.0" prefHeight="25.0" prefWidth="114.0" promptText="Nutzer ID" />
+            <Text layoutX="482.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nutzer löschen" />
+            <Button fx:id="schuelerLoeschButton" layoutX="482.0" layoutY="281.0" mnemonicParsing="false" onAction="#adminSchuelerLoeschen" prefHeight="25.0" prefWidth="114.0" style="-fx-background-color: #DC2626;" text="Löschen" textFill="WHITE" />
+            <Button fx:id="alleFilterButton" layoutX="142.0" layoutY="317.0" mnemonicParsing="false" onAction="#getUser" prefHeight="25.0" prefWidth="61.0" text="Alle" />
+            <Button fx:id="schuelerFilterButton" layoutX="230.0" layoutY="317.0" mnemonicParsing="false" onAction="#getSchueler" prefHeight="25.0" prefWidth="61.0" text="Schüler" />
+            <Button fx:id="mensaFilterButton" layoutX="320.0" layoutY="317.0" mnemonicParsing="false" onAction="#getMensa" prefHeight="25.0" prefWidth="61.0" text="Mensa" />
+            <Button fx:id="adminFilterButton" layoutX="407.0" layoutY="317.0" mnemonicParsing="false" onAction="#getAdmin" prefHeight="25.0" prefWidth="61.0" text="Admin" />
             <Button fx:id="adminBearbeiten3" layoutX="31.0" layoutY="182.0" mnemonicParsing="false" onAction="#switchToAdminSchuelerBearb" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="Bearbeiten" textFill="WHITE" />
+            <Label fx:id="emailLabel" layoutX="482.0" layoutY="150.0" prefHeight="36.0" prefWidth="148.0">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
+            <Text layoutX="482.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email des ausgewählten Schülers:" wrappingWidth="140.501953125" />
       </children>
     </AnchorPane>
   </children>

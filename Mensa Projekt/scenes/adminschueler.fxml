@@ -89,7 +89,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="adminLogout3" layoutX="31.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
+            <Button fx:id="adminLogout3" layoutX="31.0" layoutY="258.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
             <Button fx:id="adminHome3" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
             <Label fx:id="adminBegruessungLabel3" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
@@ -113,6 +113,7 @@
             <Button fx:id="schuelerFilterButton" layoutX="230.0" layoutY="317.0" mnemonicParsing="false" onAction="#getSchueler" prefHeight="25.0" prefWidth="61.0" text="Schüler" />
             <Button fx:id="mensaFilterButton" layoutX="320.0" layoutY="317.0" mnemonicParsing="false" onAction="#getMensa" prefHeight="25.0" prefWidth="61.0" text="Mensa" />
             <Button fx:id="adminFilterButton" layoutX="407.0" layoutY="317.0" mnemonicParsing="false" onAction="#getAdmin" prefHeight="25.0" prefWidth="61.0" text="Admin" />
+            <Button fx:id="adminBearbeiten3" layoutX="31.0" layoutY="182.0" mnemonicParsing="false" onAction="#switchToAdminSchuelerBearb" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="Bearbeiten" textFill="WHITE" />
             <Label fx:id="emailLabel" layoutX="482.0" layoutY="150.0" prefHeight="36.0" prefWidth="148.0">
                <font>
                   <Font size="11.0" />

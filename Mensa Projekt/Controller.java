@@ -500,7 +500,7 @@ public class Controller {
                 // Optional: Fehlermeldung für den Nutzer anzeigen
             }
         }
-        else if (loginErgebnis == null) {
+        else {
             anmeldeLabel.setText("Die Anmeldedaten sind falsch!");
         }
            

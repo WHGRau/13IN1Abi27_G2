@@ -197,6 +197,9 @@ public class Controller {
     @FXML
     private Button prodHinzufuegenButton;
     
+    @FXML
+    private Button prodloeschenButton1;
+    
     
     //Elemente Mensa Statistik Screen
     
@@ -646,6 +649,14 @@ public class Controller {
             artikelIDField.setText(produktName);
         }
         
+    }
+    
+    @FXML
+    public void produktloesch(ActionEvent event) {
+        String pID = nameHinzufuegenTextfield.getText();
+        System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhh1");
+        mensa.produktloeschen(pID);    
+        hinzufuegenInitialize();
     }
     
     @FXML

@@ -102,10 +102,10 @@
             <Button fx:id="aufladenButton3" layoutX="31.0" layoutY="114.0" mnemonicParsing="false" onAction="#switchToAufladen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="💵 Aufladen" textFill="WHITE" />
             <Button fx:id="hinzufuegenButton3" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="➕ Produkt" textFill="WHITE" />
             <Button fx:id="statistikButton3" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="📊 Statistik" textFill="WHITE" />
-            <TextField fx:id="nameHinzufuegenTextfield" layoutX="180.0" layoutY="114.0" onMouseClicked="#hinzuEinfuegen" promptText="Name" />
-            <TextField fx:id="anzahlHinzufuegenTextfield" layoutX="180.0" layoutY="155.0" promptText="Anzahl" />
-            <TextField fx:id="preisHinzufuegenTextfield" layoutX="180.0" layoutY="197.0" promptText="Preis" />
-            <Button fx:id="prodHinzufuegenButton" layoutX="180.0" layoutY="236.0" mnemonicParsing="false" onAction="#produktHinzufuegen" style="-fx-background-color: #1E3A8A;" text="Hinzufügen" textFill="WHITE" />
+            <TextField fx:id="nameHinzufuegenTextfield" layoutX="180.0" layoutY="114.0" onMouseClicked="#hinzuEinfuegen" prefHeight="25.0" prefWidth="162.0" promptText="Name" />
+            <TextField fx:id="anzahlHinzufuegenTextfield" layoutX="180.0" layoutY="155.0" prefHeight="25.0" prefWidth="162.0" promptText="Anzahl" />
+            <TextField fx:id="preisHinzufuegenTextfield" layoutX="180.0" layoutY="197.0" prefHeight="25.0" prefWidth="162.0" promptText="Preis" />
+            <Button fx:id="prodHinzufuegenButton" layoutX="180.0" layoutY="236.0" mnemonicParsing="false" onAction="#produktHinzufuegen" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #1E3A8A;" text="Hinzufügen" textFill="WHITE" />
             <TableView fx:id="ProduktTable2" layoutX="354.0" layoutY="88.0" onMouseClicked="#hinzuEinfuegen" prefHeight="200.0" prefWidth="226.0" style="-fx-background-color: #F1F5F9;">
               <columns>
                 <TableColumn fx:id="ProduktColumn2" prefWidth="75.0" text="Produkt" />
@@ -114,6 +114,7 @@
               </columns>
             </TableView>
             <Button fx:id="verlaufButton3" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="🕛 Verlauf" textFill="WHITE" />
+            <Button fx:id="prodloeschenButton1" layoutX="265.0" layoutY="236.0" mnemonicParsing="false" onAction="#produktloesch" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #DC2626;" text="Löschen" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

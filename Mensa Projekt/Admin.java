@@ -47,13 +47,46 @@ public class Admin extends JFrame {
 
   public void schuelerHinzufuegen(String pVorname, String pName, String pEmail) {
     if (!checkEmail(pEmail)) {
+      // Schritt 1: Klartext-Passwort erzeugen (wird nie gespeichert, nur einmalig angezeigt/gemailt)
       String klartextPasswort = erzeugePasswort();
-      String hash = PasswortUtil.hashPasswort(klartextPasswort);
 
-      dbConnector.executeStatement("INSERT INTO nutzer(Vorname, Name, Email, Passwort, Rolle) VALUES(?, ?, ?, ?, 'Schüler')",pVorname, pName, pEmail, hash);
+      // Schritt 2: Passwort hashen, BEVOR irgendetwas in die DB geschrieben wird.
+      // Falls die BCrypt-Bibliothek (bcrypt-0_7_0.jar) nicht korrekt als Library
+      // eingebunden ist, wirft dieser Aufruf eine NoClassDefFoundError/ExceptionInInitializerError.
+      // Wir fangen das hier ab, damit ihr eine klare Fehlermeldung seht statt "es passiert einfach nichts".
+      String hash;
+      try {
+          hash = PasswortUtil.hashPasswort(klartextPasswort);
+      } catch (Throwable t) {
+          System.err.println("FEHLER beim Hashen des Passworts. Ist bcrypt-0_7_0.jar in BlueJ als Library eingebunden? (Tools -> Preferences -> Libraries)");
+          t.printStackTrace();
+          return; // Abbruch, kein halb angelegter Nutzer
+      }
 
-      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname = ? AND Name = ?",pVorname, pName);
+      // Schritt 3: Nutzer per PreparedStatement einfuegen (schuetzt vor SQL-Injection)
+      dbConnector.executeStatement(
+          "INSERT INTO nutzer(Vorname, Name, Email, Passwort, Rolle) VALUES(?, ?, ?, ?, 'Schüler')",
+          pVorname, pName, pEmail, hash);
+
+      // Schritt 4: Direkt nach jeder kritischen DB-Operation den Fehlerstatus pruefen.
+      // getErrorMessage() liefert null, wenn alles geklappt hat - sonst die SQL-Fehlermeldung
+      // (z.B. "Unknown column 'Email' in 'field list'", falls die Spalte in der DB fehlt).
+      String insertFehler = dbConnector.getErrorMessage();
+      if (insertFehler != null) {
+          System.err.println("FEHLER beim Einfuegen des Nutzers: " + insertFehler);
+          return; // Abbruch, da der Nutzer nicht angelegt wurde
+      }
+
+      // Schritt 5: Die eben eingefuegte Zeile wiederfinden, um die neue uID zu bekommen
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname = ? AND Name = ?", pVorname, pName);
       QueryResult r = dbConnector.getCurrentQueryResult();
+
+      // Schritt 6: Absicherung, falls trotz obiger Pruefung nichts gefunden wurde
+      if (r == null || r.getRowCount() == 0) {
+          System.err.println("FEHLER: Nutzer wurde scheinbar nicht angelegt (SELECT nach INSERT liefert 0 Zeilen).");
+          return;
+      }
+
       int id = Integer.parseInt(r.getData()[0][0]);
 
       System.out.println("Passwort von " + pVorname + " " + pName + ": " + klartextPasswort + " Nutzer ID: " + id);
@@ -76,12 +109,34 @@ public class Admin extends JFrame {
   public void mensaPersonalHinzufuegen(String pVorname, String pName, String pEmail) {
     if (!checkEmail(pEmail)) {
       String klartextPasswort = erzeugePasswort();
-      String hash = PasswortUtil.hashPasswort(klartextPasswort);
 
-      dbConnector.executeStatement("INSERT INTO nutzer(Vorname, Name, Email, Passwort, Rolle) VALUES(?, ?, ?, ?, 'Mensa')",pVorname, pName, pEmail, hash);
+      String hash;
+      try {
+          hash = PasswortUtil.hashPasswort(klartextPasswort);
+      } catch (Throwable t) {
+          System.err.println("FEHLER beim Hashen des Passworts. Ist bcrypt-0_7_0.jar in BlueJ als Library eingebunden?");
+          t.printStackTrace();
+          return;
+      }
 
-      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname = ? AND Name = ?",pVorname, pName);
+      dbConnector.executeStatement(
+          "INSERT INTO nutzer(Vorname, Name, Email, Passwort, Rolle) VALUES(?, ?, ?, ?, 'Mensa')",
+          pVorname, pName, pEmail, hash);
+
+      String insertFehler = dbConnector.getErrorMessage();
+      if (insertFehler != null) {
+          System.err.println("FEHLER beim Einfuegen des Nutzers: " + insertFehler);
+          return;
+      }
+
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname = ? AND Name = ?", pVorname, pName);
       QueryResult r = dbConnector.getCurrentQueryResult();
+
+      if (r == null || r.getRowCount() == 0) {
+          System.err.println("FEHLER: Nutzer wurde scheinbar nicht angelegt (SELECT nach INSERT liefert 0 Zeilen).");
+          return;
+      }
+
       int id = Integer.parseInt(r.getData()[0][0]);
 
       String username = erzeugeUsername(id);
@@ -147,9 +202,11 @@ public class Admin extends JFrame {
   }
 
   private void emailSenden(String email, String username, String passwort) {
+        // Zugangsdaten kommen aus email.properties statt hartcodiert im Code
+        // (siehe EmailConfig.java)
         EmailService emailService = new EmailService(
-            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
-            "jspv nbmu iwxr jpxi"           // euer App-Passwort
+            EmailConfig.getAbsender(),
+            EmailConfig.getAppPasswort()
         );
     
         try {

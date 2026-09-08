@@ -85,8 +85,8 @@ public class Admin extends JFrame {
       }
   }
   
-  public void schuelerBearbeiten(int pID, String pName, String pVorname){
-    dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' WHERE uID ='"+pID+"';");
+  public void schuelerBearbeiten(String pName, String pVorname,String email){
+    dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' , email = '"+email+"' WHERE email ='"+email+"' OR vorname = '"+pName+"' AND name = '"+pVorname+"';");
   }
   
     public String erzeugePasswort()
@@ -144,6 +144,19 @@ public class Admin extends JFrame {
   public ArrayList<String> getSchueler() {
       ArrayList<String> schueler = new ArrayList();
       dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Schüler' ORDER BY uID ASC");
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      for(int x = 0; x < qr.getRowCount(); x++) {
+          for(int y = 0; y < qr.getColumnCount(); y++) {
+              schueler.add(qr.getData()[x][y]);
+          }
+      }
+
+      return schueler;
+  }
+  
+  public ArrayList<String> getSchueler1() {
+      ArrayList<String> schueler = new ArrayList();
+      dbConnector.executeStatement("SELECT email, vorname, name FROM nutzer WHERE Rolle LIKE 'Schüler' ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {

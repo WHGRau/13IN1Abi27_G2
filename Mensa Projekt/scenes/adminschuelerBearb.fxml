@@ -65,20 +65,20 @@
             </Label>
             <Button fx:id="adminHinzufuegen4" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="➕ Hinzufügen" textFill="WHITE" />
             <Button fx:id="adminSchueler4" layoutX="31.0" layoutY="217.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
-            <TextField fx:id="vornameTextfield2" layoutX="477.0" layoutY="107.0" promptText="Vorname" />
-            <TextField fx:id="nameTextfield2" layoutX="477.0" layoutY="143.0" promptText="Nachname" />
-            <Button fx:id="addSchuelerButton" layoutX="477.0" layoutY="229.0" mnemonicParsing="false" onAction="#adminSchuelerHinzufuegen" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #059669;" text="Bearbeiten" textFill="WHITE" />
+            <TextField fx:id="vornameTextfield2" layoutX="31.0" layoutY="311.0" prefHeight="25.0" prefWidth="124.0" promptText="Vorname" />
+            <TextField fx:id="nameTextfield2" layoutX="173.0" layoutY="311.0" prefHeight="25.0" prefWidth="124.0" promptText="Nachname" />
+            <Button fx:id="addSchuelerButton" layoutX="477.0" layoutY="311.0" mnemonicParsing="false" onAction="#adminSchuelerBearb" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #059669;" text="Bearbeiten" textFill="WHITE" />
             <Label fx:id="addSchuelerLabel" layoutX="246.0" layoutY="241.0" textFill="#c9b715">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="eMailTextfield2" layoutX="477.0" layoutY="181.0" promptText="E-Mail Adresse" />
-            <TableView fx:id="schuelerBearbTable" layoutX="163.0" layoutY="88.0" onMouseClicked="#loeschIDEinfuegen" prefHeight="200.0" prefWidth="289.0" style="-fx-background-color: #F1F5F9;">
+            <TextField fx:id="eMailTextfield2" layoutX="314.0" layoutY="311.0" prefHeight="25.0" prefWidth="149.0" promptText="E-Mail Adresse" />
+            <TableView fx:id="schuelerBearbTable" layoutX="173.0" layoutY="88.0" onMouseClicked="#bearbeitenIDEinfuegen" prefHeight="200.0" prefWidth="426.0" style="-fx-background-color: #F1F5F9;">
                <columns>
-                  <TableColumn fx:id="schuelerBearbIdColumn" prefWidth="33.0" text="ID" />
-                  <TableColumn fx:id="schuelerBearbVornameColumn" prefWidth="135.0" text="Vorname" />
-                  <TableColumn fx:id="schuelerBearbNameColumn" prefWidth="120.0" text="Name" />
+                  <TableColumn fx:id="schuelerBearbVornameColumn" prefWidth="127.0" text="Vorname" />
+                  <TableColumn fx:id="schuelerBearbNameColumn" prefWidth="128.0" text="Name" />
+                  <TableColumn fx:id="schuelerBearbIdColumn" editable="false" prefWidth="170.0" text="E-Mail" />
                </columns>
             </TableView>
             <Button fx:id="adminBearbeiten4" layoutX="31.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToAdminSchuelerBearb" onMouseClicked="#switchToAdminSchuelerBearb" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="Bearbeiten" textFill="WHITE" />

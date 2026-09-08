@@ -1185,19 +1185,37 @@ public class Controller {
         if (admin!= null) {
             System.out.println("in getSchueler2");
             ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
-            ArrayList<String> datenAusDb = admin.getSchueler();
+            ArrayList<String> datenAusDb = admin.getSchueler1();
             // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:
             for (int i = 0; i < datenAusDb.size(); i += 3) {
                 ObservableList<String> zeile = FXCollections.observableArrayList();
                 
                 zeile.add(datenAusDb.get(i));     // Index 0: Datum
                 zeile.add(datenAusDb.get(i + 1)); // Index 1: Produkt
-                zeile.add(datenAusDb.get(i + 2)); // Index 2: Menge
+                zeile.add(datenAusDb.get(i + 2));// Index 2: Menge
                 tabelleDaten.add(zeile);
             }
             // Der TableView übergeben
             schuelerBearbTable.setItems(tabelleDaten);
         }
+    }
+    
+     @FXML
+    public void bearbeitenIDEinfuegen(MouseEvent event) {
+        ObservableList<String> selectedRow = schuelerBearbTable.getSelectionModel().getSelectedItem();
+        if (selectedRow != null) {
+            eMailTextfield2.setText(selectedRow.get(0));
+            vornameTextfield2.setText(selectedRow.get(1));
+            nameTextfield2.setText(selectedRow.get(2));
+        }
+    }
+    
+    public void adminSchuelerBearb() {
+        String vorname = vornameTextfield2.getText();
+        String name = nameTextfield2.getText();
+        String email = eMailTextfield2.getText();
+        admin.schuelerBearbeiten(vorname,name , email);
+        adminSchuelerBearbInitialize();
     }
 }
     

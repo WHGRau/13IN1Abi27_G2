@@ -39,7 +39,7 @@ public class Mensa extends JFrame {
     }
   }
   
-  public void neuesProduktHinzufuegen(String pArtikel, int pAnzahl, double pPreis, int pSoll) {
+  public void neuesProduktHinzufuegen(String pArtikel, int pAnzahl, double pPreis) {
     //Überprüfen ob Produkt schon in der DB ist. Wenn ja -> Anzahl erhöhen. Wenn nein -> Produkt aufnehmen
     String sql = ("SELECT pID FROM produkte WHERE Name LIKE '"+pArtikel+"'");
     dbConnector.executeStatement(sql);
@@ -52,9 +52,7 @@ public class Mensa extends JFrame {
      }
     else {
        
-       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge, Sollwert,niedrig) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"','"+pSoll+"',0 )");
-       int a = istNiedrig(pArtikel);
-       dbConnector.executeStatement("UPDATE produkte SET niedrig = '"+a+"'WHERE Name LIKE '"+pArtikel+"'");
+       dbConnector.executeStatement("INSERT INTO produkte(Name, Preis, Menge) VALUES('"+pArtikel+"','"+pPreis+"','"+pAnzahl+"')");
     }
     
   }

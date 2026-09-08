@@ -195,9 +195,6 @@ public class Controller {
     private TextField preisHinzufuegenTextfield;
     
     @FXML
-    private TextField sollHinzufuegenTextfield;
-    
-    @FXML
     private Button prodHinzufuegenButton;
     
     
@@ -633,9 +630,8 @@ public class Controller {
             String name = nameHinzufuegenTextfield.getText();
             int anz = Integer.parseInt(anzahlHinzufuegenTextfield.getText());
             double preis = Double.parseDouble(preisHinzufuegenTextfield.getText());
-            int soll = Integer.parseInt(sollHinzufuegenTextfield.getText());
             
-            mensa.neuesProduktHinzufuegen(name, anz, preis, soll);
+            mensa.neuesProduktHinzufuegen(name, anz, preis);
             hinzufuegenInitialize();
         }
     }

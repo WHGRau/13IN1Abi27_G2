@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Sep 2026 um 13:35
+-- Erstellungszeit: 08. Sep 2026 um 15:15
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -30,9 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `ankunft` (
   `aID` int(11) NOT NULL,
   `uID` int(11) NOT NULL,
-  `Datum` date NOT NULL,
-  `Uhrzeit` time NOT NULL
+  `Datum` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `ankunft`
+--
+
+INSERT INTO `ankunft` (`aID`, `uID`, `Datum`) VALUES
+(1, 2, '2026-09-01 08:15:03');
 
 -- --------------------------------------------------------
 
@@ -62,7 +68,6 @@ INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`, `Typ`) 
 (7, 3, 3, '2026-09-01 12:05:45', 16, 8, 'Kauf'),
 (8, 6, 5, '2026-09-01 12:40:00', 18, 3, 'Kauf'),
 (9, 1, 1, '2026-09-01 13:15:20', 21, 1, 'Kauf'),
-(11, 10, 0, '0000-00-00 00:00:00', 2, 0, 'Aufladen'),
 (12, 123, 0, '2026-09-01 18:02:54', 2, 0, 'Aufladen'),
 (13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Kauf'),
 (14, 1, 1, '2026-09-01 19:51:02', 2, 3, 'Kauf'),
@@ -90,7 +95,6 @@ INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
 (4, 24, 1234, 25.5),
 (5, 25, 4321, 28),
 (6, 26, 1111, 0),
-(7, 27, 2222, 5.5),
 (8, 28, 5555, 42.1),
 (9, 29, 9876, 12),
 (10, 30, 3333, 12.3),
@@ -119,7 +123,7 @@ CREATE TABLE `nutzer` (
 
 INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Email`, `Passwort`, `Rolle`, `Chip`) VALUES
 (1, 'julkur1', 'Julian', 'Kurz', '', '123abc', 'Admin', NULL),
-(2, 'pul', 'Paul', 'Schäfer', 'joshiwinner659@gmail.com', '123', 'Schüler', '0009831976'),
+(2, 'pul', 'Paul', 'Schäfer', 'joshiwinner659@gmail.com', 'PLoCI', 'Schüler', '0009831976'),
 (3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '123', 'Mensa', NULL),
 (14, 'laumül14', 'Laura', 'Müller', '', 'adminPass1', 'Admin', NULL),
 (15, 'marsch15', 'Markus', 'Schmidt', '', 'adminPass2', 'Admin', NULL),
@@ -127,14 +131,12 @@ INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Email`, `Passwort`,
 (17, 'micwag17', 'Michael', 'Wagner', '', 'adminPass4', 'Admin', NULL),
 (18, 'elefis18', 'Elena', 'Fischer', '', 'adminPass5', 'Admin', NULL),
 (19, 'bribec19', 'Brigitte', 'Becker', '', 'mensaPass1', 'Mensa', NULL),
-(20, 'thohof20', 'Thomas', 'Hoffmann', '', 'mensaPass2', 'Mensa', NULL),
 (21, 'sabsch21', 'Sabine', 'Schäfer', '', 'mensaPass3', 'Mensa', NULL),
 (22, 'klakoc22', 'Klaus', 'Koch', '', 'mensaPass4', 'Mensa', NULL),
 (23, 'andbau23', 'Andrea', 'Bauer', '', 'mensaPass5', 'Mensa', NULL),
 (24, 'maxric24', 'Maximilian', 'Richter', '', '123', 'Schüler', '0009966769'),
 (25, 'sopkle25', 'Sophie', 'Klein', '', 'schueler123', 'Schüler', '0009968524'),
 (26, 'leowol26', 'Leon', 'Wolf', '', 'schueler123', 'Schüler', '0001608134'),
-(27, 'emmneu27', 'Emma', 'Neumann', '', 'schueler123', 'Schüler', '0009977009'),
 (28, 'luksch28', 'Lukas', 'Schwarz', '', 'schueler123', 'Schüler', NULL),
 (29, 'miazim29', 'Mia', 'Zimmermann', '', 'schueler123', 'Schüler', NULL),
 (30, 'felbra30', 'Felix', 'Braun', '', 'schueler123', 'Schüler', NULL),
@@ -151,8 +153,8 @@ CREATE TABLE `produkte` (
   `Name` text NOT NULL,
   `Preis` float NOT NULL,
   `Menge` int(11) NOT NULL,
-  `Sollwert` int(11) NOT NULL,
-  `niedrig` tinyint(1) NOT NULL
+  `Sollwert` int(11) DEFAULT NULL,
+  `niedrig` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -160,7 +162,7 @@ CREATE TABLE `produkte` (
 --
 
 INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) VALUES
-(1, 'Snickers', 1, 70, 0, 0),
+(1, 'Snickers', 1, 80, 0, 0),
 (2, 'Mars', 2, 5, 101, 1),
 (3, 'Twix', 1.2, 43, 50, 1),
 (4, 'Bounty', 1.2, 60, 50, 0),
@@ -227,7 +229,7 @@ ALTER TABLE `produkte`
 -- AUTO_INCREMENT für Tabelle `ankunft`
 --
 ALTER TABLE `ankunft`
-  MODIFY `aID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `aID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `bestellung`
@@ -251,7 +253,7 @@ ALTER TABLE `nutzer`
 -- AUTO_INCREMENT für Tabelle `produkte`
 --
 ALTER TABLE `produkte`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints der exportierten Tabellen

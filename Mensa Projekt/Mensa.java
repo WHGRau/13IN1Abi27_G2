@@ -27,7 +27,14 @@ public class Mensa extends JFrame {
     dbVerbinden();
   }
   
-  // Anfang Methoden 
+  // Anfang Methoden
+  
+  public void produktloeschen(String pID){
+      
+        System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhh2");
+      dbConnector.executeStatement("DELETE FROM produkte WHERE name = '"+pID+"';");      
+    
+    }
   
   public void dbVerbinden() {
     dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");

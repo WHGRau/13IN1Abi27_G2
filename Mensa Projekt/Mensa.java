@@ -169,6 +169,20 @@ public class Mensa extends JFrame {
       return status;
   }
   
+  public float berechnePreis(String produktName, int pMenge) {
+      
+       dbConnector.executeStatement("SELECT pID FROM produkte WHERE name LIKE '"+produktName+"'");
+      QueryResult prod = dbConnector.getCurrentQueryResult();
+      int pID= Integer.parseInt(prod.getData()[0][0]);
+      
+      dbConnector.executeStatement("SELECT preis FROM produkte WHERE pID = "+pID);
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      float preis = Float.parseFloat(qr.getData()[0][0]);
+      float ges = pMenge * preis;
+      
+      return ges;
+  }
+  
   
   public ArrayList<String> statistik(){
       ArrayList<String> rückgabe = new ArrayList<String>();

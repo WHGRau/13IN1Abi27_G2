@@ -123,6 +123,9 @@ public class Controller {
     
     @FXML
     private Label statusLabel;
+    
+    @FXML
+    private Label Preislabel;
 
     //Elemente Mensa Aufladen Screen
     
@@ -604,7 +607,12 @@ public class Controller {
             String chip = userIDField.getText();
             int menge = Integer.parseInt(mengeField.getText());
             
+            //verkauf über app 
+            if (chip != ""){
+                
+            
             String status = mensa.verkaufen(artikelIDField.getText(), chip, menge);
+            Preislabel.setText(Float.toString(mensa.berechnePreis(artikelIDField.getText(), Integer.parseInt(mengeField.getText()))));
             if (status.equals("erfolgreich")) {
                 statusLabel.setText("Transaktion erfolgreich!");
             }
@@ -620,6 +628,13 @@ public class Controller {
             mensa.verkaufen(artikelIDField.getText(), chip, menge);
             mensaInitialize();
             zeigeLager();
+           }//barverkauf
+           else {
+            Preislabel.setText(Float.toString(mensa.berechnePreis(artikelIDField.getText(), Integer.parseInt(mengeField.getText()))));
+            String status = mensa.barVerkauf(artikelIDField.getText(),menge); 
+            mensaInitialize();
+            zeigeLager();
+           }
         }
     }
     
@@ -652,6 +667,8 @@ public class Controller {
         if (selectedRow != null) {
             String produktName = selectedRow.get(0);
             artikelIDField.setText(produktName);
+            
+            Preislabel.setText(Float.toString(mensa.berechnePreis(artikelIDField.getText(), Integer.parseInt(mengeField.getText()))));
         }
         
     }

@@ -115,6 +115,11 @@
             <Button fx:id="statistikButton" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="📊 Statistik" textFill="WHITE" />
             <Label fx:id="statusLabel" layoutX="138.0" layoutY="314.0" />
             <Button fx:id="verlaufButton1" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="🕛 Verlauf" textFill="WHITE" />
+            <Label fx:id="Preislabel" layoutX="245.0" layoutY="273.0" prefHeight="30.0" prefWidth="133.0" textFill="#fcbd00">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
       </children>
     </AnchorPane>
   </children>

@@ -88,31 +88,32 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #DDE3EA;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="adminLogout2" layoutX="31.0" layoutY="256.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
-            <Button fx:id="adminHome2" layoutX="31.0" layoutY="107.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
+            <Button fx:id="adminLogout2" layoutX="31.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchtoScene1" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #DC2626;" text="🚪 Logout" textFill="WHITE" />
+            <Button fx:id="adminHome2" layoutX="31.0" layoutY="120.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 🏠 Home" textFill="WHITE" />
             <Label fx:id="adminBegruessungLabel2" layoutX="31.0" layoutY="27.0" prefHeight="36.0" prefWidth="221.0" text="Hallo">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="adminHinzufuegen2" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="➕ Hinzufügen" textFill="WHITE" />
-            <Button fx:id="adminSchueler2" layoutX="31.0" layoutY="217.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
+            <Button fx:id="adminHinzufuegen2" layoutX="31.0" layoutY="156.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="➕ Hinzufügen" textFill="WHITE" />
+            <Button fx:id="adminSchueler2" layoutX="31.0" layoutY="229.0" mnemonicParsing="false" onAction="#switchToAdminSchueler" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text=" 👨‍💼Schüler" textFill="WHITE" />
             <TextField fx:id="vornameTextfield" layoutX="246.0" layoutY="120.0" promptText="Vorname" />
             <TextField fx:id="nameTextfield" layoutX="246.0" layoutY="156.0" promptText="Nachname" />
-            <Button fx:id="addSchuelerButton" layoutX="246.0" layoutY="229.0" mnemonicParsing="false" onAction="#adminSchuelerHinzufuegen" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #059669;" text="Hinzufügen" textFill="WHITE" />
+            <Button fx:id="addSchuelerButton" layoutX="246.0" layoutY="269.0" mnemonicParsing="false" onAction="#adminSchuelerHinzufuegen" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #059669;" text="Hinzufügen" textFill="WHITE" />
             <Label fx:id="addSchuelerLabel" layoutX="246.0" layoutY="241.0" textFill="#c9b715">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField fx:id="eMailTextfield" layoutX="246.0" layoutY="194.0" promptText="E-Mail Adresse" />
-            <Button fx:id="adminBearbeiten2" layoutX="31.0" layoutY="182.0" mnemonicParsing="false" onAction="#switchToAdminSchuelerBearb" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="Bearbeiten" textFill="WHITE" />
+            <Button fx:id="adminBearbeiten2" layoutX="31.0" layoutY="194.0" mnemonicParsing="false" onAction="#switchToAdminSchuelerBearb" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #475569;" text="Bearbeiten" textFill="WHITE" />
             <RadioButton fx:id="schuelerRadioButton" layoutX="246.0" layoutY="71.0" mnemonicParsing="false" text="Schüler / Lehrer">
                <toggleGroup>
                   <ToggleGroup fx:id="buttonGroup" />
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="mensaRadioButton" layoutX="246.0" layoutY="99.0" mnemonicParsing="false" text="Mensa" toggleGroup="$buttonGroup" />
+            <TextField fx:id="chipTextfield" layoutX="246.0" layoutY="229.0" promptText="chip Id" />
       </children>
     </AnchorPane>
   </children>

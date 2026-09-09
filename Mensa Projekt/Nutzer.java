@@ -50,13 +50,8 @@ public class Nutzer extends JFrame {
         if (pAltesPasswort.equals(qr.getData()[0][0])){
             dbConnector.executeStatement("UPDATE nutzer SET Passwort = '"+pPasswort+"' WHERE uID ='"+uID+"';");
         }
-        else {
-            System.out.println("Nutzer nicht gefunden oder falsches Passwort");
-        }
-    }
-   else {
-       System.out.println("Nutzer nicht gefunden oder falsches Passwort");
    }
+
    checkPasswort(pPasswort);
  }
  
@@ -68,13 +63,8 @@ public class Nutzer extends JFrame {
         if (pAlterPin == Integer.parseInt(qr.getData()[0][0])){
             dbConnector.executeStatement("UPDATE konto SET pin = '"+pNeuerPin+"' WHERE uID ='"+uID+"';");
         }
-        else {
-            System.out.println("Konto nicht gefunden oder falsches Passwort");
-        }
     }
-    else {
-       System.out.println("Konto nicht gefunden oder falsches Passwort");
-    }
+    
   }
   
   public boolean checkPasswort(String pPasswort) {

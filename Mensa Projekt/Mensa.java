@@ -31,7 +31,6 @@ public class Mensa extends JFrame {
   
   public void produktloeschen(String pID){
       
-        System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhh2");
       dbConnector.executeStatement("DELETE FROM produkte WHERE name = '"+pID+"';");      
     
     }
@@ -53,7 +52,6 @@ public class Mensa extends JFrame {
     QueryResult qr = dbConnector.getCurrentQueryResult();
     if(qr.getRowCount()==1){
         //dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
-        System.out.println("Produkt schon vorhanden");
         produktAufnehmen( pArtikel,  pAnzahl);
 
      }
@@ -83,7 +81,7 @@ public class Mensa extends JFrame {
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
   }
   
-  public String verkaufen(String produktName, String chipID, int pMenge) {
+  public String verkaufen(String produktName, String chipID, int pMenge) {//vielleicht interessant
       String status = "";
       //Geld vom Konto abziehen
       //user Id von Chip auslesen
@@ -184,7 +182,7 @@ public class Mensa extends JFrame {
   }
   
   
-  public ArrayList<String> statistik(){
+  public ArrayList<String> statistik(){ //vielleicht interessant
       ArrayList<String> rückgabe = new ArrayList<String>();
       dbConnector.executeStatement("SELECT pID , Menge FROM bestellung WHERE Typ LIKE 'Kauf' ORDER BY pId");
       QueryResult r = dbConnector.getCurrentQueryResult();

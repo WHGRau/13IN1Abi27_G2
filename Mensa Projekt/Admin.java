@@ -55,13 +55,10 @@ public class Admin extends JFrame {
           dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
           QueryResult r = dbConnector.getCurrentQueryResult();
           int id = Integer.parseInt(r.getData()[0][0]);
-          System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
           String username = erzeugeUsername(id);
           emailSenden(pEmail,  username, passwort);
           Konto konto = new Konto(id);
-      } else {
-          System.out.println("Da die Email bereits mit einem Konto verknüpft ist, kann kein Nutzer erstellt werden");
-      }
+      } 
   }
   
   private boolean checkEmail(String email) {
@@ -80,10 +77,7 @@ public class Admin extends JFrame {
       int id = Integer.parseInt(r.getData()[0][0]);
       String username = erzeugeUsername(id);
       emailSenden(pEmail,  username, passwort);
-      System.out.println("Passwort von "+ pVorname +" "+ pName + ": " + passwort + " Nutzer ID: " + id);
-    } else {
-          System.out.println("Da die Email bereits mit einem Konto verknüpft ist, kann kein Nutzer erstellt werden");
-      }
+    }
   }
   
   public void schuelerBearbeiten(String pName, String pVorname,String email){
@@ -232,7 +226,6 @@ public class Admin extends JFrame {
                 "Sie wurden regestriert",
                 "Guten Tag, ein Admin hat für sie ein MensaMaxxing Konto erstellt. \n Nutzername: "+username+" \n Passwort: "+passwort+ " \n Bitte ändern sie das Passwort nach der ersten Anmeldung."
             );
-            System.out.println("E-Mail erfolgreich gesendet!");
         } catch (MessagingException e) {
             System.err.println("Fehler beim Senden: " + e.getMessage());
             e.printStackTrace();

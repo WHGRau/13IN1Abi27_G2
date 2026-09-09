@@ -31,7 +31,6 @@ public class Mensa extends JFrame {
   
   public void produktloeschen(String pID){
       
-        System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhh2");
       dbConnector.executeStatement("DELETE FROM produkte WHERE name = '"+pID+"';");      
     
     }
@@ -53,7 +52,6 @@ public class Mensa extends JFrame {
     QueryResult qr = dbConnector.getCurrentQueryResult();
     if(qr.getRowCount()==1){
         //dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
-        System.out.println("Produkt schon vorhanden");
         produktAufnehmen( pArtikel,  pAnzahl);
 
      }

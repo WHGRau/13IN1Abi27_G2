@@ -83,7 +83,7 @@ public class Mensa extends JFrame {
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge + "+pAnzahl+" WHERE pID = "+qr.getData()[0][0]);
   }
   
-  public String verkaufen(String produktName, String chipID, int pMenge) {
+  public String verkaufen(String produktName, String chipID, int pMenge) {//vielleicht interessant
       String status = "";
       //Geld vom Konto abziehen
       //user Id von Chip auslesen
@@ -139,7 +139,7 @@ public class Mensa extends JFrame {
   }
   
   
-  public ArrayList<String> statistik(){
+  public ArrayList<String> statistik(){ //vielleicht interessant
       ArrayList<String> rückgabe = new ArrayList<String>();
       dbConnector.executeStatement("SELECT pID , Menge FROM bestellung WHERE Typ LIKE 'Kauf' ORDER BY pId");
       QueryResult r = dbConnector.getCurrentQueryResult();

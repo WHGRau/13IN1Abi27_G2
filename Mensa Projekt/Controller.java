@@ -200,6 +200,9 @@ public class Controller {
     @FXML
     private Button prodloeschenButton1;
     
+    @FXML
+    private Button prodbearbButton1;
+    
     
     //Elemente Mensa Statistik Screen
     
@@ -381,6 +384,9 @@ public class Controller {
     
     @FXML
     private TextField eMailTextfield;
+    
+    @FXML
+    private TextField chipTextfield;
     
     @FXML
     private Button addSchuelerButton;
@@ -656,6 +662,14 @@ public class Controller {
         String pID = nameHinzufuegenTextfield.getText();
         System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhh1");
         mensa.produktloeschen(pID);    
+        hinzufuegenInitialize();
+    }
+    
+     @FXML
+    public void produktlbearb(ActionEvent event) {
+        String name = nameHinzufuegenTextfield.getText();
+        float preis = Float.parseFloat(preisHinzufuegenTextfield.getText());
+        mensa.preisaendern(preis ,name );    
         hinzufuegenInitialize();
     }
     
@@ -1015,11 +1029,11 @@ public class Controller {
     
     public void adminSchuelerHinzufuegen() {
         if (schuelerRadioButton.isSelected() == true && mensaRadioButton.isSelected() == false) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
+            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText(),chipTextfield.getText());
             addSchuelerLabel.setText("Der Schüler/Lehrer "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         }
         else if (schuelerRadioButton.isSelected() == false && mensaRadioButton.isSelected() == true) {
-            admin.schuelerHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText());
+            admin.mensaPersonalHinzufuegen(vornameTextfield.getText(), nameTextfield.getText(), eMailTextfield.getText() ,chipTextfield.getText());
             addSchuelerLabel.setText("Der Mensamitarbeiter "+vornameTextfield.getText()+" "+nameTextfield.getText()+" wurde hinzugefügt!");
         } else {
             addSchuelerLabel.setText("Die Person konnte nicht hinzugefügt werden!");

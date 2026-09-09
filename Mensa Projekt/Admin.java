@@ -47,10 +47,11 @@ public class Admin extends JFrame {
     }
   }
 
-    public void schuelerHinzufuegen(String pVorname, String pName, String pEmail) {
+    public void schuelerHinzufuegen(String pVorname, String pName, String pEmail , String chipId) {
       if(checkEmail(pEmail) == false) {
           String passwort = erzeugePasswort();
-          dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Schüler')");
+
+      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle, chip) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Mensa','"+chipId+"')");
           dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
           QueryResult r = dbConnector.getCurrentQueryResult();
           int id = Integer.parseInt(r.getData()[0][0]);
@@ -70,10 +71,10 @@ public class Admin extends JFrame {
       return qr.getData().length > 0;
   }
   
-  public void mensaPersonalHinzufuegen(String pVorname, String pName, String pEmail) {
+  public void mensaPersonalHinzufuegen(String pVorname, String pName, String pEmail , String chipId) {
       if(checkEmail(pEmail) == false) {
       String passwort = erzeugePasswort();
-      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Mensa')");
+      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle, chip) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Mensa','"+chipId+"')");
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
       QueryResult r = dbConnector.getCurrentQueryResult();
       int id = Integer.parseInt(r.getData()[0][0]);

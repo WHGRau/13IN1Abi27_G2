@@ -114,7 +114,8 @@
               </columns>
             </TableView>
             <Button fx:id="verlaufButton3" layoutX="31.0" layoutY="236.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="🕛 Verlauf" textFill="WHITE" />
-            <Button fx:id="prodloeschenButton1" layoutX="265.0" layoutY="236.0" mnemonicParsing="false" onAction="#produktloesch" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #DC2626;" text="Löschen" textFill="WHITE" />
+            <Button fx:id="prodbearbButton1" layoutX="265.0" layoutY="236.0" mnemonicParsing="false" onAction="#produktlbearb" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #DC2626;" text="Bearbeiten" textFill="WHITE" />
+            <Button fx:id="prodloeschenButton11" layoutX="354.0" layoutY="298.0" mnemonicParsing="false" onAction="#produktloesch" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #DC2626;" text="Löschen" textFill="WHITE" />
       </children>
     </AnchorPane>
   </children>

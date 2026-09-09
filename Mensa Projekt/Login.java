@@ -34,7 +34,6 @@ public class Login extends JFrame {
       QueryResult u = dbConnector.getCurrentQueryResult();
       
       if (u == null || u.getData() == null || u.getData().length == 0) {
-        System.out.println("Benutzername nicht gefunden!");
         return null; 
       }
       int uID = Integer.parseInt(u.getData()[0][0]);
@@ -42,12 +41,10 @@ public class Login extends JFrame {
       QueryResult r = dbConnector.getCurrentQueryResult();
       String passwort = r.getData()[0][0];
       if(passwort.equals(pPasswort)) {
-          System.out.println("Anmeldedaten richtig!");
           dbConnector.executeStatement("SELECT Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
           QueryResult s = dbConnector.getCurrentQueryResult();
           String rolle = s.getData()[0][0];
           if (rolle.equals("Schüler")) {
-              System.out.println("Schüler");
               dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
               QueryResult a = dbConnector.getCurrentQueryResult();
               String vorname = a.getData()[0][1];
@@ -57,7 +54,6 @@ public class Login extends JFrame {
               return aktSchueler;
           }
           else if (rolle.equals("Admin")) {
-              System.out.println("Admin");
               dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
               QueryResult a = dbConnector.getCurrentQueryResult();
               String vorname = a.getData()[0][1];
@@ -67,7 +63,6 @@ public class Login extends JFrame {
               return aktAdmin;
           }
           else if (rolle.equals("Mensa")) {
-              System.out.println("Mensa");
               dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM Nutzer WHERE uID LIKE '"+uID+"'");
               QueryResult a = dbConnector.getCurrentQueryResult();
               String vorname = a.getData()[0][1];
@@ -76,12 +71,6 @@ public class Login extends JFrame {
               aktMensa = erstelleMensa(Integer.parseInt(a.getData()[0][0]),username, vorname, name, rolle );
               return aktMensa;
           }
-          else {
-              System.out.println("Du hast keine Berechtigung!");
-          }
-      }
-      else {
-          System.out.println("Anmeldedaten falsch!");
       }
       return null;
   }

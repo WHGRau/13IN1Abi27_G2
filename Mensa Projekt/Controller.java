@@ -645,7 +645,6 @@ public class Controller {
         
         if (selectedRow != null) {
             String produktName = selectedRow.get(0);
-            System.out.println(produktName);
             artikelIDField.setText(produktName);
         }
         
@@ -654,7 +653,6 @@ public class Controller {
     @FXML
     public void produktloesch(ActionEvent event) {
         String pID = nameHinzufuegenTextfield.getText();
-        System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhh1");
         mensa.produktloeschen(pID);    
         hinzufuegenInitialize();
     }
@@ -734,7 +732,6 @@ public class Controller {
     
     @FXML
     public void switchToHinzufuegen(ActionEvent event) throws IOException {
-        System.out.println("switch");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("scenes/mensahinzufuegen.fxml"));
         Parent root = loader.load();
         Controller neuerController = loader.getController();
@@ -1175,7 +1172,6 @@ public class Controller {
         Controller neuerController = loader.getController();
         neuerController.setAdmin(admin);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        System.out.println("vor iniitial");
         neuerController.adminSchuelerBearbInitialize();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -1184,17 +1180,14 @@ public class Controller {
     
     public void adminSchuelerBearbInitialize() {
         adminBegruessungLabel4.setText("Hallo, "+admin.getName()+"!");
-        System.out.println("in iniitial");
         schuelerBearbIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(0)));
         schuelerBearbVornameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(1)));
         schuelerBearbNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get(2)));
-        System.out.println("in iniitial vor getSchueler2");
         getSchueler2();
     }
     
     public void getSchueler2() {
         if (admin!= null) {
-            System.out.println("in getSchueler2");
             ObservableList<ObservableList<String>> tabelleDaten = FXCollections.observableArrayList();
             ArrayList<String> datenAusDb = admin.getSchueler1();
             // Immer 3 Werte auf einmal als eine Zeile zusammenfassen:

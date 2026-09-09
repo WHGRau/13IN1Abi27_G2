@@ -138,6 +138,37 @@ public class Mensa extends JFrame {
       return status;
   }
   
+  public String barVerkauf(String produktName, int pMenge) {
+      String status = "";
+      //Geld vom Konto abziehen
+      //user Id von Chip auslesen
+      
+      dbConnector.executeStatement("SELECT pID FROM produkte WHERE name LIKE '"+produktName+"'");
+      QueryResult prod = dbConnector.getCurrentQueryResult();
+      int pID= Integer.parseInt(prod.getData()[0][0]);
+      
+      
+      //Geld vom Konto abziehen
+      
+      dbConnector.executeStatement("SELECT preis FROM produkte WHERE pID = "+pID);
+      QueryResult qr = dbConnector.getCurrentQueryResult();
+      float preis = Float.parseFloat(qr.getData()[0][0]);
+      float ges = pMenge * preis;
+      
+      //Überprüfen ob es genug Artikel gibt
+      dbConnector.executeStatement("SELECT Menge FROM produkte WHERE name LIKE '"+produktName+"'");
+      qr = dbConnector.getCurrentQueryResult();
+      int menge = Integer.parseInt(qr.getData()[0][0]);
+      
+    
+      LocalDateTime datum = LocalDateTime.now();
+      dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - " +pMenge+ " WHERE name LIKE '"+produktName+"'");
+      String sqlAnweisung = "INSERT INTO bestellung(Wert, Menge, Datum, pID, Typ) VALUES('"+ges+"','"+pMenge+"','"+datum+"','"+pID+"', 'Barkauf')";
+          dbConnector.executeStatement(sqlAnweisung);
+      status = "erfolgreich";
+      return status;
+  }
+  
   
   public ArrayList<String> statistik(){
       ArrayList<String> rückgabe = new ArrayList<String>();
@@ -213,7 +244,8 @@ public class Mensa extends JFrame {
     public ArrayList<String> getVerlauf() {
       
         ArrayList<String> verlauf = new ArrayList<>();
-        dbConnector.executeStatement("SELECT bestellung.Datum, bestellung.Typ, produkte.name, bestellung.Menge, nutzer.username FROM bestellung JOIN nutzer ON bestellung.uID = nutzer.uID LEFT JOIN produkte ON bestellung.pID = produkte.pID");      
+        //dbConnector.executeStatement("SELECT bestellung.Datum, bestellung.Typ, produkte.name, bestellung.Menge,  COALESCE(nutzer.username, ' -') FROM bestellung JOIN nutzer ON bestellung.uID = nutzer.uID LEFT JOIN produkte ON bestellung.pID = produkte.pID");      
+        dbConnector.executeStatement("SELECT bestellung.Datum, bestellung.Typ, produkte.name, bestellung.Menge, IFNULL(nutzer.username, ' -') FROM bestellung LEFT JOIN nutzer ON bestellung.uID = nutzer.uID LEFT JOIN produkte ON bestellung.pID = produkte.pID");
         QueryResult qr = dbConnector.getCurrentQueryResult();
         
     

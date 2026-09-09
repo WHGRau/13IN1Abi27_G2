@@ -597,6 +597,9 @@ public class Controller {
         if (mensa != null) {
             String chip = userIDField.getText();
             int menge = Integer.parseInt(mengeField.getText());
+            //verkauf über app 
+            if (chip != ""){
+                
             
             String status = mensa.verkaufen(artikelIDField.getText(), chip, menge);
             if (status.equals("erfolgreich")) {
@@ -614,6 +617,12 @@ public class Controller {
             mensa.verkaufen(artikelIDField.getText(), chip, menge);
             mensaInitialize();
             zeigeLager();
+           }//barverkauf
+           else {
+            String status = mensa.barVerkauf(artikelIDField.getText(),menge); 
+            mensaInitialize();
+            zeigeLager();
+           }
         }
     }
     

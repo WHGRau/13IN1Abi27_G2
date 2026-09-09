@@ -432,6 +432,9 @@ public class Controller {
     @FXML
     private TextField loeschIdTextfield;
     
+    @FXML 
+    private Label erfolgBeimAufladen;
+    
     
     //schueler baerbeiten
     @FXML

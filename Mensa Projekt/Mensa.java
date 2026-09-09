@@ -166,14 +166,24 @@ public class Mensa extends JFrame {
       rückgabe.add(Integer.toString(count));
       return rückgabe;
     }
-    
+  
+  @FXML
+  private Label erfolgBeimAufladen;
    public void geldAufladen(String chipID, float pBetrag) {
+      String status = "";
       dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Chip LIKE '"+chipID+"'");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       int uID = Integer.parseInt(qr.getData()[0][0]);
       LocalDateTime datum = LocalDateTime.now();
       dbConnector.executeStatement("UPDATE konto SET kontostand = kontostand + "+pBetrag+" WHERE uID = "+uID);
       dbConnector.executeStatement("INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES('"+pBetrag+"', ' 0', '"+datum+"', '"+uID+"', '0', 'Aufladen')");
+      
+      if(qr != null){
+          status = "aufladen erfolgreich!";
+      }else{
+          status = "aufladen fehlgeschlagen!";
+      }
+      erfolgBeimAufladen.setText(status);
   }  
   
   public ArrayList<String> getLager() {

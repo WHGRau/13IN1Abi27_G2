@@ -156,7 +156,7 @@ public class Admin extends JFrame {
   
   public ArrayList<String> getSchueler1() {
       ArrayList<String> schueler = new ArrayList();
-      dbConnector.executeStatement("SELECT email, vorname, name FROM nutzer WHERE Rolle LIKE 'Schüler' ORDER BY uID ASC");
+      dbConnector.executeStatement("SELECT email, vorname, name FROM nutzer WHERE Rolle NOT LIKE 'Admin' ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {

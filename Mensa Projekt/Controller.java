@@ -612,7 +612,7 @@ public class Controller {
                 
             
             String status = mensa.verkaufen(artikelIDField.getText(), chip, menge);
-            Preislabel.setText(Float.toString(mensa.berechnePreis(artikelIDField.getText(), Integer.parseInt(mengeField.getText()))));
+            //Preislabel.setText(Float.toString(mensa.berechnePreis(artikelIDField.getText(), Integer.parseInt(mengeField.getText()))));
             if (status.equals("erfolgreich")) {
                 statusLabel.setText("Transaktion erfolgreich!");
             }
@@ -625,7 +625,7 @@ public class Controller {
             else if (status.equals("Kontostand und Produkt leer")) {
                 statusLabel.setText("Kontostand und Produkt leer!");
             }
-            mensa.verkaufen(artikelIDField.getText(), chip, menge);
+            //mensa.verkaufen(artikelIDField.getText(), chip, menge);
             mensaInitialize();
             zeigeLager();
            }//barverkauf

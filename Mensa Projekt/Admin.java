@@ -19,7 +19,7 @@ public class Admin extends JFrame {
   private String name;
   private String passwort;
   private int kID;
-  
+
   // Ende Attribute
   public Admin(){
     dbVerbinden();}
@@ -32,11 +32,9 @@ public class Admin extends JFrame {
     passwort = pPasswort;
     dbVerbinden();
   }
-  
+
   // Anfang Methoden
 
-
-  
   public void dbVerbinden() {
     dbConnector = new DatabaseConnector("localhost", 3306, "Mensa", "root", "");
     String fehler = dbConnector.getErrorMessage();
@@ -47,98 +45,147 @@ public class Admin extends JFrame {
     }
   }
 
-    public void schuelerHinzufuegen(String pVorname, String pName, String pEmail , String chipId) {
-      if(checkEmail(pEmail) == false) {
-          String passwort = erzeugePasswort();
+  public void schuelerHinzufuegen(String pVorname, String pName, String pEmail , String chipId) {
+    if (!checkEmail(pEmail)) {
+      String klartextPasswort = erzeugePasswort();
 
-      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle, chip) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Mensa','"+chipId+"')");
-          dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
-          QueryResult r = dbConnector.getCurrentQueryResult();
-          int id = Integer.parseInt(r.getData()[0][0]);
-          String username = erzeugeUsername(id);
-          emailSenden(pEmail,  username, passwort);
-          Konto konto = new Konto(id);
-      } 
-  }
-  
-  private boolean checkEmail(String email) {
-      // Methode liefert true wenn es die Email gibt und False wenn es sie nicht gibt      
-      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Email LIKE '"+email+"'");
-      QueryResult qr = dbConnector.getCurrentQueryResult();
-      return qr.getData().length > 0;
-  }
-  
-  public void mensaPersonalHinzufuegen(String pVorname, String pName, String pEmail , String chipId) {
-      if(checkEmail(pEmail) == false) {
-      String passwort = erzeugePasswort();
-      dbConnector.executeStatement("INSERT INTO nutzer(vorname, name, email, passwort, rolle, chip) VALUES('"+pVorname+"','"+pName+"','"+pEmail+"','"+passwort+"','Mensa','"+chipId+"')");
-      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname LIKE '"+pVorname+"' AND Name LIKE '"+pName+"'");
+      String hash;
+      try {
+          hash = PasswortUtil.hashPasswort(klartextPasswort);
+      } catch (Throwable t) {
+          System.err.println("FEHLER beim Hashen des Passworts. Ist bcrypt-0.7.0.jar in BlueJ als Library eingebunden?");
+          t.printStackTrace();
+          return;
+      }
+
+      dbConnector.executeStatement(
+          "INSERT INTO nutzer(Vorname, Name, Email, Passwort, Rolle, Chip) VALUES(?, ?, ?, ?, 'Schüler', ?)",
+          pVorname, pName, pEmail, hash, chipId);
+
+      String insertFehler = dbConnector.getErrorMessage();
+      if (insertFehler != null) {
+          System.err.println("FEHLER beim Einfuegen des Nutzers: " + insertFehler);
+          return;
+      }
+
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname = ? AND Name = ?", pVorname, pName);
       QueryResult r = dbConnector.getCurrentQueryResult();
+
+      if (r == null || r.getRowCount() == 0) {
+          System.err.println("FEHLER: Nutzer wurde scheinbar nicht angelegt.");
+          return;
+      }
+
       int id = Integer.parseInt(r.getData()[0][0]);
       String username = erzeugeUsername(id);
-      emailSenden(pEmail,  username, passwort);
+      emailSenden(pEmail, username, klartextPasswort);
+      Konto konto = new Konto(id);
+    } else {
+      System.out.println("Da die Email bereits mit einem Konto verknüpft ist, kann kein Nutzer erstellt werden");
     }
   }
-  
-  public void schuelerBearbeiten(String pName, String pVorname,String email){
-    dbConnector.executeStatement("UPDATE nutzer SET vorname = '"+pName+"', name = '"+pVorname+"' , email = '"+email+"' WHERE email ='"+email+"' OR vorname = '"+pName+"' AND name = '"+pVorname+"';");
+
+  private boolean checkEmail(String email) {
+    dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Email = ?", email);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    return qr != null && qr.getRowCount() > 0;
   }
-  
-    public String erzeugePasswort()
-    {
-        String zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        Random zufall = new Random();
-        String passwort = "";
 
-        for (int i = 0; i < 5; i++)
-        {
-            int index = zufall.nextInt(zeichen.length());
-            passwort += zeichen.charAt(index);
-        }
+  public void mensaPersonalHinzufuegen(String pVorname, String pName, String pEmail , String chipId) {
+    if (!checkEmail(pEmail)) {
+      String klartextPasswort = erzeugePasswort();
 
-        return passwort;
+      String hash;
+      try {
+          hash = PasswortUtil.hashPasswort(klartextPasswort);
+      } catch (Throwable t) {
+          System.err.println("FEHLER beim Hashen des Passworts. Ist bcrypt-0.7.0.jar in BlueJ als Library eingebunden?");
+          t.printStackTrace();
+          return;
+      }
+
+      dbConnector.executeStatement(
+          "INSERT INTO nutzer(Vorname, Name, Email, Passwort, Rolle, Chip) VALUES(?, ?, ?, ?, 'Mensa', ?)",
+          pVorname, pName, pEmail, hash, chipId);
+
+      String insertFehler = dbConnector.getErrorMessage();
+      if (insertFehler != null) {
+          System.err.println("FEHLER beim Einfuegen des Nutzers: " + insertFehler);
+          return;
+      }
+
+      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Vorname = ? AND Name = ?", pVorname, pName);
+      QueryResult r = dbConnector.getCurrentQueryResult();
+
+      if (r == null || r.getRowCount() == 0) {
+          System.err.println("FEHLER: Nutzer wurde scheinbar nicht angelegt.");
+          return;
+      }
+
+      int id = Integer.parseInt(r.getData()[0][0]);
+      String username = erzeugeUsername(id);
+      emailSenden(pEmail, username, klartextPasswort);
+      System.out.println("Passwort von " + pVorname + " " + pName + ": " + klartextPasswort + " Nutzer ID: " + id);
+    } else {
+      System.out.println("Da die Email bereits mit einem Konto verknüpft ist, kann kein Nutzer erstellt werden");
     }
-    
-    
-    public String erzeugeUsername(int uID)
-    {
-        
-      dbConnector.executeStatement("SELECT vorname, name FROM Nutzer WHERE uID LIKE '"+uID+"'");
-      QueryResult r = dbConnector.getCurrentQueryResult(); 
-      String vorname = r.getData()[0][0];
-      String nachname = r.getData()[0][1];
-      vorname = vorname.substring(0, 3);
-      nachname = nachname.substring(0, 3);
-      vorname = vorname.toLowerCase();
-      nachname = nachname.toLowerCase();
-      String username = vorname + nachname + Integer.toString(uID);
-      dbConnector.executeStatement("UPDATE nutzer SET username = '"+username+"' WHERE uID ='"+uID+"';");
-      return username;
-    }
-  
- 
-  
+  }
+
+  public void schuelerBearbeiten(String pVorname, String pName, String pEmail){
+    dbConnector.executeStatement(
+        "UPDATE nutzer SET Vorname = ?, Name = ? WHERE Email = ?",
+        pVorname, pName, pEmail);
+  }
+
+  public String erzeugePasswort()
+  {
+      String zeichen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      Random zufall = new Random();
+      String passwort = "";
+
+      for (int i = 0; i < 5; i++)
+      {
+          int index = zufall.nextInt(zeichen.length());
+          passwort += zeichen.charAt(index);
+      }
+
+      return passwort;
+  }
+
+  public String erzeugeUsername(int uID)
+  {
+    dbConnector.executeStatement("SELECT Vorname, Name FROM nutzer WHERE uID = ?", uID);
+    QueryResult r = dbConnector.getCurrentQueryResult();
+    String vorname = r.getData()[0][0];
+    String nachname = r.getData()[0][1];
+    vorname = vorname.substring(0, 3).toLowerCase();
+    nachname = nachname.substring(0, 3).toLowerCase();
+    String username = vorname + nachname + Integer.toString(uID);
+    dbConnector.executeStatement("UPDATE nutzer SET username = ? WHERE uID = ?", username, uID);
+    return username;
+  }
+
   public void userLoeschen(int pID) {
-      dbConnector.executeStatement("SELECT Rolle FROM nutzer WHERE uID = "+pID);
-      QueryResult qr = dbConnector.getCurrentQueryResult();
-      if(qr != null)  {
-          String rolle = qr.getData()[0][0];
-          if (!rolle.equals("Admin")) {
-          dbConnector.executeStatement("DELETE FROM nutzer WHERE uID = '"+pID+"';");
-          if (rolle.equals("Schüler")) {
-              dbConnector.executeStatement("DELETE FROM konto WHERE uID = '"+pID+"';");
-            }
+    dbConnector.executeStatement("SELECT Rolle FROM nutzer WHERE uID = ?", pID);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    if (qr != null && qr.getRowCount() > 0) {
+      String rolle = qr.getData()[0][0];
+      if (!rolle.equals("Admin")) {
+        dbConnector.executeStatement("DELETE FROM nutzer WHERE uID = ?", pID);
+        if (rolle.equals("Schüler")) {
+          dbConnector.executeStatement("DELETE FROM konto WHERE uID = ?", pID);
         }
+      }
     }
   }
-  
+
   public String getName() {
       return vorname + " " + name;
   }
-  
+
   public ArrayList<String> getSchueler() {
       ArrayList<String> schueler = new ArrayList();
-      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Schüler' ORDER BY uID ASC");
+      dbConnector.executeStatement("SELECT uID, Vorname, Name FROM nutzer WHERE Rolle = 'Schüler' ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {
@@ -148,10 +195,10 @@ public class Admin extends JFrame {
 
       return schueler;
   }
-  
+
   public ArrayList<String> getSchueler1() {
       ArrayList<String> schueler = new ArrayList();
-      dbConnector.executeStatement("SELECT email, vorname, name FROM nutzer WHERE Rolle NOT LIKE 'Admin' ORDER BY uID ASC");
+      dbConnector.executeStatement("SELECT Email, Vorname, Name FROM nutzer WHERE Rolle != 'Admin' ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {
@@ -161,10 +208,10 @@ public class Admin extends JFrame {
 
       return schueler;
   }
-  
+
   public ArrayList<String> getMensa() {
       ArrayList<String> schueler = new ArrayList();
-      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Mensa' ORDER BY uID ASC");
+      dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM nutzer WHERE Rolle = 'Mensa' ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {
@@ -174,10 +221,10 @@ public class Admin extends JFrame {
 
       return schueler;
   }
-  
+
   public ArrayList<String> getUser() {
       ArrayList<String> schueler = new ArrayList();
-      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Mensa' OR Rolle LIKE 'Schüler' OR Rolle LIKE 'Admin' ORDER BY uID ASC");
+      dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM nutzer WHERE Rolle IN ('Mensa', 'Schüler', 'Admin') ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {
@@ -187,10 +234,10 @@ public class Admin extends JFrame {
 
       return schueler;
   }
-  
+
   public ArrayList<String> getAdmin() {
       ArrayList<String> schueler = new ArrayList();
-      dbConnector.executeStatement("SELECT uID, vorname, name, rolle FROM nutzer WHERE Rolle LIKE 'Admin' ORDER BY uID ASC");
+      dbConnector.executeStatement("SELECT uID, Vorname, Name, Rolle FROM nutzer WHERE Rolle = 'Admin' ORDER BY uID ASC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
       for(int x = 0; x < qr.getRowCount(); x++) {
           for(int y = 0; y < qr.getColumnCount(); y++) {
@@ -200,10 +247,10 @@ public class Admin extends JFrame {
 
       return schueler;
   }
-  
+
   public String getUserEmail(int uID) {
       String email = "";
-      dbConnector.executeStatement("SELECT email FROM nutzer WHERE uID = "+uID);
+      dbConnector.executeStatement("SELECT Email FROM nutzer WHERE uID = ?", uID);
       QueryResult qr = dbConnector.getCurrentQueryResult();
       if(qr == null) {
           email = "--";
@@ -213,19 +260,19 @@ public class Admin extends JFrame {
       return email;
   }
 
-  
   private void emailSenden(String email, String username, String passwort) {
         EmailService emailService = new EmailService(
             "mensamaxxing@gmail.com",        // eure Gmail-Adresse
             "jspv nbmu iwxr jpxi"           // euer App-Passwort
         );
-    
+
         try {
             emailService.emailSenden(
                 email,
                 "Sie wurden regestriert",
                 "Guten Tag, ein Admin hat für sie ein MensaMaxxing Konto erstellt. \n Nutzername: "+username+" \n Passwort: "+passwort+ " \n Bitte ändern sie das Passwort nach der ersten Anmeldung."
             );
+            System.out.println("E-Mail erfolgreich gesendet!");
         } catch (MessagingException e) {
             System.err.println("Fehler beim Senden: " + e.getMessage());
             e.printStackTrace();

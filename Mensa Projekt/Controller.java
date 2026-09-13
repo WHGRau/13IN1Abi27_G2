@@ -156,6 +156,9 @@ public class Controller {
     @FXML
     private Button aufladenKnopf;
     
+    @FXML
+    private Label erfolgLabel;
+    
     //Elemente Mensa Hinzufügen Screen
     
     @FXML
@@ -640,11 +643,28 @@ public class Controller {
     
     @FXML
     public void aufladen(ActionEvent event) {
-        if (mensa != null) {
-            String chipID = userIDField2.getText();
-            float betrag = Float.parseFloat(betragField.getText());
-            
-            mensa.geldAufladen(chipID, betrag);
+    if (mensa != null) {
+        String chipID = userIDField2.getText();
+
+            float betrag;
+        try {
+            betrag = Float.parseFloat(betragField.getText());
+            } catch (NumberFormatException e) {
+            erfolgLabel.setText("Bitte einen gültigen Betrag eingeben!");
+            return;
+            }
+
+            String status = mensa.geldAufladen(chipID, betrag);
+
+        if (status.equals("erfolgreich")) {
+            erfolgLabel.setText("Aufladen erfolgreich!");
+            } else if (status.equals("Chip nicht gefunden")) {
+            erfolgLabel.setText("Chip wurde nicht gefunden!");
+            } else if (status.equals("Betrag ungueltig")) {
+            erfolgLabel.setText("Betrag muss größer als 0 sein!");
+            } else {
+            erfolgLabel.setText("Aufladen fehlgeschlagen!");
+           }
         }
     }
     
@@ -1252,7 +1272,9 @@ public class Controller {
         admin.schuelerBearbeiten(vorname,name , email);
         adminSchuelerBearbInitialize();
     }
+    
 }
+
     
   
 

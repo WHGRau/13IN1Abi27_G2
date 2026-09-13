@@ -43,7 +43,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -104,7 +104,9 @@
             <Button fx:id="hinzufuegenButton2" layoutX="31.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToHinzufuegen" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="➕ Produkt" textFill="WHITE" />
             <Button fx:id="statistikButton2" layoutX="31.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToStatistik" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="📊 Statistik" textFill="WHITE" />
             <Button fx:id="verlaufButton2" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onAction="#switchToVerlauf" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #475569;" text="🕛 Verlauf" textFill="WHITE" />
+            <Label fx:id="erfolgLabel" layoutX="256.0" layoutY="287.0" prefHeight="43.0" prefWidth="212.0" />
       </children>
     </AnchorPane>
+      <Label text="Label" />
   </children>
 </VBox>

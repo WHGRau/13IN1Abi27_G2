@@ -219,17 +219,33 @@ public class Mensa extends JFrame {
       return rückgabe;
     }
 
-   public void geldAufladen(String chipID, float pBetrag) {
-      dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Chip = ?", chipID);
-      QueryResult qr = dbConnector.getCurrentQueryResult();
-      int uID = Integer.parseInt(qr.getData()[0][0]);
-      LocalDateTime datum = LocalDateTime.now();
-      dbConnector.executeStatement("UPDATE konto SET Kontostand = Kontostand + ? WHERE uID = ?", pBetrag, uID);
-      dbConnector.executeStatement(
-          "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES(?, 0, ?, ?, 0, 'Aufladen')",
-          pBetrag, datum.toString(), uID);
-  }
+  public String geldAufladen(String chipID, float pBetrag) {
+    if (pBetrag <= 0) {
+        return "Betrag ungueltig";
+    }
 
+    dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Chip = ?", chipID);
+    QueryResult qr = dbConnector.getCurrentQueryResult();
+    if (qr == null || qr.getRowCount() == 0) {
+        return "Chip nicht gefunden";
+    }
+    int uID = Integer.parseInt(qr.getData()[0][0]);
+
+    LocalDateTime datum = LocalDateTime.now();
+    dbConnector.executeStatement("UPDATE konto SET Kontostand = Kontostand + ? WHERE uID = ?", pBetrag, uID);
+    if (dbConnector.getErrorMessage() != null) {
+        return "Fehler beim Aufladen";
+    }
+
+    dbConnector.executeStatement(
+        "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES(?, 0, ?, ?, 0, 'Aufladen')",
+        pBetrag, datum.toString(), uID);
+    if (dbConnector.getErrorMessage() != null) {
+        return "Fehler beim Aufladen";
+    }
+
+    return "erfolgreich";
+  }
   public ArrayList<String> getLager() {
       ArrayList<String> lager = new ArrayList();
       dbConnector.executeStatement("SELECT Name, Menge, Preis FROM produkte");

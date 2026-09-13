@@ -151,7 +151,7 @@ public class Mensa extends JFrame {
     LocalDateTime datum = LocalDateTime.now();
     dbConnector.executeStatement("UPDATE produkte SET Menge = Menge - ? WHERE Name = ?", pMenge, produktName);
     dbConnector.executeStatement(
-        "INSERT INTO bestellung(Wert, Menge, Datum, pID, Typ) VALUES(?, ?, ?, ?, 'Barkauf')",
+        "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES(?, ?, ?, NULL, ?, 'Barkauf')",
         ges, pMenge, datum.toString(), pID);
     status = "erfolgreich";
     return status;
@@ -288,7 +288,7 @@ public class Mensa extends JFrame {
           "SELECT bestellung.Datum, bestellung.Typ, produkte.Name, bestellung.Menge, " +
           "IFNULL(nutzer.username, ' -') FROM bestellung " +
           "LEFT JOIN nutzer ON bestellung.uID = nutzer.uID " +
-          "LEFT JOIN produkte ON bestellung.pID = produkte.pID");
+          "LEFT JOIN produkte ON bestellung.pID = produkte.pID ORDER BY bestellung.Datum DESC");
       QueryResult qr = dbConnector.getCurrentQueryResult();
 
       String[][] data = qr.getData();

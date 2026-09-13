@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 09. Sep 2026 um 09:20
--- Server-Version: 10.4.28-MariaDB
--- PHP-Version: 8.2.4
+-- Erstellungszeit: 13. Sep 2026 um 18:58
+-- Server-Version: 10.4.32-MariaDB
+-- PHP-Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -51,7 +51,7 @@ CREATE TABLE `bestellung` (
   `Wert` int(11) NOT NULL,
   `Menge` int(11) NOT NULL,
   `Datum` datetime NOT NULL DEFAULT current_timestamp(),
-  `uID` int(11) NOT NULL,
+  `uID` int(11) DEFAULT NULL,
   `pID` int(11) NOT NULL,
   `Typ` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -74,7 +74,10 @@ INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`, `Typ`) 
 (15, 1, 1, '2026-09-01 19:51:03', 2, 3, 'Kauf'),
 (16, 100, 0, '2026-09-09 08:56:50', 41, 0, 'Aufladen'),
 (17, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Kauf'),
-(18, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Kauf');
+(18, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Kauf'),
+(19, 12, 0, '2026-09-13 18:39:20', 2, 0, 'Aufladen'),
+(20, 1, 1, '2026-09-13 18:41:17', 39, 4, 'Kauf'),
+(21, 2, 1, '2026-09-13 18:56:25', NULL, 2, 'Barkauf');
 
 -- --------------------------------------------------------
 
@@ -94,9 +97,9 @@ CREATE TABLE `konto` (
 --
 
 INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
-(1, 2, 0, 257.2),
+(1, 2, 0, 269.2),
 (18, 38, 0, 0),
-(19, 39, 0, 0),
+(19, 39, 0, 98.8),
 (20, 40, 0, 0),
 (22, 42, 0, 0);
 
@@ -122,13 +125,13 @@ CREATE TABLE `nutzer` (
 --
 
 INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Email`, `Passwort`, `Rolle`, `Chip`) VALUES
-(1, 'julkur1', 'Julian', 'Kurz', '', '123abc', 'Admin', ''),
-(2, 'pul', 'Paula', 'Schäf', 'joshiwinner659@gmail.com', '123', 'Schüler', '0009831976'),
-(3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '123', 'Mensa', NULL),
-(38, 'benmer38', 'Ben', 'Mertschuweit', 'b.mertschuweit@gmail.com', 'l3gVK', 'Schüler', '0009968524'),
-(39, 'maxang39', 'Maxi', 'Angerer', 'maxiangerer321@gmail.com', 'b6iST', 'Schüler', '0009977009'),
-(40, 'johstü40', 'John', 'Stüttger', 'b.mertschuweit2@gmail.com', 'VbaoX', 'Schüler', '0009966769'),
-(42, 'antsch42', 'Anton', 'Schmidt', 'deez49228@gmail.com', 'Pl7SL', 'Mensa', '0001608134');
+(1, 'julkur1', 'Julian', 'Kurz', '', '$2a$12$CdP/rvLKx4B6G9MSwyVTlO3oi1/DvXkR3UT2W1Pom4apiCYoPXonq', 'Admin', ''),
+(2, 'pul', 'Paula', 'Schäf', 'joshiwinner659@gmail.com', '$2a$12$Xw2UaHYMC7BVVpporMwgTuGsjm47as2RlGF2jmw/373f4X7Cds3LS', 'Schüler', '0009831976'),
+(3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '$2a$12$7aE7wiC2T5bS6fCtnJIL4u7Q/NyCtvSqUKiR5zZn0v7U4S4DqcUQe', 'Mensa', NULL),
+(38, 'benmer38', 'Ben', 'Mertschuweit', 'b.mertschuweit@gmail.com', '$2a$12$fT56/lMC7RLzbeHGyhsCI.w18ZeuO5jQd/hwVDYBPnMwZzWImo23K', 'Schüler', '0009968524'),
+(39, 'maxang39', 'Maxi', 'Angerer', 'maxiangerer321@gmail.com', '$2a$12$TxjpqsqvLedA3TmD.0S3b.txrO3rI3xDn/MJmU50iUdIpyEyUknBu', 'Schüler', '0009977009'),
+(40, 'johstü40', 'John', 'Stüttger', 'b.mertschuweit2@gmail.com', '$2a$12$LYvydQNV6oCvOT8zdGyaJeXYJskNSAJPWzhYUZkxXwsiLBFDBLX.u', 'Schüler', '0009966769'),
+(42, 'antsch42', 'Anton', 'Schmidt', 'deez49228@gmail.com', '$2a$12$AklGFb52are93PfijQm1wuQ0MvA200cWzdQ2ckulNGDUOGf8GS2wq', 'Mensa', '0001608134');
 
 -- --------------------------------------------------------
 
@@ -150,10 +153,10 @@ CREATE TABLE `produkte` (
 --
 
 INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) VALUES
-(1, 'Snickers', 2, 278, 0, 0),
-(2, 'Mars', 2, 5, 101, 1),
+(1, 'Snickers', 2, 275, 0, 0),
+(2, 'Mars', 2, 4, 101, 1),
 (3, 'Twix', 1.2, 43, 50, 1),
-(4, 'Bounty', 1.2, 60, 50, 0),
+(4, 'Bounty', 1.2, 59, 50, 0),
 (5, 'Cola 0.5l', 1.5, 120, 100, 0),
 (6, 'Fanta 0.5l', 1.5, 15, 100, 1),
 (7, 'Sprite 0.5l', 1.5, 80, 80, 0),
@@ -223,7 +226,7 @@ ALTER TABLE `ankunft`
 -- AUTO_INCREMENT für Tabelle `bestellung`
 --
 ALTER TABLE `bestellung`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT für Tabelle `konto`

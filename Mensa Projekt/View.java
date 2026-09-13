@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 public class View extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{       
+    public void start(Stage primaryStage) throws Exception{
+        PasswortMigration.main(new String[0]);        
         Parent root = FXMLLoader.load(getClass().getResource("scenes/scene1.fxml"));
         primaryStage.setTitle("MensaMaxxing");
         primaryStage.setScene(new Scene(root, 640, 400));

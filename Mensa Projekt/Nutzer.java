@@ -40,11 +40,6 @@ public class Nutzer extends JFrame {
       System.out.println("Fehlermeldung: " + fehler);
     }
   }
-
-  /**
-   * Aendert das Passwort, nachdem das alte Passwort erfolgreich geprueft wurde.
-   * Das neue Passwort wird vor dem Speichern mit BCrypt gehasht.
-   */
   public void passwortBearbeiten(String pPasswort, String pAltesPasswort){
     dbConnector.executeStatement("SELECT Passwort FROM nutzer WHERE uID = ?", uID);
     QueryResult qr = dbConnector.getCurrentQueryResult();
@@ -77,10 +72,6 @@ public class Nutzer extends JFrame {
     }
   }
 
-  /**
-   * Prueft ein eingegebenes Klartext-Passwort gegen den in der DB gespeicherten
-   * BCrypt-Hash.
-   */
   public boolean checkPasswort(String pPasswort) {
     dbConnector.executeStatement("SELECT Passwort FROM nutzer WHERE uID = ?", uID);
     QueryResult qr = dbConnector.getCurrentQueryResult();

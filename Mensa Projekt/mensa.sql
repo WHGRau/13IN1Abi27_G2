@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 13. Sep 2026 um 18:58
+-- Erstellungszeit: 14. Sep 2026 um 17:31
 -- Server-Version: 10.4.32-MariaDB
--- PHP-Version: 8.2.12
+-- PHP-Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,23 +61,28 @@ CREATE TABLE `bestellung` (
 --
 
 INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`, `Typ`) VALUES
-(3, 10, 10, '2026-09-01 09:56:15', 2, 1, 'Kauf'),
-(4, 10, 5, '2026-09-01 09:57:26', 2, 2, 'Kauf'),
-(5, 3, 2, '2026-09-01 10:15:00', 14, 5, 'Kauf'),
-(6, 5, 2, '2026-09-01 11:30:12', 15, 11, 'Kauf'),
-(7, 3, 3, '2026-09-01 12:05:45', 16, 8, 'Kauf'),
-(8, 6, 5, '2026-09-01 12:40:00', 18, 3, 'Kauf'),
-(9, 1, 1, '2026-09-01 13:15:20', 21, 1, 'Kauf'),
+(3, 10, 10, '2026-09-01 09:56:15', 2, 1, 'Chipkauf'),
+(4, 10, 5, '2026-09-01 09:57:26', 2, 2, 'Chipkauf'),
+(5, 3, 2, '2026-09-01 10:15:00', 14, 5, 'Chipkauf'),
+(6, 5, 2, '2026-09-01 11:30:12', 15, 11, 'Chipkauf'),
+(7, 3, 3, '2026-09-01 12:05:45', 16, 8, 'Chipkauf'),
+(8, 6, 5, '2026-09-01 12:40:00', 18, 3, 'Chipkauf'),
+(9, 1, 1, '2026-09-01 13:15:20', 21, 1, 'Chipkauf'),
 (12, 123, 0, '2026-09-01 18:02:54', 2, 0, 'Aufladen'),
-(13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Kauf'),
-(14, 1, 1, '2026-09-01 19:51:02', 2, 3, 'Kauf'),
-(15, 1, 1, '2026-09-01 19:51:03', 2, 3, 'Kauf'),
+(13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Chipkauf'),
+(14, 1, 1, '2026-09-01 19:51:02', 2, 3, 'Chipkauf'),
+(15, 1, 1, '2026-09-01 19:51:03', 2, 3, 'Chipkauf'),
 (16, 100, 0, '2026-09-09 08:56:50', 41, 0, 'Aufladen'),
-(17, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Kauf'),
-(18, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Kauf'),
+(17, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Chipkauf'),
+(18, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Chipkauf'),
 (19, 12, 0, '2026-09-13 18:39:20', 2, 0, 'Aufladen'),
-(20, 1, 1, '2026-09-13 18:41:17', 39, 4, 'Kauf'),
-(21, 2, 1, '2026-09-13 18:56:25', NULL, 2, 'Barkauf');
+(20, 1, 1, '2026-09-13 18:41:17', 39, 4, 'Chipkauf'),
+(21, 2, 1, '2026-09-13 18:56:25', NULL, 2, 'Barkauf'),
+(22, 4, 2, '2026-09-14 17:24:21', NULL, 1, 'Barkauf'),
+(23, 4, 2, '2026-09-14 17:24:40', NULL, 1, 'Barkauf'),
+(24, 10, 5, '2026-09-14 17:25:29', NULL, 1, 'Barkauf'),
+(25, 10, 5, '2026-09-14 17:26:00', 2, 1, 'Chipkauf'),
+(26, 10, 0, '2026-09-14 17:28:03', 2, 0, 'Aufladen');
 
 -- --------------------------------------------------------
 
@@ -127,7 +132,7 @@ CREATE TABLE `nutzer` (
 INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Email`, `Passwort`, `Rolle`, `Chip`) VALUES
 (1, 'julkur1', 'Julian', 'Kurz', '', '$2a$12$CdP/rvLKx4B6G9MSwyVTlO3oi1/DvXkR3UT2W1Pom4apiCYoPXonq', 'Admin', ''),
 (2, 'pul', 'Paula', 'Schäf', 'joshiwinner659@gmail.com', '$2a$12$Xw2UaHYMC7BVVpporMwgTuGsjm47as2RlGF2jmw/373f4X7Cds3LS', 'Schüler', '0009831976'),
-(3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '$2a$12$7aE7wiC2T5bS6fCtnJIL4u7Q/NyCtvSqUKiR5zZn0v7U4S4DqcUQe', 'Mensa', NULL),
+(3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '$2a$12$vpgkGMiFtBo2Ccp4D44CSeULO/SkGyccruObSrAE086.JhBk1ky0.', 'Mensa', NULL),
 (38, 'benmer38', 'Ben', 'Mertschuweit', 'b.mertschuweit@gmail.com', '$2a$12$fT56/lMC7RLzbeHGyhsCI.w18ZeuO5jQd/hwVDYBPnMwZzWImo23K', 'Schüler', '0009968524'),
 (39, 'maxang39', 'Maxi', 'Angerer', 'maxiangerer321@gmail.com', '$2a$12$TxjpqsqvLedA3TmD.0S3b.txrO3rI3xDn/MJmU50iUdIpyEyUknBu', 'Schüler', '0009977009'),
 (40, 'johstü40', 'John', 'Stüttger', 'b.mertschuweit2@gmail.com', '$2a$12$LYvydQNV6oCvOT8zdGyaJeXYJskNSAJPWzhYUZkxXwsiLBFDBLX.u', 'Schüler', '0009966769'),
@@ -153,7 +158,7 @@ CREATE TABLE `produkte` (
 --
 
 INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) VALUES
-(1, 'Snickers', 2, 275, 0, 0),
+(1, 'Snickers', 1, 281, 0, 0),
 (2, 'Mars', 2, 4, 101, 1),
 (3, 'Twix', 1.2, 43, 50, 1),
 (4, 'Bounty', 1.2, 59, 50, 0),
@@ -170,7 +175,7 @@ INSERT INTO `produkte` (`pID`, `Name`, `Preis`, `Menge`, `Sollwert`, `niedrig`) 
 (15, 'Gummibärchen', 1.5, 55, 40, 0),
 (16, 'Paprika Chips', 1.6, 10, 30, 1),
 (17, 'Butterbrezel', 1.5, 4, 35, 1),
-(18, 'Apfel', 0.6, 45, 50, 1),
+(18, 'Apfel', 0.7, 51, 50, 1),
 (19, 'Banane', 0.8, 60, 40, 0),
 (20, 'Naturjoghurt', 1.2, 12, 20, 1),
 (21, 'Eistee Pfirsich 0.5l', 1.5, 75, 60, 0),
@@ -226,7 +231,7 @@ ALTER TABLE `ankunft`
 -- AUTO_INCREMENT für Tabelle `bestellung`
 --
 ALTER TABLE `bestellung`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT für Tabelle `konto`
@@ -244,7 +249,7 @@ ALTER TABLE `nutzer`
 -- AUTO_INCREMENT für Tabelle `produkte`
 --
 ALTER TABLE `produkte`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints der exportierten Tabellen

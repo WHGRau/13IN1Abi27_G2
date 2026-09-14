@@ -195,8 +195,8 @@ public class Login extends JFrame {
 
   private void emailSenden(String email, String passwort) {
         EmailService emailService = new EmailService(
-            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
-            "jspv nbmu iwxr jpxi"           // euer App-Passwort
+            "mensamaxxing@gmail.com",        
+            "jspv nbmu iwxr jpxi"           
         );
 
         try {

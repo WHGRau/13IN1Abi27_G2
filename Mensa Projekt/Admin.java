@@ -262,14 +262,14 @@ public class Admin extends JFrame {
 
   private void emailSenden(String email, String username, String passwort) {
         EmailService emailService = new EmailService(
-            "mensamaxxing@gmail.com",        // eure Gmail-Adresse
-            "jspv nbmu iwxr jpxi"           // euer App-Passwort
-        );
+            "mensamaxxing@gmail.com",        
+            "jspv nbmu iwxr jpxi"           
+            );
 
         try {
             emailService.emailSenden(
                 email,
-                "Sie wurden regestriert",
+                "Sie wurden für MensaMaxxing registriert",
                 "Guten Tag, ein Admin hat für sie ein MensaMaxxing Konto erstellt. \n Nutzername: "+username+" \n Passwort: "+passwort+ " \n Bitte ändern sie das Passwort nach der ersten Anmeldung."
             );
             System.out.println("E-Mail erfolgreich gesendet!");

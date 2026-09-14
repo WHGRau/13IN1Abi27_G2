@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Sep 2026 um 17:31
+-- Erstellungszeit: 14. Sep 2026 um 18:25
 -- Server-Version: 10.4.32-MariaDB
--- PHP-Version: 8.0.30
+-- PHP-Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,26 +63,17 @@ CREATE TABLE `bestellung` (
 INSERT INTO `bestellung` (`bID`, `Wert`, `Menge`, `Datum`, `uID`, `pID`, `Typ`) VALUES
 (3, 10, 10, '2026-09-01 09:56:15', 2, 1, 'Chipkauf'),
 (4, 10, 5, '2026-09-01 09:57:26', 2, 2, 'Chipkauf'),
-(5, 3, 2, '2026-09-01 10:15:00', 14, 5, 'Chipkauf'),
-(6, 5, 2, '2026-09-01 11:30:12', 15, 11, 'Chipkauf'),
-(7, 3, 3, '2026-09-01 12:05:45', 16, 8, 'Chipkauf'),
-(8, 6, 5, '2026-09-01 12:40:00', 18, 3, 'Chipkauf'),
-(9, 1, 1, '2026-09-01 13:15:20', 21, 1, 'Chipkauf'),
-(12, 123, 0, '2026-09-01 18:02:54', 2, 0, 'Aufladen'),
-(13, 5, 5, '2026-09-01 18:04:35', 2, 1, 'Chipkauf'),
+(13, 5, 5, '2026-09-01 18:04:35', 39, 1, 'Chipkauf'),
 (14, 1, 1, '2026-09-01 19:51:02', 2, 3, 'Chipkauf'),
 (15, 1, 1, '2026-09-01 19:51:03', 2, 3, 'Chipkauf'),
-(16, 100, 0, '2026-09-09 08:56:50', 41, 0, 'Aufladen'),
-(17, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Chipkauf'),
-(18, 2, 1, '2026-09-09 08:57:32', 41, 1, 'Chipkauf'),
-(19, 12, 0, '2026-09-13 18:39:20', 2, 0, 'Aufladen'),
 (20, 1, 1, '2026-09-13 18:41:17', 39, 4, 'Chipkauf'),
 (21, 2, 1, '2026-09-13 18:56:25', NULL, 2, 'Barkauf'),
 (22, 4, 2, '2026-09-14 17:24:21', NULL, 1, 'Barkauf'),
 (23, 4, 2, '2026-09-14 17:24:40', NULL, 1, 'Barkauf'),
 (24, 10, 5, '2026-09-14 17:25:29', NULL, 1, 'Barkauf'),
 (25, 10, 5, '2026-09-14 17:26:00', 2, 1, 'Chipkauf'),
-(26, 10, 0, '2026-09-14 17:28:03', 2, 0, 'Aufladen');
+(26, 25, 25, '2026-09-14 17:28:03', 2, 0, 'Aufladen'),
+(27, 10, 10, '2026-09-14 18:10:46', 2, 0, 'Aufladen');
 
 -- --------------------------------------------------------
 
@@ -102,11 +93,10 @@ CREATE TABLE `konto` (
 --
 
 INSERT INTO `konto` (`kID`, `uID`, `Pin`, `Kontostand`) VALUES
-(1, 2, 0, 269.2),
+(1, 2, 0, 289.2),
 (18, 38, 0, 0),
 (19, 39, 0, 98.8),
-(20, 40, 0, 0),
-(22, 42, 0, 0);
+(20, 40, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -130,13 +120,12 @@ CREATE TABLE `nutzer` (
 --
 
 INSERT INTO `nutzer` (`uID`, `username`, `Vorname`, `Name`, `Email`, `Passwort`, `Rolle`, `Chip`) VALUES
-(1, 'julkur1', 'Julian', 'Kurz', '', '$2a$12$CdP/rvLKx4B6G9MSwyVTlO3oi1/DvXkR3UT2W1Pom4apiCYoPXonq', 'Admin', ''),
-(2, 'pul', 'Paula', 'Schäf', 'joshiwinner659@gmail.com', '$2a$12$Xw2UaHYMC7BVVpporMwgTuGsjm47as2RlGF2jmw/373f4X7Cds3LS', 'Schüler', '0009831976'),
-(3, '2tast', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '$2a$12$vpgkGMiFtBo2Ccp4D44CSeULO/SkGyccruObSrAE086.JhBk1ky0.', 'Mensa', NULL),
+(1, 'julkur1', 'Julian', 'Kurz', 'juliankurz0912@gmail.com', '$2a$12$CdP/rvLKx4B6G9MSwyVTlO3oi1/DvXkR3UT2W1Pom4apiCYoPXonq', 'Admin', NULL),
+(2, 'pausch2', 'Paul', 'Schäfer', 'joshiwinner659@gmail.com', '$2a$12$Xw2UaHYMC7BVVpporMwgTuGsjm47as2RlGF2jmw/373f4X7Cds3LS', 'Schüler', '0009831976'),
+(3, 'janstü3', 'Jan', 'Stüttger', 'kurzj062@gmail.com', '$2a$12$z/uHQ5Cn/Xe8L.ndFtpvNujcShiXpp5.iR74hpP9Y6M2mFEO5KA2G', 'Mensa', NULL),
 (38, 'benmer38', 'Ben', 'Mertschuweit', 'b.mertschuweit@gmail.com', '$2a$12$fT56/lMC7RLzbeHGyhsCI.w18ZeuO5jQd/hwVDYBPnMwZzWImo23K', 'Schüler', '0009968524'),
 (39, 'maxang39', 'Maxi', 'Angerer', 'maxiangerer321@gmail.com', '$2a$12$TxjpqsqvLedA3TmD.0S3b.txrO3rI3xDn/MJmU50iUdIpyEyUknBu', 'Schüler', '0009977009'),
-(40, 'johstü40', 'John', 'Stüttger', 'b.mertschuweit2@gmail.com', '$2a$12$LYvydQNV6oCvOT8zdGyaJeXYJskNSAJPWzhYUZkxXwsiLBFDBLX.u', 'Schüler', '0009966769'),
-(42, 'antsch42', 'Anton', 'Schmidt', 'deez49228@gmail.com', '$2a$12$AklGFb52are93PfijQm1wuQ0MvA200cWzdQ2ckulNGDUOGf8GS2wq', 'Mensa', '0001608134');
+(40, 'johstü40', 'John', 'Stüttger', 'b.mertschuweit2@gmail.com', '$2a$12$LYvydQNV6oCvOT8zdGyaJeXYJskNSAJPWzhYUZkxXwsiLBFDBLX.u', 'Schüler', '0009966769');
 
 -- --------------------------------------------------------
 
@@ -231,7 +220,7 @@ ALTER TABLE `ankunft`
 -- AUTO_INCREMENT für Tabelle `bestellung`
 --
 ALTER TABLE `bestellung`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT für Tabelle `konto`

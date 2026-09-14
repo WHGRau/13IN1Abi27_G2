@@ -115,7 +115,7 @@ public class Mensa extends JFrame {
 
       LocalDateTime datum = LocalDateTime.now();
       dbConnector.executeStatement(
-          "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES(?, ?, ?, ?, ?, 'Kauf')",
+          "INSERT INTO bestellung(Wert, Menge, Datum, uID, pID, Typ) VALUES(?, ?, ?, ?, ?, 'Chipkauf')",
           ges, pMenge, datum.toString(), uID, pID);
       status = "erfolgreich";
     } else {
@@ -176,7 +176,7 @@ public class Mensa extends JFrame {
       
       // 1. Schritt: Alle wichtigen Daten aus der Datenbank holen,
       // sortiert nach Produkt-ID, damit gleiche Produkte direkt nacheinander kommen. 
-      dbConnector.executeStatement("SELECT pID , Menge FROM bestellung WHERE Typ = 'Kauf' ORDER BY pID");
+      dbConnector.executeStatement("SELECT pID , Menge FROM bestellung WHERE Typ LIKE '&kauf' ORDER BY pID");
       QueryResult r = dbConnector.getCurrentQueryResult();
       //id holen für den ersten Datensatz der gecountet wird
       int pId = Integer.parseInt(r.getData()[0][0]);

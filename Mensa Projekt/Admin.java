@@ -86,6 +86,7 @@ public class Admin extends JFrame {
   }
 
   private boolean checkEmail(String email) {
+      //True wenn es email gibt
     dbConnector.executeStatement("SELECT uID FROM nutzer WHERE Email = ?", email);
     QueryResult qr = dbConnector.getCurrentQueryResult();
     return qr != null && qr.getRowCount() > 0;
@@ -125,7 +126,6 @@ public class Admin extends JFrame {
       int id = Integer.parseInt(r.getData()[0][0]);
       String username = erzeugeUsername(id);
       emailSenden(pEmail, username, klartextPasswort);
-      System.out.println("Passwort von " + pVorname + " " + pName + ": " + klartextPasswort + " Nutzer ID: " + id);
     } else {
       System.out.println("Da die Email bereits mit einem Konto verknüpft ist, kann kein Nutzer erstellt werden");
     }

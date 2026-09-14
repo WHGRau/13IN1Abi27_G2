@@ -628,7 +628,6 @@ public class Controller {
             else if (status.equals("Kontostand und Produkt leer")) {
                 statusLabel.setText("Kontostand und Produkt leer!");
             }
-            //mensa.verkaufen(artikelIDField.getText(), chip, menge);
             mensaInitialize();
             zeigeLager();
            }//barverkauf
